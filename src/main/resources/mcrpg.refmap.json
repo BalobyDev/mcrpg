@@ -1,0 +1,14 @@
+{
+  "mappings": {
+    "net/baloby/mcrpg/mixin/client/MixinServerWorldInfo": {
+      "getLifecycle": "Lnet/minecraft/world/storage/ServerWorldInfo;func_230401_A_()Lcom/mojang/serialization/Lifecycle;"
+    }
+  },
+  "data": {
+    "searge": {
+      "net/baloby/mcrpg/mixin/client/MixinServerWorldInfo": {
+        "getLifecycle": "Lnet/minecraft/world/storage/ServerWorldInfo;func_230401_A_()Lcom/mojang/serialization/Lifecycle;"
+      }
+    }
+  }
+}

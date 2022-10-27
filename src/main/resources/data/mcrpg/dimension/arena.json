@@ -1,0 +1,11 @@
+{
+  "type": "mcrpg:arena",
+  "generator": {
+    "type": "mcrpg:arenagen",
+    "settings": {
+      "base": 65,
+      "verticalvariance": 16,
+      "horizontalvariance": 10
+    }
+  }
+}

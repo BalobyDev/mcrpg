@@ -1,0 +1,15 @@
+{
+  "battle_theme": {
+    "category": "music",
+    "subtitle": "none",
+    "sounds": [
+      {
+        "name": "mcrpg:music/loneprayer",
+        "stream": true
+      }
+    ]
+  },
+  "ooh": {
+    "sounds": ["mcrpg:ooh"]
+  }
+}

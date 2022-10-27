@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "net.baloby.mcrpg.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "mcrpg.refmap.json",
+  "mixins": [
+  ],
+  "client": [
+    "client.MixinServerWorldInfo"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern":
+          [
+            "xyx",
+            "xxx",
+            " x "
+          ],
+  "key": {
+    "x":
+    {
+      "item": "minecraft:iron_block"
+    },
+    "y":
+    {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "item": "mcrpg:ironshield"
+
+  }
+}
