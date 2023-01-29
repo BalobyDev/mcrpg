@@ -1,9 +1,11 @@
 package net.baloby.mcrpg.battle.Unit;
 
 import net.baloby.mcrpg.battle.Battle;
+import net.baloby.mcrpg.battle.Party.PlayerParty;
 import net.baloby.mcrpg.battle.moves.*;
 import net.baloby.mcrpg.data.CharProfile;
 import net.baloby.mcrpg.data.ICharProfile;
+import net.baloby.mcrpg.data.IPlayerProfile;
 import net.baloby.mcrpg.data.PlayerCapabilityProvider;
 import net.baloby.mcrpg.tools.Teleport;
 import net.minecraft.client.Minecraft;
@@ -17,10 +19,11 @@ import net.minecraft.network.play.server.SAnimateHandPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.fml.RegistryObject;
 
 public class PlayerUnit extends Unit{
     public ServerPlayerEntity player;
-    public ICharProfile profile;
+    public IPlayerProfile profile;
 
     public PlayerUnit(ServerPlayerEntity player) {
         this.player = player;
@@ -29,9 +32,9 @@ public class PlayerUnit extends Unit{
         this.profile = player.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get();
         this.setStation();
         this.playerControl = true;
-        Teleport.teleport(player,station.getX(),1,station.getZ()+0.5);
-        movesSet.add(Moves.HEAL);
-        movesSet.add(Moves.VOLTAGE);
+        Teleport.teleport(player,station.x,102,station.z);
+        movesSet.add(Moves.HEAL.get().create());
+        movesSet.add(Moves.IGNI.get().create());
         HP = player.getHealth();
         MP = profile.getMp();
         MAX_MP = profile.getMaxMp();
@@ -73,6 +76,7 @@ public class PlayerUnit extends Unit{
 
     public void conclusion(){
         profile.setMp((int)MP);
+        profile.setPartyMembers(((PlayerParty) party).save());
         if(HP>0)player.setHealth(HP);
         else player.kill();
     }

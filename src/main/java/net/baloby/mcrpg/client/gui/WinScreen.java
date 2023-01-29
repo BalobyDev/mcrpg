@@ -7,18 +7,22 @@ import net.baloby.mcrpg.tools.Animation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.item.Item;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+
+import java.util.Map;
 
 
 public class WinScreen extends Screen {
     private int ticks;
     public Battle battle = Battle.getInstance();
     private Button conclude;
+    private String itemString = "";
     protected WinScreen() {
         super(new StringTextComponent("Congratulations! You won!"));
-        battle.camera.setPosRot(1.5,2,6,0,180);
+        battle.camera.setPosRot(1.5,102,6,0,180);
         Animation.sound(SoundEvents.UI_TOAST_CHALLENGE_COMPLETE);
     }
 
@@ -34,18 +38,21 @@ public class WinScreen extends Screen {
 
     @Override
     protected void init(){
-        conclude = addButton(new Button(this.width/2-30,this.height/2+height/3,60,20,new StringTextComponent("Finish"),button->battle.conclude()));
+        conclude = addButton(new Button(this.width/2-30,this.height/2+height/3,60,20,new StringTextComponent("Finish"),button->battle.win()));
         conclude.active = false;
+        for(Map.Entry<Item,Integer> set: battle.items.entrySet()){
+            itemString += set.getValue().toString() + "x " + set.getKey().toString() + " ";
+        }
     }
 
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks){
         drawCenteredString(matrixStack,this.font,"You win!",this.width/2,50,16777215);
         if(ticks>20){
-            drawString(matrixStack,this.font,"Items earned:",this.width/2-(this.width/8),190,16777215);
+            drawString(matrixStack,this.font,"Items earned: "+itemString,this.width/2-(this.width/8),190,16777215);
         }
         if(ticks>30){
-            drawString(matrixStack,this.font,"Xp earned:      "+battle.getXp(),this.width/2-(this.width/8),200,16777215);
+            drawString(matrixStack,this.font,"Xp earned:    "+battle.getXp(),this.width/2-(this.width/8),200,16777215);
         }
         if(ticks>40){
             conclude.active=true;
@@ -58,6 +65,7 @@ public class WinScreen extends Screen {
     public static void open(){
         Minecraft mc = Minecraft.getInstance();
         mc.submitAsync(() -> {mc.setScreen(new WinScreen());});}
+
 
     @Override
     public void tick() {

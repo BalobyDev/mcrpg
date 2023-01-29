@@ -27,7 +27,7 @@ public class Animation {
     }
 
     private static void particle(Unit unit, IParticleData type){
-        BlockPos pos = unit.station;
+        BlockPos pos = new BlockPos(unit.station.x,unit.station.y,unit.station.z);
         Minecraft.getInstance().level.addParticle(type,pos.getX()+((Dice.roll(10)+1)/10),pos.getY()+ Dice.roll()/10,pos.getZ()+((Dice.roll(10)+1)/10),0,0.05,0);
     }
 

@@ -12,27 +12,35 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 import java.util.Random;
+import java.util.Set;
 
 public class StructureGen {
     public static void generateStructures(final BiomeLoadingEvent event){
-        event.getGeneration().getStructures().add(()-> ConfigStructures.CONFIGURED_CAVE_ARENA);
+        RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
+        Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
+
+        if(types.contains(BiomeDictionary.Type.PLAINS)) {
+
+        }
     }
 
     public static void placeManually(BlockPos pos, World world, String name){
         world.getServer().submitAsync(()->{ServerWorld serverWorld = (ServerWorld) world;
-            MinecraftServer server = world.getServer();
             TemplateManager manager = serverWorld.getStructureManager();
-            ResourceLocation loc = new ResourceLocation(mcrpg.MODID, "cave_arena");
+            ResourceLocation loc = new ResourceLocation(mcrpg.MODID, name);
             Template template = manager.get(loc);
 
             if(template != null){
@@ -40,9 +48,7 @@ public class StructureGen {
                 world.setBlockAndUpdate(pos, blockState);
                 PlacementSettings settings = (new PlacementSettings()).setMirror(Mirror.NONE)
                         .setRotation(Rotation.NONE).setIgnoreEntities(true).setChunkPos((ChunkPos) null);
-
                 template.placeInWorldChunk(serverWorld, pos, settings,new Random());};
-
         });
     }
 }

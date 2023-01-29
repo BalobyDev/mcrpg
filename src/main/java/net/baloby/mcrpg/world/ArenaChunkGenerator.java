@@ -35,7 +35,10 @@ public class ArenaChunkGenerator extends ChunkGenerator {
     public static final Codec<Settings> SETTINGS_CODEC = RecordCodecBuilder.create(instance -> instance.group(
             Codec.INT.fieldOf("base").forGetter(Settings::getBaseHeight),
             Codec.FLOAT.fieldOf("verticalvariance").forGetter(Settings::getVerticalVariance),
-            Codec.FLOAT.fieldOf("horizontalvariance").forGetter(Settings::getHorizontalVariance)
+            Codec.FLOAT.fieldOf("horizontalvariance").forGetter(Settings::getHorizontalVariance),
+            Codec.STRING.fieldOf("arena").forGetter(Settings::getArena),
+            Codec.INT.fieldOf("xoffset").forGetter(Settings::getXOffset),
+            Codec.INT.fieldOf("zoffset").forGetter(Settings::getZOffset)
     ).apply(instance,Settings::new));
 
     public static final Codec<ArenaChunkGenerator> CODEC = RecordCodecBuilder.create(instance ->
@@ -74,21 +77,8 @@ public class ArenaChunkGenerator extends ChunkGenerator {
 
     @Override
     public void buildSurfaceAndBedrock(WorldGenRegion region, IChunk chunk) {
-        BlockState stone = Blocks.STONE.defaultBlockState();
-        ChunkPos chunkPos = chunk.getPos();
-        BlockPos.Mutable pos = new BlockPos.Mutable();
-        int x;
-        int z;
-
-
-
-        for(x = 0; x<16;x++){
-            for (z=0; z<16; z++){
-                chunk.setBlockState(pos.set(x,0,z),stone,false);
-            }
-        }
         ServerWorld world = region.getLevel();
-        world.getServer().submitAsync(()->{StructureGen.placeManually(new BlockPos(-9,0,-8),world,"cave_arena");
+        world.getServer().submitAsync(()->{StructureGen.placeManually(new BlockPos(-9+settings.getXOffset(),100,-6+settings.getZOffset()),world, settings.arena);
         });
 
 
@@ -115,11 +105,17 @@ public class ArenaChunkGenerator extends ChunkGenerator {
         private final int baseHeight;
         private final float verticalVariance;
         private final float horizontalVariance;
+        private final String arena;
+        private final int xOffset;
+        private final int zOffset;
 
-        private Settings(int baseHeight, float verticalVariance, float horizontalVariance) {
+        private Settings(int baseHeight, float verticalVariance, float horizontalVariance, String arena, int xOffset, int zOffset) {
             this.baseHeight = baseHeight;
             this.verticalVariance = verticalVariance;
             this.horizontalVariance = horizontalVariance;
+            this.arena = arena;
+            this.xOffset = xOffset;
+            this.zOffset = zOffset;
         }
 
         public int getBaseHeight(){return baseHeight;}
@@ -127,5 +123,13 @@ public class ArenaChunkGenerator extends ChunkGenerator {
         public float getVerticalVariance(){return verticalVariance;}
 
         public float getHorizontalVariance(){return horizontalVariance;}
+
+
+        public String getArena() {return arena;}
+
+        public int getXOffset(){return xOffset;}
+
+        public int getZOffset(){return zOffset;}
+
     }
 }

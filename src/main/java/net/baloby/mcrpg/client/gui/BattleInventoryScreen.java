@@ -66,7 +66,4 @@ public class BattleInventoryScreen extends ContainerScreen {
     public static void open(){
         Minecraft mc = Minecraft.getInstance();
         mc.submitAsync(() -> {mc.setScreen(new BattleInventoryScreen());});}
-
-
-
 }

@@ -89,6 +89,4 @@ public class CaveArena extends Structure<NoFeatureConfig> {
 
         }
     }
-
-
 }

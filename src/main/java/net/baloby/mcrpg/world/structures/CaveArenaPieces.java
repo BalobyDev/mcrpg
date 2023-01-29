@@ -62,7 +62,8 @@ public class CaveArenaPieces {
         /**
          * (abstract) Helper method to read subclass data from NBT
          */
-        protected void readAdditional(CompoundNBT tagCompound) {
+        @Override
+        protected void addAdditionalSaveData(CompoundNBT tagCompound) {
             super.addAdditionalSaveData(tagCompound);
             tagCompound.putString("Template", this.resourceLocation.toString());
             tagCompound.putString("Rot", this.rotation.name());
@@ -81,11 +82,10 @@ public class CaveArenaPieces {
          * So what is done here is we replace the structure block with
          * a chest and we can then set the loottable for it.
          *
-         * You can set other data markers to do other behaviors such as spawn a random mob in a certain spot,
+         * You can set other data markers to do other behaviors such as spawnLoad a random mob in a certain spot,
          * randomize what rare block spawns under the floor, or what item an Item Frame will have.
          */
 
         
     }
-
 }

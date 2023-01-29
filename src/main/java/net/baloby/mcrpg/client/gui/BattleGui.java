@@ -39,7 +39,7 @@ public class BattleGui extends Screen {
         Button defend = addButton(new Button(relX+75, relY+10, 60 , 20, new StringTextComponent("Defend"),button -> unit.action(new Gaurd(),unit)));
         Button spells = addButton(new Button(relX+10, relY+35,60,20, new StringTextComponent("Skill"), button -> SkillScreen.open(unit)));
         Button inventory = addButton(new Button(relX+75, relY+35, 60, 20, new StringTextComponent("Inventory"), button -> BattleInventoryScreen.open()));
-        Button analyze = addButton(new Button(relX+10, relY+60, 60 , 20, new StringTextComponent("Analyze"),button -> battle.enemyParty.members.get(0).highlight()));
+        Button analyze = addButton(new Button(relX+10, relY+60, 60 , 20, new StringTextComponent("Tactics"),button -> battle.enemyParty.members.get(0).highlight()));
         Button escape = addButton(new Button(relX+75, relY+60, 60 , 20, new StringTextComponent("Escape"),button -> battle.conclude()));
     }
 
@@ -54,7 +54,7 @@ public class BattleGui extends Screen {
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY,float partialTicks){
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks){
         RenderSystem.color4f(1.0f,1.0f,1.0f,1.0f);
         this.minecraft.getTextureManager().bind(GUI);
         int relX = 20;

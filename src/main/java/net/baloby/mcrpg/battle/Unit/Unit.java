@@ -19,6 +19,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 
@@ -34,7 +35,7 @@ public class Unit {
     public LivingEntity entity;
     public ServerWorld arena = battle.arena;
     public Party party;
-    public float LVL, MP, MAX_HP = 20, MAX_MP,MAG = 0, BASE_ATK = 30, ATK=BASE_ATK,  BASE_DEF=20, DEF=20, BASE_SPD=0, SPD=BASE_SPD;
+    public float LVL, MP, MAX_HP = 20, MAX_MP, MAG = 0, BASE_ATK = 30, ATK=BASE_ATK,  BASE_DEF=20, DEF=20, BASE_SPD=0, SPD=BASE_SPD;
     public float HP = MAX_HP;
     public boolean playerControl = false;
     public boolean gaurding = false;
@@ -42,7 +43,7 @@ public class Unit {
     public ArrayList<EntityType> summonable = new ArrayList<EntityType>();
     public ItemStack stack;
     public ArrayList<ItemStack> items = new ArrayList<ItemStack>();
-    public BlockPos station = new BlockPos(1.5,1,9.5);
+    public Vector3d station = new Vector3d(1.5,1,9.5);
     public boolean isDead = false;
     public HashMap<Element, Affinity> affinities = new HashMap<>();
     public Indicator indicator;
@@ -53,11 +54,11 @@ public class Unit {
 
     public Unit(EntityType type){
         this.setParty();
-        this.station = new BlockPos(1.5,1,party instanceof PlayerParty ? 1.5 : 9.5);
+        this.station = new Vector3d(1.5,72,party instanceof PlayerParty ? 1.5 : 9.5);
         this.playerControl = (party instanceof PlayerParty);
         this.addSummonable(type);
         this.setStation();
-        this.entity = this.spawn(type);
+        this.setUpEntity(spawn(type));
         this.battle.entityMap.put(this.entity,this);
         this.name = entity.getDisplayName().getString();
         this.type = type;
@@ -67,23 +68,40 @@ public class Unit {
         this.update();
         this.stack = entity.getMainHandItem();
         this.XP = 10;
+        this.setNoAi(true);
         addAffinities();
         addMove(new BasicAttack());
     }
 
-
-    public MobEntity spawn(EntityType type) {
-        MobEntity entity = (MobEntity)type.spawn(arena, null, null, station, SpawnReason.SPAWN_EGG,true,true);
+    public void setUpEntity(MobEntity entity){
+        arena.getServer().submitAsync(()-> arena.addFreshEntity(entity));
         entity.goalSelector.addGoal(0, new IdleGoal());
+        entity.moveTo(station);
         int rot = playerControl ? 0: 180;
         entity.setYBodyRot(rot);
         entity.setYHeadRot(rot);
         entity.setCustomNameVisible(true);
+        this.entity = entity;
+    }
+
+
+    public MobEntity spawn(EntityType type) {
+        if(this.entity!=null&&!(this.entity instanceof PlayerEntity)){entity.remove();}
+        if(entity instanceof PlayerEntity) entity.setInvisible(!entity.isInvisible());
+        MobEntity entity = (MobEntity)type.spawn(arena, null, null, new BlockPos(station), SpawnReason.SPAWN_EGG,true,true);
         return entity;
     }
 
+    public boolean isNoAi(){
+        if(entity instanceof MobEntity)
+        return ((MobEntity) entity).isNoAi();
+        return false;
+    }
+
+
+
     public void setStation(){
-        BlockPos pos = party.availableStations.get(0);
+        Vector3d pos = party.availableStations.get(0);
         station = pos;
         party.removeStation(pos);
     }
@@ -226,7 +244,7 @@ public class Unit {
     }
 
     public void setStationX(double x){
-        this.station = new BlockPos(x,station.getY(),station.getZ());
+        this.station = new Vector3d(x,station.y,station.z);
     }
 
 
@@ -235,6 +253,7 @@ public class Unit {
     }
 
     public void tick(){
+
     }
 
     public void die(){

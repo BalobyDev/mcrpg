@@ -1,9 +1,7 @@
 package net.baloby.mcrpg.battle;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import net.baloby.mcrpg.battle.Party.Party;
 import net.baloby.mcrpg.battle.Party.PlayerParty;
-import net.baloby.mcrpg.battle.Unit.PlayerUnit;
 import net.baloby.mcrpg.battle.Unit.Unit;
 import net.baloby.mcrpg.client.gui.BattleGui;
 import net.baloby.mcrpg.client.gui.OverlayGui;
@@ -12,18 +10,17 @@ import net.baloby.mcrpg.data.ICharProfile;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.network.PacketBattle;
 import net.baloby.mcrpg.network.RpgNetwork;
-import net.baloby.mcrpg.setup.ModSounds;
 import net.baloby.mcrpg.tools.AnimationSequence;
 import net.baloby.mcrpg.tools.Clock;
 import net.baloby.mcrpg.tools.Teleport;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.DeathScreen;
 import net.minecraft.entity.*;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import org.apache.logging.log4j.Level;
@@ -44,6 +41,7 @@ public class Battle {
     public ServerPlayerEntity sp;
     public Map<Entity,Unit> entityMap = new HashMap<Entity,Unit>();
     public ArrayList<Unit> turnOrder = new ArrayList<Unit>();
+    public HashMap<Item, Integer> items = new HashMap<Item, Integer>();
     public BattleGui gui;
     public ServerWorld returnWorld;
     public OverlayGui overlay;
@@ -58,20 +56,32 @@ public class Battle {
     public int xp;
     public AnimationSequence sequence;
     private Theme theme;
+
     public void conclude(){
         if(arena.tickingEntities)return;
         enemyParty.members.forEach(Unit::remove);
         playerParty.members.forEach(Unit::remove);
         sendBack();
     }
+
+    public void win(){
+        conclude();
+        sp.giveExperiencePoints(getXp());
+        for (Map.Entry<Item, Integer> set : items.entrySet()){
+            ItemEntity itemEntity = new ItemEntity(returnWorld,returnPoint.getX(),returnPoint.getY(),returnPoint.getZ(),
+                    new ItemStack(set.getKey(),set.getValue()));
+            this.returnWorld.addFreshEntity(itemEntity);
+        }
+    }
+
     public void lose(){
         conclude();
-
     }
+
     public static void init(ServerPlayerEntity entity, MobEntity target, ServerWorld destination, BlockPos pos) {
         ServerWorld world = entity.getLevel();
         Teleport.teleport(entity,destination,station);
-        entity.teleportTo(-0.5,1,1.5);
+        entity.teleportTo(-0.5,102,1.5);
         Battle battle = new Battle(destination,target,entity);
         battle.returnWorld = world;
         battle.returnPoint = pos;
@@ -132,7 +142,7 @@ public class Battle {
         isActive = false;
         instance = null;
         Teleport.teleport(sp,returnWorld,returnPoint);
-        sp.giveExperiencePoints(getXp());
+
         camera.camera.remove();
     }
 
@@ -142,6 +152,20 @@ public class Battle {
             a += enemyParty.members.get(i).XP;
         }
         return a;
+    }
+
+    public void addItem(Item item,int count){
+        if(item== Items.AIR) return;
+        if(this.items.containsKey(item)){
+            int value = items.get(item)+count;
+            this.items.replace(item,value);
+            return;
+        }
+        this.items.put(item,count);
+    }
+
+    public void addItem(Item item){
+        this.addItem(item,1);
     }
 
     public void showStuff(boolean bool){

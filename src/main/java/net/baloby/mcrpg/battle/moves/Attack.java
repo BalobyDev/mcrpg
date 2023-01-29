@@ -23,7 +23,7 @@ public class Attack extends Move {
         this.type = type;
         this.name = name;
     }
-    public void tryAttack(Unit user,Unit target,float dmg){
+    public void tryAttack(Unit user, Unit target,float dmg){
         if(Dice.roll(100)+1<=10) {
             target.miss();
             return;

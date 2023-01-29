@@ -1,11 +1,13 @@
 package net.baloby.mcrpg.data;
 
+import net.baloby.mcrpg.data.UniqueFeatures.UniqueFeaturesCapabilityProvider;
+import net.baloby.mcrpg.data.characters.Npc;
 import net.baloby.mcrpg.mcrpg;
+import net.baloby.mcrpg.setup.Registration;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -15,10 +17,13 @@ import net.minecraftforge.event.world.SleepFinishedTimeEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+
+
 @Mod.EventBusSubscriber(modid = mcrpg.MODID)
 public class CapabilityHandler {
 
     public static final ResourceLocation CHAR_PROF = new ResourceLocation(mcrpg.MODID,"char_prof");
+    public static final ResourceLocation UNIQUE_FEATURES = new ResourceLocation(mcrpg.MODID,"unique_features");
 
     @SubscribeEvent
     public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
@@ -32,7 +37,26 @@ public class CapabilityHandler {
     public static void attachCapabilitys(AttachCapabilitiesEvent<World> event) {
         //Entity entity = event.getObject();
         if (!(event.getObject() instanceof ServerWorld)) return;
+
+
+
         event.addCapability(CHAR_PROF, new CharacterCapabilityProvider());
+        event.addCapability(UNIQUE_FEATURES, new UniqueFeaturesCapabilityProvider());
+
+        Minecraft.getInstance().submitAsync(()->{
+            ICharProfile charProfile = event.getObject().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get();
+            for(String str : charProfile.getNbts().getAllKeys()){
+                Npc npc = Registration.NPC_REGISTRY.get().getValue(new ResourceLocation(mcrpg.MODID,str)).listCreate();
+                npc.load((CompoundNBT) charProfile.getNbts().get(str));
+           }
+
+
+
+        });
+        Minecraft.getInstance().submitAsync(()->{
+
+            event.getObject().getCapability(UniqueFeaturesCapabilityProvider.FEATURES_CAP).resolve().get();
+        });
 
         //event.addCapability(CHAR_PROF, new CharacterCapabilityProvider());
 
@@ -43,7 +67,8 @@ public class CapabilityHandler {
     @SubscribeEvent
     public static void playerEvent(PlayerEvent.Clone event){
         if(event.isWasDeath()){
-            event.getPlayer().getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve();
+            IPlayerProfile profile = event.getPlayer().getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get();
+            profile.getMaxMp();
 
 
         }

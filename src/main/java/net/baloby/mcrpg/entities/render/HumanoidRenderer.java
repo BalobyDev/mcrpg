@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import net.baloby.mcrpg.data.characters.Npc;
 import net.baloby.mcrpg.data.characters.Npcs;
 import net.baloby.mcrpg.entities.HumanoidEntity;
+import net.baloby.mcrpg.entities.models.HumanoidModel;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -21,15 +22,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 
-public class HumanoidRenderer extends MobRenderer<HumanoidEntity, PlayerModel<HumanoidEntity>> {
+public class HumanoidRenderer extends MobRenderer<HumanoidEntity, HumanoidModel<HumanoidEntity>> {
 
-    private static final ResourceLocation ALEX = new ResourceLocation("textures/entity/alex.png");
-    //private static final ResourceLocation JEAN = new ResourceLocation(mcrpg.MODID,"textures/entity/jean.png");
 
-    private Npc character = Npcs.RANA;
-
-    public HumanoidRenderer(EntityRendererManager manager) {
-        super(manager, new PlayerModel(0,true), 1.0f);
+    public HumanoidRenderer(EntityRendererManager manager, boolean slim) {
+        super(manager, new HumanoidModel(0,slim), 1.0f);
         this.addLayer(new HeldItemLayer<>(this));
     }
 
@@ -49,7 +46,7 @@ public class HumanoidRenderer extends MobRenderer<HumanoidEntity, PlayerModel<Hu
     }
 
     private void renderHand(MatrixStack p_229145_1_, IRenderTypeBuffer p_229145_2_, int p_229145_3_, HumanoidEntity p_229145_4_, ModelRenderer p_229145_5_, ModelRenderer p_229145_6_) {
-        PlayerModel<HumanoidEntity> playermodel = this.getModel();
+        HumanoidModel<HumanoidEntity> playermodel = this.getModel();
         this.setModelProperties(p_229145_4_);
         playermodel.attackTime = 0.0F;
         playermodel.crouching = false;
@@ -61,14 +58,14 @@ public class HumanoidRenderer extends MobRenderer<HumanoidEntity, PlayerModel<Hu
         p_229145_6_.render(p_229145_1_, p_229145_2_.getBuffer(RenderType.entityTranslucent(getTextureLocation(p_229145_4_))), p_229145_3_, OverlayTexture.NO_OVERLAY);
     }
     private void setModelProperties(HumanoidEntity p_177137_1_) {
-        PlayerModel<HumanoidEntity> humanoidModel = this.getModel();
+        HumanoidModel<HumanoidEntity> humanoidModel = this.getModel();
         if (p_177137_1_.isSpectator()) {
             humanoidModel.setAllVisible(false);
             humanoidModel.head.visible = true;
             humanoidModel.hat.visible = true;
         } else {
             humanoidModel.setAllVisible(true);
-            /*humanoidModel.hat.visible = p_177137_1_.isModelPartShown(PlayerModelPart.HAT);
+            /*humanoidModel.hat.visible = p_177137_1_.isModelPartShown(HumanoidModelPart.HAT);
             humanoidModel.jacket.visible = p_177137_1_.isModelPartShown(PlayerModelPart.JACKET);
             humanoidModel.leftPants.visible = p_177137_1_.isModelPartShown(PlayerModelPart.LEFT_PANTS_LEG);
             humanoidModel.rightPants.visible = p_177137_1_.isModelPartShown(PlayerModelPart.RIGHT_PANTS_LEG);
@@ -91,6 +88,12 @@ public class HumanoidRenderer extends MobRenderer<HumanoidEntity, PlayerModel<Hu
         }
 
     }
+
+    protected void scale(HumanoidEntity entity, MatrixStack matrixStack, float num){
+        float f = 0.9375F;
+        matrixStack.scale(f,f,f);
+    }
+
     private static BipedModel.ArmPose getArmPose(HumanoidEntity p_241741_0_, Hand p_241741_1_) {
         ItemStack itemstack = p_241741_0_.getItemInHand(p_241741_1_);
         if (itemstack.isEmpty()) {

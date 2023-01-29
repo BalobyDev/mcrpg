@@ -86,10 +86,10 @@ public class UnitSelectionScreen extends Screen {
 
     public void setCamera(){
         if(party instanceof PlayerParty){
-            battle.camera.setPosRot(1.5,2,6,0,180);
+            battle.camera.setPosRot(1.5,102,6,0,180);
         }
         else {
-            battle.camera.setPosRot(1.5,3,3,0,0);
+            battle.camera.setPosRot(1.5,103,3,0,0);
         }
     }
 

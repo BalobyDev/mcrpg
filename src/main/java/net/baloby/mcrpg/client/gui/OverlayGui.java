@@ -83,13 +83,14 @@ public class OverlayGui extends AbstractGui implements IRenderable {
         float oneUnit = (float)BARWIDTH/unit.MAX_HP;
         int currentHealth = (int)(Math.ceil(oneUnit*unit.HP));
         int currentMp = (int)(Math.ceil(oneUnit*unit.MP));
-        int y = unit.party.members.indexOf(unit)*40;
+        int y = unit.party.members.indexOf(unit)*40+15;
         this.blit(matrixStack,450,y+2,0,0,WIDTH,HEIGHT);
         this.blit(matrixStack,450,y+10,0,0,WIDTH,HEIGHT);
         this.blit(matrixStack, 450,y+3,0,7,currentHealth+1,5);
         this.blit(matrixStack, 450,y+11,0,12, currentMp +1,5);
         drawString(matrixStack,mc.font,(int)unit.HP+"",436,y+2,16777215);
         drawString(matrixStack,mc.font,(int)unit.MP+"",436,y+10,16777215);
+        drawString(matrixStack,mc.font,unit.name,436,y-8,16777215);
     }
 
     public Matrix4f getMatrix(MatrixStack matStack, LivingEntity entity, float posX, float posY, float posZ){

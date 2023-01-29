@@ -12,11 +12,11 @@ import javax.annotation.Nullable;
 
 public class PlayerCapabilityProvider implements ICapabilitySerializable<INBT> {
 
-    @CapabilityInject(ICharProfile.class)
+    @CapabilityInject(IPlayerProfile.class)
 
-    public static Capability<ICharProfile> CHAR_CAP = null;
+    public static Capability<IPlayerProfile> CHAR_CAP = null;
 
-    private LazyOptional<ICharProfile> instance = LazyOptional.of(()->CHAR_CAP.getDefaultInstance());
+    private LazyOptional<IPlayerProfile> instance = LazyOptional.of(()->CHAR_CAP.getDefaultInstance());
 
     @Nonnull
     @Override
@@ -26,18 +26,19 @@ public class PlayerCapabilityProvider implements ICapabilitySerializable<INBT> {
 
     @Override
     public INBT serializeNBT() {
-        CompoundNBT nbt = (CompoundNBT) CHAR_CAP.getStorage().writeNBT(CHAR_CAP,this.getInstance(),null);
+        CompoundNBT nbt = new CompoundNBT();
+        if(CHAR_CAP!=null)nbt = (CompoundNBT) CHAR_CAP.getStorage().writeNBT(CHAR_CAP,this.getInstance(),null);
         return nbt;
     }
 
 
     @Override
     public void deserializeNBT(INBT nbt) {
+        if(CHAR_CAP == null)return;
         CHAR_CAP.getStorage().readNBT(CHAR_CAP, this.getInstance(), null, nbt);
-
     }
 
-    private ICharProfile getInstance(){
+    private IPlayerProfile getInstance(){
         return this.instance.orElseThrow(()->new IllegalStateException("Unable to obtain capability instace"));
     }
 }

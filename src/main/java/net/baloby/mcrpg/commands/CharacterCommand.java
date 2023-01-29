@@ -1,30 +1,36 @@
 package net.baloby.mcrpg.commands;
 
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.builder.ArgumentBuilder;
-import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import net.baloby.mcrpg.data.characters.Npcs;
-import net.baloby.mcrpg.entities.HumanoidEntity;
+import com.mojang.brigadier.suggestion.SuggestionProvider;
+import net.baloby.mcrpg.commands.arguments.NpcArgument;
+import net.baloby.mcrpg.mcrpg;
+import net.baloby.mcrpg.setup.Registration;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.entity.Entity;
+import net.minecraft.command.ISuggestionProvider;
+import net.minecraft.command.arguments.SuggestionProviders;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.math.BlockPos;
-public class CharacterCommand implements Command<CommandSource> {
+import net.minecraft.util.ResourceLocation;
 
-    private static final CharacterCommand CMD = new CharacterCommand();
-    public static final ArgumentBuilder<CommandSource, ?> register(CommandDispatcher<CommandSource> dispatcher){
-        return Commands.literal("character")
-                .requires(cs -> cs.hasPermission(0))
-                .executes(CMD);
+public class CharacterCommand {
+
+    public static void register(CommandDispatcher<CommandSource> dispatcher){
+        dispatcher.register(Commands.literal("character").requires((source)->{
+            return source.hasPermission(2);
+        }).then(Commands.argument("npc",NpcArgument.id()).executes((context) -> {
+            return addNpc(context.getSource(),NpcArgument.getSummonableNpc(context,"npc"));
+        })));
     }
-    @Override
-    public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
-        ServerPlayerEntity player = context.getSource().getPlayerOrException();
-        Entity e = Npcs.RANA.spawn(player.getLevel(),player.position());
-        e.moveTo(player.position());
+
+    private static int addNpc(CommandSource source, ResourceLocation type) throws CommandSyntaxException {
+        ServerPlayerEntity player = source.getPlayerOrException();
+        Registration.NPC_REGISTRY.get().getValue(type).listCreate().spawnLoad(player.getLevel(),player.position());
         return 0;
     }
+
+    public static SuggestionProvider<CommandSource> SUMMONABLE_NPCS = SuggestionProviders.register(new ResourceLocation(mcrpg.MODID,"summonable_npcs"), (p_197495_0_, p_197495_1_) -> {
+        return ISuggestionProvider.suggestResource(p_197495_0_.getSource().getAvailableSoundEvents(), p_197495_1_);
+    });
+
 }

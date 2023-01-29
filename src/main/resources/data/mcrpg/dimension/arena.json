@@ -5,7 +5,10 @@
     "settings": {
       "base": 65,
       "verticalvariance": 16,
-      "horizontalvariance": 10
+      "horizontalvariance": 10,
+      "arena": "cave_arena",
+      "xoffset": 0,
+      "zoffset": 0
     }
   }
 }

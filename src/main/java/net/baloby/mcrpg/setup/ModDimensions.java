@@ -10,10 +10,14 @@ import net.minecraft.world.World;
 
 public class ModDimensions {
 
-    public static final RegistryKey<DimensionType> ARENA_TYPE = RegistryKey.create(Registry.DIMENSION_TYPE_REGISTRY, new ResourceLocation(mcrpg.MODID,"arena"));
-    public static final RegistryKey<World> ARENA = RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(mcrpg.MODID,"arena"));
     public static final RegistryKey<DimensionType> STAGE_TYPE = RegistryKey.create(Registry.DIMENSION_TYPE_REGISTRY, new ResourceLocation(mcrpg.MODID,"stage"));
+    public static final RegistryKey<DimensionType> ARENA_TYPE = RegistryKey.create(Registry.DIMENSION_TYPE_REGISTRY, new ResourceLocation(mcrpg.MODID,"arena"));
+    public static final RegistryKey<DimensionType> OVERWORLD_ARENA_TYPE = RegistryKey.create(Registry.DIMENSION_TYPE_REGISTRY, new ResourceLocation(mcrpg.MODID,"overworld_arena"));
+
     public static final RegistryKey<World> STAGE = RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(mcrpg.MODID,"stage"));
+    public static final RegistryKey<World> ARENA = RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(mcrpg.MODID,"arena"));
+    public static final RegistryKey<World> FORREST_ARENA = RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(mcrpg.MODID, "forrest_arena"));
+    public static final RegistryKey<World> NETHER_ARENA = RegistryKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(mcrpg.MODID, "nether_arena"));
 
 
 

@@ -3,10 +3,10 @@ package net.baloby.mcrpg;
 import net.baloby.mcrpg.battle.Unit.UnitType;
 import net.baloby.mcrpg.battle.moves.Moves;
 import net.baloby.mcrpg.client.ClientEventBusSubscriber;
-import net.baloby.mcrpg.data.CharProfile;
-import net.baloby.mcrpg.data.ICharProfile;
-import net.baloby.mcrpg.data.ProfileStorage;
-import net.baloby.mcrpg.data.characters.Npcs;
+import net.baloby.mcrpg.data.*;
+import net.baloby.mcrpg.data.UniqueFeatures.IUniqueFeatures;
+import net.baloby.mcrpg.data.UniqueFeatures.UniqueFeatures;
+import net.baloby.mcrpg.data.UniqueFeatures.UniqueFeaturesStorage;
 import net.baloby.mcrpg.entities.custom.partyMembers.RanaEntity;
 import net.baloby.mcrpg.entities.custom.partyMembers.SteveEntity;
 import net.baloby.mcrpg.network.RpgNetwork;
@@ -16,9 +16,12 @@ import net.baloby.mcrpg.world.ArenaChunkGenerator;
 import net.baloby.mcrpg.world.structures.ConfigStructures;
 import net.baloby.mcrpg.world.structures.ModStructures;
 import net.baloby.mcrpg.setup.Registration;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.DeferredWorkQueue;
@@ -50,16 +53,18 @@ public class mcrpg
             GlobalEntityTypeAttributes.put(ModEntities.RANA.get(), RanaEntity.setCustomAttributes().build());
             GlobalEntityTypeAttributes.put(ModEntities.STEVE.get(), SteveEntity.setCustomAttributes().build());
             GlobalEntityTypeAttributes.put(ModEntities.HUMANOID.get(), RanaEntity.setCustomAttributes().build());
+            GlobalEntityTypeAttributes.put(ModEntities.HUMANOID_SLIM.get(), RanaEntity.setCustomAttributes().build());
+//            GlobalEntityTypeAttributes.put(ModEntities.NEW_ENDERMAN.get(), EndermanEntity.setCustomAttributes().build());
             UnitType.registerUnits();
-            Moves.register();
-            Npcs.register();
             ModStructures.setupStructures();
-            ConfigStructures.registerConfiguredStructures();
             Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(mcrpg.MODID, "arenagen"),
                     ArenaChunkGenerator.CODEC);
             Registry.register(Registry.BIOME_SOURCE, new ResourceLocation(mcrpg.MODID, "biomes"),
                     ArenaBiomeProvider.CODEC);
-            CapabilityManager.INSTANCE.register(ICharProfile.class, new ProfileStorage(), CharProfile::new);
+            CapabilityManager.INSTANCE.register(IPlayerProfile.class, new PlayerStorage(), PlayerProfile::new);
+            CapabilityManager.INSTANCE.register(ICharProfile.class, new NpcStorage(), CharProfile::new);
+            CapabilityManager.INSTANCE.register(IUniqueFeatures.class, new UniqueFeaturesStorage(), UniqueFeatures::new);
+
 
         });
     }

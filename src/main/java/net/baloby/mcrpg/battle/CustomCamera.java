@@ -16,7 +16,6 @@ public class CustomCamera {
     public Battle battle;
 
     public CustomCamera(ServerWorld world){
-
         //camera.setPos(0,2,-1);
         this.battle = Battle.getInstance();
         this.camera = createCamera(world);
@@ -36,14 +35,14 @@ public class CustomCamera {
         this.camera.teleportTo(pos.getX(),pos.getY(),pos.getZ());
     }
 
-    public BlockPos startingPos(){
-        BlockPos pos = battle.playerParty.player.station;
-        BlockPos newPos = new BlockPos(pos.getX()-1,pos.getY()+1,pos.getZ()-1);
+    public Vector3d startingPos(){
+        Vector3d pos = battle.playerParty.player.station;
+        Vector3d newPos = new Vector3d(pos.x-1,pos.y+1,pos.z-1);
         return newPos;
     }
 
     public Entity createCamera(ServerWorld world){
-        this.camera = new ArmorStandEntity(world,0,2,-1);
+        this.camera = new ArmorStandEntity(world,0,72,-1);
         camera.xRotO = 0;
         camera.yRotO = 0;
         camera.setYBodyRot(0);
@@ -71,8 +70,8 @@ public class CustomCamera {
     }
 
     public void setBehind(){
-        BlockPos pos = battle.activeUnit.station;
-        setPosRot(pos.getX()-1,pos.getY()+1,pos.getZ()-2,0,0);
+        Vector3d pos = battle.activeUnit.station;
+        setPosRot(pos.x-1,pos.y+1,pos.z-2,0,0);
     }
 
     public void setFacingAngled(Unit unit){

@@ -12,7 +12,6 @@ public class ModCommands {
         LiteralCommandNode<CommandSource> cmdRpg = dispatcher.register(
                 Commands.literal(mcrpg.MODID)
                         .then(TestCommand.register(dispatcher))
-                        .then(CharacterCommand.register(dispatcher))
         );
         dispatcher.register(Commands.literal("rpg").redirect(cmdRpg));
     }

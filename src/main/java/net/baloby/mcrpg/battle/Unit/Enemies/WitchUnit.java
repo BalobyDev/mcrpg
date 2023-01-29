@@ -10,8 +10,7 @@ public class WitchUnit extends Unit {
     public WitchUnit(){super(EntityType.WITCH);
         this.MP = 20;
         this.XP = 30;
-        addSummonable(EntityType.WITCH);
-        setNoAi(true);
+
 
     }
 }

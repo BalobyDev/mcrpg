@@ -27,12 +27,15 @@ public class CharacterCapabilityProvider implements ICapabilitySerializable<INBT
 
     @Override
     public INBT serializeNBT() {
-        CompoundNBT nbt = (CompoundNBT) CHAR_CAP.getStorage().writeNBT(CHAR_CAP,this.getInstance(),null);
+        CompoundNBT nbt = new CompoundNBT();
+        if(CHAR_CAP!=null)nbt = (CompoundNBT) CHAR_CAP.getStorage().writeNBT(CHAR_CAP,this.getInstance(),null);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(INBT nbt) {
+        if(CHAR_CAP == null)return;
+        CHAR_CAP.getStorage().readNBT(CHAR_CAP, this.getInstance(), null, nbt);
 
     }
 

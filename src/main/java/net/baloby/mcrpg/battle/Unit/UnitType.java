@@ -16,7 +16,6 @@ public class UnitType<T extends Unit> {
 
     public static HashMap<EntityType, UnitType> unitMap = new HashMap<>();
 
-    //public static final UnitType<AlexUnit> ALEX_UNIT = new UnitType<AlexUnit>(ModEntities.HUMANOID.get(), (AlexUnit::new));
     public static final UnitType<BlazeUnit> BLAZE_UNIT = new UnitType<BlazeUnit>(EntityType.BLAZE, (BlazeUnit::new));
     public static final UnitType<CaveSpiderUnit> CAVE_SPIDER_UNIT = new UnitType<CaveSpiderUnit>(EntityType.CAVE_SPIDER, (CaveSpiderUnit::new));
     public static final UnitType<CreeperUnit> CREEPRER_UNIT = new UnitType<CreeperUnit>(EntityType.CREEPER, (CreeperUnit::new));
@@ -45,7 +44,6 @@ public class UnitType<T extends Unit> {
     }
 
     public static void registerUnits(){
-        //ALEX_UNIT.register();
         BLAZE_UNIT.register();
         CAVE_SPIDER_UNIT.register();
         CREEPRER_UNIT.register();

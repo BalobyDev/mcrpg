@@ -12,7 +12,7 @@ public class BlazeUnit extends Unit {
         this.MP = 20;
         addAffinity(Element.FIRE, Affinity.STRONG);
         addAffinity(Element.ICE, Affinity.WEAK);
-        addMove(Moves.IGNI);
+        addMove(Moves.IGNI.get().create());
         addSummonable(EntityType.SKELETON);
         addSummonable(EntityType.WITHER_SKELETON);
         setNoAi(true);

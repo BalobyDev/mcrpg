@@ -10,13 +10,14 @@ import net.minecraft.world.gen.feature.StructureFeature;
 
 public class ConfigStructures {
 
-    public static StructureFeature<?,?> CONFIGURED_CAVE_ARENA = ModStructures.CAVE_ARENA.get().configured(IFeatureConfig.NONE);
+    public static StructureFeature<?,?> CONFIGURED_STEVE_HOUSE = ModStructures.STEVE_HOUSE.get().configured(IFeatureConfig.NONE);
 
     public static void registerConfiguredStructures(){
         Registry<StructureFeature<?,?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
-        Registry.register(registry, new ResourceLocation(mcrpg.MODID, "configured_cave_arena"), CONFIGURED_CAVE_ARENA);
 
-        FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.CAVE_ARENA.get(),CONFIGURED_CAVE_ARENA);
+        Registry.register(registry, new ResourceLocation(mcrpg.MODID, "configured_steve_house"), CONFIGURED_STEVE_HOUSE);
+
+        FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.STEVE_HOUSE.get(),CONFIGURED_STEVE_HOUSE);
     }
 
 }

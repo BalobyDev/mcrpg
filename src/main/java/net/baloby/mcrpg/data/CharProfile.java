@@ -1,61 +1,55 @@
 package net.baloby.mcrpg.data;
 
 import net.baloby.mcrpg.battle.moves.Move;
+import net.baloby.mcrpg.data.characters.Npc;
+import net.baloby.mcrpg.setup.Registration;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraftforge.common.capabilities.Capability;
+import net.minecraft.nbt.ListNBT;
 
 import java.util.ArrayList;
 
 public class CharProfile implements ICharProfile {
 
 
-    private int MAX_HP = 20;
-    private int MAX_MP = 20;
-    private int MP = MAX_MP;
-    private ArrayList<Move> moveset = new ArrayList<Move>();
-
+    private CompoundNBT nbts = new CompoundNBT();
 
     @Override
-    public void setMp(int mp) {
-        this.MP = mp;
-        if(MP > MAX_MP){
-            MP = MAX_MP;
+    public CompoundNBT getNbts() {
+        return nbts;
+    }
+
+    @Override
+    public void setNbts(CompoundNBT nbt) {
+        this.nbts = nbt;
+    }
+
+    @Override
+    public CompoundNBT saveNpc(Npc npc) {
+        return npc.save();
+    }
+
+    @Override
+    public CompoundNBT saveNpcs() {
+        CompoundNBT nbt = nbts;
+        for(Npc npc : Npc.allNpcs){
+            if(npc.isDirty) {
+                nbt.put(Registration.NPC_REGISTRY.get().getKey(npc.getType()).getPath(), npc.save());
+                npc.setDirty(false);
+            }
         }
-    }
-    @Override
-    public int getMp() {
-        return MP;
+        return nbt;
     }
 
-    @Override
-    public void setMaxMp(int maxMp) {
-        this.MAX_MP = maxMp;
 
+    @Override
+    public void loadNpc(CompoundNBT nbt, Npc npc){
+        npc.load((CompoundNBT) nbt.get(npc.getName()));
     }
 
     @Override
-    public void setMaxHp(int maxHp) {
-        this.MAX_HP = maxHp;
-    }
-
-    @Override
-    public int getMaxMp() {return MAX_MP;}
-
-    @Override
-    public int getMaxHp() {return MAX_HP;}
-
-
-    public ArrayList<Move> getMoves(){return moveset;}
-
-    public void saveNBTData(CompoundNBT nbt){
-        nbt.putInt("mp",MP);
-        nbt.putInt("maxmp",MAX_MP);
-        nbt.putInt("maxhp",MAX_HP);
-
-    }
-    public void loadNBTData(CompoundNBT nbt){
-        MP = nbt.getInt("mp");
-        MAX_MP = nbt.getInt("maxmp");
-        MAX_HP = nbt.getInt("maxhp");
+    public void loadNpcs(CompoundNBT nbt){
+        for(Npc npc : Npc.allNpcs){
+            loadNpc(nbt,npc);
+        }
     }
 }

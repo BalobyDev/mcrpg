@@ -12,7 +12,7 @@ public class DrownedUnit extends Unit {
         super(EntityType.DROWNED);
         addAffinity(Element.ELECTRIC, Affinity.WEAK);
         addAffinity(Element.ICE, Affinity.STRONG);
-        addMove(Moves.AQUA);
+        addMove(Moves.AQUA.get().create());
 
     }
 }

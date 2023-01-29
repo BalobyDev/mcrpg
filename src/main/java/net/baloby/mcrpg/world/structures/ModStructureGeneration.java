@@ -14,15 +14,13 @@ import java.util.function.Supplier;
 
 public class ModStructureGeneration {
     public static void generateStructures(final BiomeLoadingEvent event){
-        /*RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
+
+        RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
-        if(types.contains(BiomeDictionary.Type.PLAINS)){
-            List<Supplier<StructureFeature<?,?>>> structures = event.getGeneration().getStructures();
-            structures.add(()-> ModStructures.CAVE_ARENA.get().configured(IFeatureConfig.NONE));
-         */
-        event.getGeneration().getStructures().add(()-> ConfigStructures.CONFIGURED_CAVE_ARENA);
+        if(types.contains(BiomeDictionary.Type.FOREST)) {
+            List<Supplier<StructureFeature<?, ?>>> structures = event.getGeneration().getStructures();
 
-
-
+            structures.add(() -> ModStructures.STEVE_HOUSE.get().configured(IFeatureConfig.NONE));
+        }
     }
 }

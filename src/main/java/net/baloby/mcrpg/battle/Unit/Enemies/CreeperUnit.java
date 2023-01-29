@@ -22,7 +22,7 @@ public class CreeperUnit extends Unit {
     }
 
     public void charge(){
-        Animation.particles(this, ParticleTypes.SMOKE,10, SoundEvents.CREEPER_PRIMED);
+        Animation.particles(this, ParticleTypes.CLOUD,10, SoundEvents.CREEPER_PRIMED);
         action(new Charge("The creeper is getting primed"),this);
         charged = true;
 

@@ -1,6 +1,11 @@
 package net.baloby.mcrpg.setup;
 
 import com.mojang.serialization.Lifecycle;
+import net.baloby.mcrpg.commands.CharacterCommand;
+import net.baloby.mcrpg.commands.arguments.NpcArgument;
+import net.minecraft.command.arguments.ArgumentSerializer;
+import net.minecraft.command.arguments.ArgumentTypes;
+import net.minecraftforge.server.command.ConfigCommand;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -19,5 +24,7 @@ public class ModSetup {
     @SubscribeEvent
     public static void serverLoad(RegisterCommandsEvent event){
         ModCommands.register(event.getDispatcher());
+        CharacterCommand.register(event.getDispatcher());
+        ConfigCommand.register(event.getDispatcher());
     }
 }

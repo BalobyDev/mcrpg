@@ -2,6 +2,7 @@ package net.baloby.mcrpg.battle.moves;
 
 
 import net.baloby.mcrpg.battle.Unit.Unit;
+import net.baloby.mcrpg.setup.Items.BattleItem;
 import net.baloby.mcrpg.setup.Items.EtherItem;
 import net.minecraft.item.Food;
 import net.minecraft.item.Foods;
@@ -23,6 +24,9 @@ public class  UseItem extends Move{
 
     public void execute(Unit user, Unit target){
         stack.setCount(stack.getCount()-1);
+        if(item instanceof BattleItem){
+            ((BattleItem) item).use(user, target);
+        }
         if(item.getFoodProperties() != null){
             new Heal(name,desc,item.getFoodProperties().getNutrition()).execute(user,target);
         }

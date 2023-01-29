@@ -1,24 +1,28 @@
 package net.baloby.mcrpg.data;
 
 import net.baloby.mcrpg.battle.moves.Move;
+import net.baloby.mcrpg.data.characters.Npc;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ICharProfile {
 
 
-    void setMp(int mp);
+    CompoundNBT getNbts();
 
-    void setMaxMp(int maxMp);
+    void setNbts(CompoundNBT nbt);
 
-    void setMaxHp(int maxHp);
+    CompoundNBT saveNpc(Npc npc);
 
-    int getMp();
+    CompoundNBT saveNpcs();
 
-    int getMaxMp();
+    void loadNpc(CompoundNBT nbt, Npc npc);
 
-    int getMaxHp();
+    void loadNpcs(CompoundNBT nbt);
 
-    ArrayList<Move> getMoves();
+
 }
