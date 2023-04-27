@@ -1,0 +1,67 @@
+{
+  "instances": [
+    {
+      "id": "000",
+      "speaker": "mcrpg:felina",
+      "message": "Well then, have you returned with the lapis?",
+      "responses": [
+        {"text": "Actually not yet.","next": "001"},
+        {"text": "Yup. here you go!","quest_check": {
+          "quest": "mcrpg:felina_lapis",
+          "pass_dialogue": "mcrpg:felina_default",
+          "pass": "005",
+          "fail": "002",
+          "insert": {
+            "npc": "mcrpg:felina",
+            "dialogue": "mcrpg:felina_nether",
+            "response": "Do you have another quest for me?"
+          }
+        }}
+      ]
+    },
+    {
+      "id": "001",
+      "speaker": "mcrpg:felina",
+      "message": "Ah, so you have yet to accomplish this task I see.",
+      "next": "004"
+    },
+
+    {
+      "id": "002",
+      "speaker": "mcrpg:felina",
+      "message": "Did you just lie to me? Or did you just put them down somewhere and forget?",
+      "next": "003"
+    },
+    {
+      "id": "003",
+      "speaker": "mcrpg:felina",
+      "message": "Regardless, I am still counting on you dear, Complete this task for me and I will make you my apprentice!",
+      "next": "004"
+    },
+
+    {
+      "id": "004",
+      "speaker": "mcrpg:felina",
+      "message": "Please to me return when you have the lapis."
+    },
+    {
+      "id": "005",
+      "speaker": "mcrpg:felina",
+      "message": "Ah, splendid! I knew you had it in you!",
+      "next": "006"
+    },
+    {
+      "id": "006",
+      "speaker": "mcrpg:felina",
+      "message": "So in addition to what we agreed upon, I also have a little something extra for you. Hold out your hand, love.",
+      "quest_complete": "mcrpg:felina_lapis",
+      "next": "007"
+    },
+    {
+      "id": "007",
+      "speaker": "mcrpg:felina",
+      "message": "So, as I have promised I will now take you under my wing. I will teach you spells in exchange for some of your experience.",
+      "next": "008"
+    }
+  ]
+}

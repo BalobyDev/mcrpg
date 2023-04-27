@@ -1,0 +1,13 @@
+{
+  "id": "felina_lapis",
+  "title": "Blue stuff for the cat lady",
+  "description": "Find some lapis lazuli for Felina! The best place to look would be deep inside a cave.",
+  "item_requirement": {
+    "item": "minecraft:lapis_lazuli",
+    "amount": 32
+  },
+  "item_reward": {
+    "item": "minecraft:diamond",
+    "amount": 3
+  }
+}

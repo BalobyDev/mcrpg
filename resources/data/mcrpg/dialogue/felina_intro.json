@@ -1,0 +1,184 @@
+{
+  "instances": [
+    {
+      "id": "000",
+      "speaker": "mcrpg:felina",
+      "message": "...Oh well hello there my child! My name is Felina! I'm a witch but you needn't worry! I'm not a mean witch... at least that's what Rana tells me.",
+      "next": "001"
+    },
+    {
+      "id": "001",
+      "speaker": "mcrpg:felina",
+      "message": "Although I believe this is our first meeting, I must say you possess a certain aura that intrigues me... May I perform a palm reading?",
+      "responses": [
+        {"text": "Sure!", "next": "002"},
+        {"text": "Uhh... no?", "next": "007"}
+      ]
+    },
+    {
+      "id": "002",
+      "speaker": "mcrpg:felina",
+      "message": "Alright then! Just let me take a closer look now.",
+      "next": "003"
+    },
+    {
+      "id": "003",
+      "speaker": "mcrpg:felina",
+      "message": "hmm...",
+      "next": "004"
+    },
+    {
+      "id": "004",
+      "speaker": "mcrpg:felina",
+      "message": "???",
+      "next": "005"
+    },
+    {
+      "id": "005",
+      "speaker": "mcrpg:felina",
+      "message": "!!!!!!",
+      "next": "006"
+    },
+    {
+      "id": "006",
+      "speaker": "mcrpg:felina",
+      "message": "Alright, I think I have seen quite enough!",
+      "next": "009"
+    },
+    {
+      "id": "007",
+      "speaker": "mcrpg:felina",
+      "message": "Oh, I see...",
+      "next": "008"
+    },
+    {
+      "id": "008",
+      "speaker": "mcrpg:felina",
+      "message": "That was the reaction I was expecting as we are still practically strangers. But who knows? One day you may warm up to me Just as dear Rana has!",
+      "next": "009"
+    },
+    {
+      "id": "009",
+      "speaker": "mcrpg:felina",
+      "message": "Anyways, Have you any further questions for me?",
+      "responses": [
+        {"text": "So are you like... a furry?","next":"010"},
+        {"text": "Can I be your apprentice?","next": "012"},
+        {"text": "Nope see ya!","next": "026"}
+      ]
+    },
+    {
+      "id": "010",
+      "speaker": "mcrpg:felina",
+      "message": "W-what?? A 'furry'? n-no!!",
+      "next": "011"
+    },
+    {
+      "id": "011",
+      "speaker": "mcrpg:felina",
+      "message": "I am a half-tabaxi... My father was human and my mother was a full-tabaxi. Making me an actual black cat witch! At least until the grey hairs start showing up.",
+      "next": "009"
+    },
+    {
+      "id": "012",
+      "speaker": "mcrpg:felina",
+      "message": "Apprentice? Hmm... I'm not entirely sure about your current aptitude. Being a witch is not for everyone and I don't know if you truly have what it takes.",
+      "next": "013"
+    },
+    {
+      "id": "013",
+      "speaker": "mcrpg:felina",
+      "message": "But... if I were to give you a chance do you truly think you could prove yourself?",
+      "responses": [
+        {"text": "Oh yeah baby!","next": "014", "quest": "mcrpg:felina_lapis","next_dialogue": "mcrpg:felina_lapis_quest"},
+        {"text": "Uh... never mind actually.","next": "020"}
+      ]
+    },
+    {
+      "id": "014",
+      "speaker": "mcrpg:felina",
+      "message": "Oh so you're up to the task? Very well. Then I have quest for you!",
+      "next": "015"
+    },
+    {
+      "id": "015",
+      "speaker": "mcrpg:felina",
+      "message": "I'm running a bit low on lapis lazuli, which I require for making enchantments. If you head for the caves and find me 32 lapis lazuli then I could make you my apprentice",
+      "next": "016"
+    },
+    {
+      "id": "016",
+      "speaker": "mcrpg:rana",
+      "message": "Hiya guys! I was overhearin' u guyses conversation and I-",
+      "next": "017"
+    },
+    {
+      "id": "017",
+      "speaker": "mcrpg:felina",
+      "message": "Rana! What have I told you about eavesdropping!?",
+      "next": "018"
+    },
+    {
+      "id": "018",
+      "speaker": "mcrpg:rana",
+      "message": "I-I'm so sorry abuela! I just wanted to know if I could go with PLAYERNAME on POS_SINGLE quest? I think I wanna get out of the house more! ^.^",
+      "next": "019"
+    },
+    {
+      "id": "019",
+      "speaker": "mcrpg:felina",
+      "message": "Well I can't say I love that idea. But you are an adult now so if you get you get POS_SINGLE permission then I suppose I can't say no",
+      "responses":[
+      {"text": "Yeah she can come!","next": "020","party_add": "mcrpg:rana"},
+      {"text": "No.","next": ""}
+    ]
+    },
+    {
+      "id": "020",
+      "speaker": "mcrpg:rana",
+      "message": "Yayy!!! I'm soooo excited we're gonna have so much fun!!! And when we get back, we can make friendship bracelets!! :>",
+      "set": {
+        "npc": "mcrpg:rana",
+        "dialogue":"mcrpg:rana_party_add"
+      },
+      "next": "021"
+
+    },
+    {
+      "id": "021",
+      "speaker": "mcrpg:felina",
+      "message": "Oh and PLAYERNAME might I ask you to please keep an eye on her? Rana is all I have left in this world so please try to keep her safe.",
+      "next": "026"
+    },
+    {
+      "id": "022",
+      "speaker": "mcrpg:rana",
+      "message": "Wait really? I was so looking forward to this tho. I thought we'd have so much fun and would make friendship bracelets when we got back.",
+      "next": "023"
+    },
+    {
+      "id": "023",
+      "speaker": "mcrpg:felina",
+      "message": "Oh Rana there's no need to cry dear!",
+      "next": "024"
+
+    },
+    {
+      "id": "024",
+      "speaker": "mcrpg:felina",
+      "message": "I'm so sorry about her she just got a little excited as we don't get many visitors, She even hasn't met anyone new since she moved in with me.",
+      "next": "025"
+    },
+    {
+      "id": "025",
+      "speaker": "mcrpg:felina",
+      "message": "I'll cheer her up later with cookies, that always works. That usually works!",
+      "next": "026"
+    },
+    {
+      "id": "026",
+      "speaker": "mcrpg:felina",
+      "message": "Alright then. Adiós my child!"
+    }
+  ]
+}
