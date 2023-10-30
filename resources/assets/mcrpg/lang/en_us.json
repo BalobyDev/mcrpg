@@ -1,0 +1,24 @@
+{
+  "item.mcrpg.bat_wing": "Bat Wing",
+  "item.mcrpg.fairy_dust": "Fairy Dust",
+  "item.mcrpg.home_stew": "HomeStyle Stew",
+  "item.mcrpg.iron_shield": "Iron Shield",
+  "item.mcrpg.ruby": "Ruby",
+  "item.mcrpg.magic_milkshake": "Magic Milkshake",
+  "item.mcrpg.spicy_milkshake": "Spicy Milkshake",
+  "item.mcrpg.witch_hat": "Witch's Hat",
+
+  "block.mcrpg.ruby_ore": "Ruby Ore",
+
+  "entity.mcrpg.cultist": "Child of the Dragon",
+  "entity.mcrpg.humanoid": "Character",
+  "entity.mcrpg.iceologer": "Iceologer",
+  "entity.mcrpg.inferno": "Inferno",
+  "entity.mcrpg.viler_witch": "Viler Witch",
+
+  "npc.mcrpg.rana": "Rana",
+  "npc.mcrpg.steve": "Steve",
+
+  "move.mcrpg.aqua": "Aqua",
+  "move.mcrpg.igni": "Igni"
+}

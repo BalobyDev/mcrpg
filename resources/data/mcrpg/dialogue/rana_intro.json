@@ -1,0 +1,33 @@
+{
+  "instances": [
+    {
+      "id": "000",
+      "speaker": "mcrpg:rana",
+      "message": "Ahhh! Who are you? I don't know you! Stranger danger! Stranger danger!",
+      "next": "001"
+    },
+    {
+      "id": "001",
+      "speaker": "mcrpg:rana",
+      "message": "Wait, It's okay Rana, You're not a little girl anymore. Just take a deep breath and introduce yourself!",
+      "next": "002"
+    },
+    {
+      "id": "002",
+      "speaker": "mcrpg:rana",
+      "message": "Hiya! My name Is Rana! I like frogs and crocheting and stuff and I live here in Sunroot with my auntie Felina! ^_^",
+      "next": "003"
+    },
+    {
+      "id": "003",
+      "speaker": "mcrpg:rana",
+      "message": "But I haven't seen you around. And I've met everyone in Sunroot so you must be from like, Really far away! Are you an adventurer or something?",
+      "next": "004"
+    },
+    {
+      "id": "004",
+      "speaker": "mcrpg:rana",
+      "message": "I think it'd be fun to go on an adventure but idk if my auntie would ever let me. V_V"
+    }
+  ]
+}

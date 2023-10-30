@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [{
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "minecraft:ender_pearl"
+    },
+    {
+      "item": "mcrpg:bat_wing"
+    }
+  ],
+  "result": {
+    "item": "mcrpg:home_stew"
+  }
+}

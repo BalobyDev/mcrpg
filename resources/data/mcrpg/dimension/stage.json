@@ -1,0 +1,12 @@
+{
+  "type": "mcrpg:stage",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "base": 65,
+      "verticalvariance": 16,
+      "biome": "minecraft:mushroom_fields",
+      "horizontalvariance": 10
+    }
+  }
+}

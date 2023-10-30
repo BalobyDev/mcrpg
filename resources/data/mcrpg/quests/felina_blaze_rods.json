@@ -1,0 +1,18 @@
+{
+  "id": "felina_blaze_rods",
+  "title": "Glow sticks in hell",
+  "description": "Find some blaze rods for Felina! Build a portal to the nether, find a nether fortress and fight the blazes for their rods!",
+  "item_requirement": {
+    "item": "minecraft:blaze_rod",
+    "amount": 4
+  },
+  "item_reward": {
+    "item": "minecraft:diamond_pickaxe",
+    "enchantments": [
+      {
+        "enchantment": "fortune",
+        "level": 2
+      }
+    ]
+  }
+}

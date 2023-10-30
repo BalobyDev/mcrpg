@@ -1,0 +1,37 @@
+{
+  "instances": [
+    {
+      "id": "000",
+      "speaker": "mcrpg:alex",
+      "message": "Hi! Sooo this might be a bit of an odd question from a stranger but would you happen to have a quest for me?",
+      "responses": [
+        {"text": "No.", "next": "001"},
+        {"text": "I was gonna ask the same thing.","next": "002"}
+      ]
+    },
+    {
+      "id": "001",
+      "speaker": "mcrpg:alex",
+      "message": "Oh well, that's alright! I kinda knew you would say that haha. Anyways, carry on!"
+    },
+    {
+      "id": "002",
+      "speaker": "mcrpg:alex",
+      "message": "Oh really? Are you an adventurer too? That's so cool! Maybe we could like, team up or something?",
+      "responses": [
+        {"text": "No thank you...", "next": "003"},
+        {"text": "Alright sounds like fun!", "next": "004", "party_add": "mcrpg:alex"}
+      ]
+    },
+    {
+      "id": "003",
+      "speaker": "mcrpg:alex",
+      "message": "Aww really? But why?! Well, Never mind  I guess..."
+    },
+    {
+      "id": "004",
+      "speaker": "mcrpg:alex",
+      "message": "Oh awesome! I have a feeling you and I are gonna get along just fine!"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "instances": [
+    {
+      "id": "000",
+      "speaker":"mcrpg:felina",
+      "message": "Yes? Anything on your mind, apprentice?",
+      "responses": [
+        {"text": "I'd like to learn something.", "shop": "mcrpg:felina"},
+        {"text": "","insert_dialogue":"mcrpg:felina" },
+        {"text": "Nope, Goodbye.", "next": "001"}
+      ]
+    },
+    {
+      "id": "001",
+      "speaker": "mcrpg:felina",
+      "message": "Fare thee well, my apprentice."
+    }
+  ]
+}

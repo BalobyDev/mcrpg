@@ -1,0 +1,14 @@
+{
+  "type": "mcrpg:arena",
+  "generator": {
+    "type": "mcrpg:arenagen",
+    "settings": {
+      "base": 65,
+      "verticalvariance": 16,
+      "horizontalvariance": 10,
+      "arena": "mcrpg:dragon_arena",
+      "xoffset": 0,
+      "zoffset": 0
+    }
+  }
+}

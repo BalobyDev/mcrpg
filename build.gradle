@@ -54,7 +54,7 @@ minecraft {
             // You can set various levels here.
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
-            arg "-mixin.config=mcrpg.mixins.json"
+            arg "-mixin.config=mcrpg.java.mixins.json"
 
 
             mods {
@@ -66,7 +66,7 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
-            arg "-mixin.config=mcrpg.mixins.json"
+            arg "-mixin.config=mcrpg.java.mixins.json"
 
 
             // Recommended logging data for a userdev environment
@@ -104,7 +104,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'mcrpg', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'mcrpg.java', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
                 mcrpg {
@@ -151,7 +151,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "mcrpg",
+            "Specification-Title": "mcrpg.java",
             "Specification-Vendor": "examplemodsareus",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
@@ -160,10 +160,10 @@ jar {
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
             "TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
             "TweakOrder": 0,
-            "MixinConfigs": "mcrpg.mixins.json"
+            "MixinConfigs": "mcrpg.java.mixins.json"
         ])
     }
-    rename 'mixin.refmap.json', 'mcrpg.refmap.json'
+    rename 'mixin.refmap.json', 'mcrpg.java.refmap.json'
 }
 
 // Example configuration to allow publishing using the maven-publish task
@@ -185,5 +185,5 @@ publishing {
 
 }
 mixin{
-    add sourceSets.main, "mcrpg.refmap.json"
+    add sourceSets.main, "mcrpg.java.refmap.json"
 }
