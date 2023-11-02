@@ -6,12 +6,15 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.baloby.mcrpg.client.gui.PartyManagerScreen;
+import net.baloby.mcrpg.cutscene.Cutscene;
 import net.baloby.mcrpg.entities.custom.enemies.NewEndermanEntity;
+import net.baloby.mcrpg.setup.ModDimensions;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 
 public class TestCommand implements Command<CommandSource> {
 
@@ -25,7 +28,8 @@ public class TestCommand implements Command<CommandSource> {
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().getPlayerOrException();
-        player.giveExperiencePoints(12000);
+        Cutscene cutscene = new Cutscene(new CompoundNBT(), player.getServer().overworld().dimensionType(),ModDimensions.ARENA);
+        cutscene.loadCutscene(player);
         return 0;
     }
 }

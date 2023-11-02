@@ -61,7 +61,7 @@ public class PlayerResponseGui extends Screen {
                 CompoundNBT nbt = (CompoundNBT) player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts().get(response.getInsertDialogue().get().getPath());
             }
 
-            this.addButton(new Button(this.width / 2 - 100, this.height - HEIGHT + 45 + responses.size() * -10 + i * 25, 200, 20, new StringTextComponent(response.text), button -> {
+            this.addButton(new Button(this.width / 2 - 100, this.height - HEIGHT + 100 + responses.size() *  -25 + i * 25, 200, 20, new StringTextComponent(response.text), button -> {
                 response.select(player);
             }
             ));
@@ -81,7 +81,8 @@ public class PlayerResponseGui extends Screen {
         FontRenderer font = this.minecraft.font;
         int relX = (this.width - WIDTH)/2;
         int relY = this.height - HEIGHT - 3;
-        this.blit(matrixStack,relX,relY,0,0,WIDTH,HEIGHT);
+        this.blit(matrixStack,relX,relY+50,0,50,WIDTH,HEIGHT);
+        this.blit(matrixStack,relX,relY+90-responses.size()*25,0,0,WIDTH,15*responses.size());
         super.render(matrixStack,mouseX,mouseY,partialTicks );
     }
 

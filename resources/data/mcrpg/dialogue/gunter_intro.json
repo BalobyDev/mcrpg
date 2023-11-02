@@ -27,7 +27,7 @@
       "speaker": "mcrpg:gunter",
       "message": "Just like I told your orange-haired friend, I could never find a use nor a buyer for some giant magic fork that she found.",
       "party_present": ["mcrpg:alex"],
-      "id": "004"
+      "next": "004"
     },
     {
       "id": "004",

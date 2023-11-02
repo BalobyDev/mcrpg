@@ -1,6 +1,8 @@
 package net.baloby.mcrpg.world;
 
 import com.mojang.serialization.Codec;
+import net.minecraft.block.BlockState;
+import net.minecraft.world.Blockreader;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.provider.BiomeProvider;
@@ -12,18 +14,20 @@ import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 
 public class CutsceneChunkGenerator extends ChunkGenerator {
-    public CutsceneChunkGenerator(BiomeProvider p_i231888_1_, DimensionStructuresSettings p_i231888_2_) {
-        super(p_i231888_1_, p_i231888_2_);
+
+    public static final Codec SETTINGS_CODEC = ArenaChunkGenerator.SETTINGS_CODEC;
+    public CutsceneChunkGenerator(BiomeProvider p_i231888_1_) {
+        super(p_i231888_1_, new DimensionStructuresSettings(false));
     }
 
     @Override
     protected Codec<? extends ChunkGenerator> codec() {
-        return null;
+        return SETTINGS_CODEC;
     }
 
     @Override
     public ChunkGenerator withSeed(long p_230349_1_) {
-        return null;
+        return this;
     }
 
     @Override
@@ -42,7 +46,5 @@ public class CutsceneChunkGenerator extends ChunkGenerator {
     }
 
     @Override
-    public IBlockReader getBaseColumn(int p_230348_1_, int p_230348_2_) {
-        return null;
-    }
+    public IBlockReader getBaseColumn(int p_230348_1_, int p_230348_2_) {return new Blockreader(new BlockState[0]);}
 }

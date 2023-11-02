@@ -18,7 +18,7 @@ public class FelinaNpc extends BattleNpc implements ShopNpc{
     private Shop shop;
 
     public FelinaNpc(){
-        super(Npcs.FELINA.get(), "Felina", new ResourceLocation(mcrpg.MODID,"textures/entity/cassandra.png"), ModEntities.HUMANOID_SLIM.get(), Items.AIR,150,150, Moves.IGNI.get());
+        super(Npcs.FELINA.get(), "Felina", new ResourceLocation(mcrpg.MODID,"textures/entity/felina.png"), ModEntities.HUMANOID_SLIM.get(), Items.AIR,150,150, Moves.IGNI.get());
         this.shop = new Shop(
                 new ShopItem(ModItems.MAGIC_MILKSHAKE.get(),3,50, CostType.EXP),
                 new ShopItem(ModItems.HOMESTEW.get(),5,50, CostType.EXP),

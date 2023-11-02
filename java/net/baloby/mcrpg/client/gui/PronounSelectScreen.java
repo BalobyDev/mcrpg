@@ -46,7 +46,7 @@ public class PronounSelectScreen extends Screen {
 
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        this.renderBackground(matrixStack);
+        this.renderDirtBackground(0);
         this.drawCenteredString(matrixStack,this.font,"Please select your pronouns",this.width/2,30,-1);
         super.render(matrixStack,mouseX,mouseY,partialTicks);
     }

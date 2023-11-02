@@ -7,6 +7,7 @@ import net.baloby.mcrpg.data.characters.NpcType;
 import net.baloby.mcrpg.world.ModWorldEvents;
 import net.baloby.mcrpg.world.StructureGen;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
@@ -76,23 +77,23 @@ public abstract class LocationStructure extends UniqueFeature{
             BlockPos pos = new BlockPos(x,y, z);
             ServerWorld world = ModWorldEvents.getServer().overworld();
             for(Building building : locationStructure.buildings){
-                BlockPos rotationOffset = building.getPos().rotate(building.getRotation());
-                BlockPos newPos = new BlockPos(rotationOffset.getX(),generator.getBaseHeight(rotationOffset.getX(),rotationOffset.getZ(),this.height), rotationOffset.getZ());
+                BlockPos rotationOffset = building.getPos().rotate(building.getRotation()).offset(pos);
+                BlockPos newPos = new BlockPos(rotationOffset.getX(),generator.getBaseHeight(rotationOffset.getX(),rotationOffset.getZ(),this.height)-1, rotationOffset.getZ());
                 StructureGen.placeManually(newPos,world,building.getPiece(),building.getRotation());
             }
 
 
             if(this.getFeature()instanceof UniqueFeature) {
-
                 world.getCapability(UniqueFeaturesCapabilityProvider.FEATURES_CAP).resolve().get().addFeature(((UniqueFeature<?>) this.getFeature()).getName(), pos);
-
                 }
 
             if(this.getFeature()instanceof LocationStructure){
                 Map<NpcType, NpcOffset> map = ((LocationStructure) this.getFeature()).getPositions();
                 for (Map.Entry<NpcType, NpcOffset> entry : map.entrySet()) {
                     Npc npc = entry.getKey().listCreate();
-                    npc.setHome(world,entry.getValue().getBuilding().getPos().offset(entry.getValue().getPos().rotate(entry.getValue().getBuilding().getRotation())));
+                    BlockPos rotationOffset = entry.getValue().getBuilding().getPos().rotate(entry.getValue().getBuilding().getRotation()).offset(pos);
+                    BlockPos newPos = new BlockPos(rotationOffset.getX(),generator.getBaseHeight(rotationOffset.getX(),rotationOffset.getZ(),this.height), rotationOffset.getZ());
+                    npc.setHome(world,entry.getValue().getPos().rotate(entry.getValue().getBuilding().getRotation()).offset(newPos).offset(0,1,0));
                     npc.setDirty(true);
                 }
             }
