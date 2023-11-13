@@ -28,7 +28,7 @@ public class Attack extends Move {
     }
 
     public void tryAttack(Unit user, Unit target,float dmg){
-        if(Dice.roll(100)+1<=10) {
+        if(Dice.roll(100)<10) {
             target.miss();
             return;
         }

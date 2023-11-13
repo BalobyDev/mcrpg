@@ -297,7 +297,7 @@ public class Unit {
     }
 
     public void update(){
-        if(this.HP<=this.MAX_HP/4) {
+        if(this.HP<=this.MAX_HP/6) {
             this.crouch();
         }
         else if(this.ailment==null){

@@ -109,7 +109,7 @@ public class ArenaChunkGenerator extends ChunkGenerator {
         return new Blockreader(new BlockState[0]);
     }
 
-    private static class Settings {
+    public static class Settings {
         private final int baseHeight;
         private final float verticalVariance;
         private final float horizontalVariance;
@@ -119,7 +119,7 @@ public class ArenaChunkGenerator extends ChunkGenerator {
         private final int xOffset;
         private final int zOffset;
 
-        private Settings(Registry<Biome> biomeRegistry, int baseHeight, float verticalVariance, float horizontalVariance, ResourceLocation arena, Optional<Supplier<Biome>> biome, int xOffset, int zOffset) {
+        public Settings(Registry<Biome> biomeRegistry, int baseHeight, float verticalVariance, float horizontalVariance, ResourceLocation arena, Optional<Supplier<Biome>> biome, int xOffset, int zOffset) {
             this.baseHeight = baseHeight;
             this.verticalVariance = verticalVariance;
             this.horizontalVariance = horizontalVariance;

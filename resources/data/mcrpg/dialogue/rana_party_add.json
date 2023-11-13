@@ -3,7 +3,7 @@
     {
       "id":"000",
       "speaker": "mcrpg:rana",
-      "message": "Hiii again. Did u change ur mind about letting me join u?",
+      "text": "hiii again. Did u change ur mind about letting me join u?",
       "responses": [
         {"text": "Yup!","next": "001","party_add": "mcrpg:rana"},
         {"text": "No lol.", "next": "002"}
@@ -12,12 +12,16 @@
     {
       "id": "001",
       "speaker": "mcrpg:rana",
-      "message": "Yayyyy! This is so exciting! I'll grab my sword!! :>"
+      "text": "yayyyy! This is so exciting! I'll grab my yo-yo!! :>",
+      "set": {
+        "npc": "mcrpg:rana",
+        "dialogue":"mcrpg:rana_bracelet"
+      }
     },
     {
       "id": "002",
       "speaker": "mcrpg:rana",
-      "message": "Waaah, I'm strating to think ur nothin but a big fat meanie meanie bo beanie! v_v"
+      "text": "waaah, I'm strating to think ur nothin but a big fat meanie meanie bo beanie! v_v"
     }
   ]
 }

@@ -39,7 +39,7 @@ public class Npc {
     public boolean slim = false;
     public boolean isDirty;
     private ResourceLocation skin;
-    public Item item;
+    public ItemStack item;
     public ItemStack headItem;
     public ItemStack chestItem;
     public ItemStack legsItem;
@@ -65,6 +65,7 @@ public class Npc {
     }
 
     public Npc(NpcType<?> type, String name, EntityType entityType, ResourceLocation skin){
+        this.item = new ItemStack(Items.AIR);
         this.type = type;
         this.name = name;
         this.entityType = entityType;
@@ -161,7 +162,8 @@ public class Npc {
     public CompoundNBT save(){
         CompoundNBT nbt = new CompoundNBT();
         if(homePos!=null)nbt.putIntArray("homePos",new int[]{homePos.getX(), homePos.getY(), homePos.getZ()});
-        nbt.putInt("item", Item.getId(item));
+
+        if(item!=null)nbt.put("item", item.serializeNBT());
         if(dialogueIndex!=null) nbt.putString("dialogue_index", dialogueIndex.toString());
         CompoundNBT insert = new CompoundNBT();
 
@@ -205,7 +207,7 @@ public class Npc {
                 new ResourceLocation(nbt.getCompound("insert").getString("npc")),
                 new ResourceLocation(nbt.getCompound("insert").getString("dialogue")),
                 nbt.getCompound("insert").getString("response"));
-        item = Item.byId(nbt.getInt("item"));
+        item = ItemStack.of(nbt.getCompound("item"));
     }
 
     public float getSize() {

@@ -11,11 +11,11 @@ import net.minecraft.util.ResourceLocation;
 
 public class SteveNpc extends BattleNpc{
     public SteveNpc(){
-        super(Npcs.STEVE.get(),"Steve", new ResourceLocation(mcrpg.MODID, "textures/entity/steve.png"), ModEntities.HUMANOID.get(), Items.BOW,20,20, Moves.AQUA.get());
+        super(Npcs.STEVE.get(),"Steve", new ResourceLocation(mcrpg.MODID, "textures/entity/steve.png"), ModEntities.HUMANOID.get(), Items.IRON_SWORD,20,20, Moves.AQUA.get());
         this.hurtSound = ModSounds.OOH.get();
         this.dialogueTree = new DialogueTree(ModSetup.DIALOGUE_MANAGER.getData(new ResourceLocation(mcrpg.MODID,"steve_intro")));
         this.STR = 9;
         this.MAG = 9;
-        this.weaponType = WeaponType.BOW;
+        this.weaponType = WeaponType.SWORD;
     }
 }

@@ -3,7 +3,7 @@
     {
       "id": "000",
       "speaker": "mcrpg:gunter",
-      "message": "Hello! Looking to buy? Or just looking to look?",
+      "text": "Hello! Looking to buy? Or just looking to look?",
       "responses": [
         {"text": "I'd like to buy something!", "shop": "mcrpg:gunter"},
         {"text": "I'd like to sell something!", "next": "002"},
@@ -13,31 +13,31 @@
     {
       "id": "001",
       "speaker": "mcrpg:gunter",
-      "message": "Heh, if I had an emerald for everytime I heard that...",
+      "text": "Heh, if I had an emerald for everytime I heard that...",
       "next": "002"
     },
     {
       "id": "002",
       "speaker": "mcrpg:gunter",
-      "message": "Sorry. but this isn't a pawn shop. I can't afford to buy whatever crap you find in some dungeon.",
+      "text": "Sorry. but this isn't a pawn shop. I can't afford to buy whatever crap you find in some dungeon.",
       "next": "003"
     },
     {
       "id": "003",
       "speaker": "mcrpg:gunter",
-      "message": "Just like I told your orange-haired friend, I could never find a use nor a buyer for some giant magic fork that she found.",
+      "text": "Just like I told your orange-haired friend, I could never find a use nor a buyer for some giant magic fork that she found.",
       "party_present": ["mcrpg:alex"],
       "next": "004"
     },
     {
       "id": "004",
       "speaker": "mcrpg:gunter",
-      "message": "So, unless it's a sack of emeralds you've got on ya. I can't give you anything."
+      "text": "So, unless it's a sack of emeralds you've got on ya. I can't give you anything."
     },
     {
       "id": "005",
       "speaker": "mcrpg:gunter",
-      "message": "Alright, next time then!"
+      "text": "Alright, next time then!"
     }
   ]
 }

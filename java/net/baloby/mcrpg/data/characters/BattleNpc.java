@@ -13,6 +13,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -38,7 +39,7 @@ public class BattleNpc extends Npc implements INamedContainerProvider {
         return new NpcContainer(id,playerInventory,new NpcInventory(this));
     }
 
-    public enum WeaponType{SWORD, BOW, SPEAR, AXE}
+    public enum WeaponType{SWORD, BOW, SPEAR, AXE, GREATSWORD, YOYO}
     public WeaponType weaponType;
 
 
@@ -52,7 +53,7 @@ public class BattleNpc extends Npc implements INamedContainerProvider {
         this.HP = MAXHP;
         this.MAXMP = MP;
         this.MP = MAXMP;
-        this.item = item;
+        this.item = new ItemStack(item);
         this.moveSet = new HashMap<>();
         this.weaponType = WeaponType.SWORD;
         for(MoveType move : moves){

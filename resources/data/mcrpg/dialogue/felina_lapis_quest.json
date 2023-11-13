@@ -3,7 +3,7 @@
     {
       "id": "000",
       "speaker": "mcrpg:felina",
-      "message": "Well then, have you returned with the lapis?",
+      "text": "Well then, have you returned with the lapis?",
       "responses": [
         {"text": "Actually not yet.","next": "001"},
         {"text": "Yup. here you go!","quest_check": {
@@ -22,45 +22,45 @@
     {
       "id": "001",
       "speaker": "mcrpg:felina",
-      "message": "Ah, so you have yet to accomplish this task I see.",
+      "text": "Ah, so you have yet to accomplish this task I see.",
       "next": "004"
     },
 
     {
       "id": "002",
       "speaker": "mcrpg:felina",
-      "message": "Did you just lie to me? Or did you just put them down somewhere and forget?",
+      "text": "Did you just lie to me? Or did you just put them down somewhere and forget?",
       "next": "003"
     },
     {
       "id": "003",
       "speaker": "mcrpg:felina",
-      "message": "Regardless, I am still counting on you dear, Complete this task for me and I will make you my apprentice!",
+      "text": "Regardless, I am still counting on you dear, Complete this task for me and I will make you my apprentice!",
       "next": "004"
     },
 
     {
       "id": "004",
       "speaker": "mcrpg:felina",
-      "message": "Please return when you have the lapis."
+      "text": "Please return when you have the lapis."
     },
     {
       "id": "005",
       "speaker": "mcrpg:felina",
-      "message": "Ah, splendid! I knew you had it in you!",
+      "text": "Ah, splendid! I knew you had it in you!",
       "next": "006"
     },
     {
       "id": "006",
       "speaker": "mcrpg:felina",
-      "message": "So in addition to what we agreed upon, I also have a little something extra for you. Hold out your hand, love.",
+      "text": "So in addition to what we agreed upon, I also have a little something extra for you. Hold out your hand, love.",
       "quest_complete": "mcrpg:felina_lapis",
       "next": "007"
     },
     {
       "id": "007",
       "speaker": "mcrpg:felina",
-      "message": "So, as I have promised I will now take you under my wing. I will teach you spells in exchange for some of your experience.",
+      "text": "So, as I have promised I will now take you under my wing. I will teach you spells in exchange for some of your experience.",
       "next": "008"
     }
   ]

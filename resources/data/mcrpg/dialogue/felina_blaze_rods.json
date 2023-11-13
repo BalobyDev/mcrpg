@@ -2,7 +2,7 @@
   "instances": [
     {
       "id": "000",
-      "speaker": "mcrpg:felina",
+      "text": "mcrpg:felina",
       "message": "Ah have you returned with the rods?",
       "responses": [
         {"text": "No not yet","next": "001"}
@@ -10,7 +10,7 @@
     },
     {
      "id": "001",
-     "speaker": "mcrpg:felina",
+     "text": "mcrpg:felina",
      "message": "Oh, I see... come back when you do have them."
     }
   ]

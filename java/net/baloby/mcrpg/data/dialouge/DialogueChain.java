@@ -38,12 +38,12 @@ public class DialogueChain {
         if(instances.containsKey(index)){
             if(instances.get(index).getPartyPresent().isPresent()){
                 for(ResourceLocation location : instances.get(index).getPartyPresent().get()) {
-                    if (!player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts().contains(location.getPath())) flag = false;
+                    if (!player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts().contains(location.toString())) flag = false;
                 }
             }
             if(instances.get(index).getPartyAbsent().isPresent()){
                 for(ResourceLocation location : instances.get(index).getPartyAbsent().get()){
-                    if (player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts().contains(location.getPath())) flag = false;
+                    if (player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts().contains(location.toString())) flag = false;
 
                 }
             }

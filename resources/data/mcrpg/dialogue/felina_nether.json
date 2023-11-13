@@ -3,31 +3,31 @@
     {
       "id": "000",
       "speaker": "mcrpg:felina",
-      "message": "So, I suppose it is time for your first real assignment as my pupil.",
+      "text": "So, I suppose it is time for your first real assignment as my pupil.",
       "next": "001"
     },
     {
       "id": "001",
       "speaker": "mcrpg:felina",
-      "message": "I imagine the lapis may have been a bit easy to find for you. And to be honest, I already had enough to get me through the month. That was just a test.",
+      "text": "I imagine the lapis may have been a bit easy to find for you. And to be honest, I already had enough to get me through the month. That was just a test.",
       "next": "002"
     },
     {
       "id": "002",
       "speaker": "mcrpg:felina",
-      "message": "What I really need right now are some blaze rods for making potions, which are unfortunately only found in the nether dimension.",
+      "text": "What I really need right now are some blaze rods for making potions, which are unfortunately only found in the nether dimension.",
       "next": "003"
     },
     {
       "id": "003",
       "speaker": "mcrpg:felina",
-      "message": "You must create a portal from obsidian, find a fortress, and from there, destroy the firey machines known as 'blazes' they may drop a blaze rod when slain.",
+      "text": "You must create a portal from obsidian, find a fortress, and from there, destroy the firey machines known as 'blazes' they may drop a blaze rod when slain.",
       "next":"004"
     },
     {
       "id": "004",
       "speaker": "mcrpg:felina",
-      "message": "It won't be easy but I believe you are proficient enough to complete this errand for me, are you up to this task?",
+      "text": "It won't be easy but I believe you are proficient enough to complete this errand for me, are you up to this task?",
       "responses": [
         {"text": "Yeah, I got this!","next": "005","quest": "mcrpg:felina_blaze_rods","next_insert":{
           "npc": "mcrpg:felina",
@@ -40,36 +40,36 @@
     {
       "id": "005",
       "speaker": "mcrpg:felina",
-      "message": "Heh, ya got guts kid I'll tell ya that. I'm starting to take a liking to you!",
+      "text": "Heh, ya got guts kid I'll tell ya that. I'm starting to take a liking to you!",
       "next": "006"
     },
     {
       "id": "006",
       "speaker": "mcrpg:felina",
-      "message": "Well then, I'll see you when you have the blaze rods!"
+      "text": "Well then, I'll see you when you have the blaze rods!"
     },
     {
       "id": "007",
       "speaker": "mcrpg:felina",
-      "message": "Ah- I see. Well that's understandable.",
+      "text": "Ah- I see. Well that's understandable.",
       "next": "008"
     },
     {
       "id": "008",
       "speaker": "mcrpg:felina",
-      "message": "The nether is a really dangerous place and I didn't like the idea of you taking rana there anyways.",
+      "text": "The nether is a really dangerous place and I didn't like the idea of you taking rana there anyways.",
       "next": "009"
     },
     {
       "id": "009",
       "speaker": "mcrpg:felina",
-      "message": "As for the blaze rods... *sigh* I think I'll have to ask Gary even though I already owe him a favor or ten.",
+      "text": "As for the blaze rods... *sigh* I think I'll have to ask Gary even though I already owe him a favor or ten.",
       "next": "010"
     },
     {
       "id": "010",
       "speaker": "mcrpg:felina",
-      "message":  "I'll try and think of another assignment for you in the meantime."
+      "text":  "I'll try and think of another assignment for you in the meantime."
     }
   ]
 }

@@ -54,7 +54,7 @@ public class NpcUnit extends Unit{
         int rot = playerControl ? 0: 180;
         entity.setYBodyRot(rot);
         entity.setYHeadRot(rot);
-        entity.setItemInHand(Hand.MAIN_HAND,new ItemStack(character.item));
+        entity.setItemInHand(Hand.MAIN_HAND, character.item);
         return entity;
     }
 

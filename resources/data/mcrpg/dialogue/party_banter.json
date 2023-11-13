@@ -3,7 +3,62 @@
     {
       "id": "000",
       "speaker": "mcrpg:rana",
-      "message": "Hey you! Blue shirt guy!"
+      "text": "hey u! blue shirt guy!",
+      "next": "001"
+    },
+    {
+      "id": "001",
+      "speaker": "mcrpg:steve",
+      "text": "You talking to me?",
+      "next": "002"
+    },
+    {
+      "id": "002",
+      "speaker": "mcrpg:rana",
+      "text": "yeah u! y are u so smiling so much?",
+      "next": "003"
+    },
+    {
+      "id": "003",
+      "speaker": "mcrpg:rana",
+      "text": "did u get to eat a yummy cake today? or did u see a cute puppy? if so where is it i wanna see!",
+      "next": "004"
+    },
+    {
+      "id": "004",
+      "speaker": "mcrpg:alex",
+      "text": " *sigh* Rana, what are you talking about? He's not smiling, that's just his beard.",
+      "next": "005"
+    },
+    {
+      "id": "005",
+      "speaker": "mcrpg:rana",
+      "text" : "whaaa? nooo ur lyingg he's just got a big ol' smile :)",
+      "next": "006"
+    },
+    {
+      "id": "006",
+      "speaker": "mcrpg:alex",
+      "text": "Rana, be real... it's a beard, just look at it.",
+      "next": "007"
+    },
+    {
+      "id": "007",
+      "speaker": "mcrpg:rana",
+      "text": "smilllllle!!!!!",
+      "next": "008"
+
+    },
+    {
+      "id": "008",
+      "speaker": "mcrpg:alex",
+      "text": "It IS a beard... r-right Steve?",
+      "next": "009"
+    },
+    {
+      "id": "009",
+      "speaker": "mcrpg:steve",
+      "text": "Eh, I'll just leave it up to your imaginations. It's whatever you guys want it to be!"
     }
   ]
 }

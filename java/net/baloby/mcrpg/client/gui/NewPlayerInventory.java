@@ -1,5 +1,6 @@
 package net.baloby.mcrpg.client.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.baloby.mcrpg.world.ModWorldEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
@@ -30,6 +31,14 @@ public class NewPlayerInventory extends InventoryScreen {
 
         Button party = addButton(new Button(this.width/2-70,this.height/2+heightPercent*45,60,20,new StringTextComponent("Party"), button -> PartyManagerScreen.open(serverPlayer)));
         Button quests = addButton(new Button(this.width/2+10,this.height/2+heightPercent*45,60,20,new StringTextComponent("Quest"),button -> {QuestGui.open(serverPlayer);}));
+    }
+
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks){
+        super.render(matrixStack,mouseX,mouseY,partialTicks);
+        this.minecraft.getTextureManager().bind(INVENTORY_LOCATION);
+        int i = this.leftPos;
+        int j = this.topPos;
+        this.blit(matrixStack,i+75,j+42,75,60,19,19);
     }
 
     public static void open(PlayerEntity player){

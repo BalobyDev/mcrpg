@@ -65,7 +65,7 @@ public class NpcContainer extends Container {
         for(int i1 = 0; i1 < 9; ++i1) {
             this.addSlot(new Slot(inventory, i1, 8 + i1 * 18, 142));
         }
-        this.addSlot(new Slot(inventory, 40, -10000, -10000));
+//        this.addSlot(new Slot(inventory, 40, -10000, -10000));
         this.addSlots(container);
     }
 

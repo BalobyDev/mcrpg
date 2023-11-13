@@ -26,6 +26,7 @@ public class PlayerStorage implements Capability.IStorage<IPlayerData> {
         nbt.put("pronouns",instance.getPronouns());
         nbt.put("quests",instance.getQuests());
         nbt.put("send_back",instance.getSendBack());
+        nbt.put("back_item", instance.getBackItem());
         return nbt;
     }
 
@@ -44,6 +45,7 @@ public class PlayerStorage implements Capability.IStorage<IPlayerData> {
             instance.setPronouns((CompoundNBT) ((CompoundNBT) nbt).get("pronouns"));
             instance.setQuests((CompoundNBT) ((CompoundNBT) nbt).get("quests"));
             instance.setSendBack(((CompoundNBT) nbt).getCompound("send_back"));
+            instance.setBackItem(((CompoundNBT) nbt).getCompound("back_item"));
         }
     }
 }

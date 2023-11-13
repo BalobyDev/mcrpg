@@ -84,4 +84,8 @@ public interface IPlayerData {
     void setSendBack(CompoundNBT nbt);
 
     CompoundNBT getSendBack();
+
+    void setBackItem(CompoundNBT item);
+
+    CompoundNBT getBackItem();
 }

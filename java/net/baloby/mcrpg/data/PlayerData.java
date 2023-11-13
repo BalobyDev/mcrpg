@@ -25,6 +25,7 @@ public class PlayerData implements IPlayerData {
     private int MAG = 10;
     private int DEF = 10;
     private int SPD = 10;
+    private CompoundNBT backItem = new CompoundNBT();
     private CompoundNBT moveSet = new CompoundNBT();
     private CompoundNBT availableMoves = new CompoundNBT();
     private CompoundNBT partyMembers = new CompoundNBT();
@@ -270,5 +271,14 @@ public class PlayerData implements IPlayerData {
 
     public void setSpd(int SPD) {
         this.SPD = SPD;
+    }
+
+    @Override
+    public CompoundNBT getBackItem() {
+        return backItem;
+    }
+
+    public void setBackItem(CompoundNBT item) {
+        this.backItem = item;
     }
 }

@@ -19,7 +19,7 @@ public class NpcInventory implements IInventory {
 
 
     public NpcInventory(BattleNpc npc){
-        this.mainHand.set(0,new ItemStack(npc.item));
+        this.mainHand.set(0,npc.item);
     }
 
 

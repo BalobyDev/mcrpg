@@ -3,7 +3,7 @@
     {
       "id": "000",
       "speaker": "mcrpg:steve",
-      "message": "Hey there stranger! What brings you to my neck of the woods? Can't say I get a whole lot of visitors all the way out here. Ya need directions or something?",
+      "text": "Hey there stranger! What brings you to my neck of the woods? Can't say I get a whole lot of visitors all the way out here. Ya need directions or something?",
       "responses": [
         {"text": "I'm looking for adventure!","next": "001"},
         {"text": "Looking for a place to settle down.","next": "003"}
@@ -12,19 +12,19 @@
     {
       "id": "001",
       "speaker": "mcrpg:steve",
-      "message": "Ah, I see. Well, I'm sorry but I'm afraid I'm not really the adventuring type. The entire reason I moved out here was to get some peace and quiet.",
+      "text": "Ah, I see. Well, I'm sorry but I'm afraid I'm not really the adventuring type. The entire reason I moved out here was to get some peace and quiet.",
       "next": "002"
     },
     {
       "id": "002",
       "speaker": "mcrpg:steve",
-      "message": "Who needs buried treasure anyway? I think the real treasure in this life is sitting outside on a cool summer's evening enjoying a juicy porkchop.",
+      "text": "Who needs buried treasure anyway? I think the real treasure in this life is sitting outside on a cool summer's evening enjoying a juicy porkchop.",
       "next": "003"
     },
     {
       "id": "003",
       "speaker": "mcrpg:steve",
-      "message": "But if you do insist, then I suppose it'd be irresponsible for me to let you go alone. I should at least show ya how to fight zombies and skeletons and stuff.",
+      "text": "But if you do insist, then I suppose it'd be irresponsible for me to let you go alone. I should at least show ya how to fight zombies and skeletons and stuff.",
       "responses": [
         {"text": "Id rather fly solo bro!","next": "004"},
         {"text": "Yeah I could use your help!","next": "005","party_add": "mcrpg:steve"}
@@ -33,17 +33,17 @@
     {
       "id": "004",
       "speaker": "mcrpg:steve",
-      "message": "Oh alright, just thought I'd ask. If you change your mind just let me know."
+      "text": "Oh alright, just thought I'd ask. If you change your mind just let me know."
     },
     {
       "id": "005",
       "speaker": "mcrpg:steve",
-      "message": "Alright cool! I kinda needed the exercise anyway. Let me just grab my hunting bow and let's be on our way!"
+      "text": "Alright cool! I kinda needed the exercise anyway. Let me just grab my hunting bow and let's be on our way!"
     },
     {
       "id": "006",
       "speaker": "mcrpg:steve",
-      "message": "Oh really? Well as much as I love the peace and quiet out here, I really wouldn't mind having a neighbor!"
+      "text": "Oh really? Well as much as I love the peace and quiet out here, I really wouldn't mind having a neighbor!"
     }
   ]
 }

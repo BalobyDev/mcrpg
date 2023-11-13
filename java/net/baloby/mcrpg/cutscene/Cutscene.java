@@ -8,6 +8,7 @@ import net.baloby.mcrpg.world.ArenaChunkGenerator;
 import net.baloby.mcrpg.world.CutsceneChunkGenerator;
 import net.baloby.mcrpg.world.ModWorldEvents;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.command.impl.LocateBiomeCommand;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -25,6 +26,8 @@ import net.minecraft.world.biome.*;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.SingleBiomeProvider;
 import net.minecraft.world.chunk.listener.TrackingChunkStatusListener;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.DebugChunkGenerator;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.SaveFormat;
 import net.minecraft.world.storage.ServerWorldInfo;
@@ -37,8 +40,9 @@ import java.util.ArrayList;
 public class Cutscene {
 
     public ServerWorld world;
+    public ClientWorld clientWorld;
     public DimensionType dimType;
-    public CutsceneChunkGenerator chunkGen;
+    public ChunkGenerator chunkGen;
     public RegistryKey<World> regKey;
 
     public Cutscene(CompoundNBT nbt, DimensionType dimType, RegistryKey<World> regKey){
@@ -58,16 +62,17 @@ public class Cutscene {
         Minecraft minecraft = Minecraft.getInstance();
         SaveFormat format = new SaveFormat(minecraft.gameDirectory.toPath().resolve("saves"), minecraft.gameDirectory.toPath().resolve("backups"), DataFixesManager.getDataFixer());
 
-        this.chunkGen = new CutsceneChunkGenerator(new SingleBiomeProvider(player.getServer().registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getOptional(new ResourceLocation("plains")).orElseThrow(()->{
-        return LocateBiomeCommand.ERROR_INVALID_BIOME.create(new ResourceLocation("plains"));})));
+        this.chunkGen = new DebugChunkGenerator(DynamicRegistries.builtin().registryOrThrow(Registry.BIOME_REGISTRY));
+        this.clientWorld = new ClientWorld(minecraft.getConnection(),minecraft.level.getLevelData(),null,this.dimType,0,()->minecraft.getProfiler(),minecraft.levelRenderer,false,0);
 
         ServerWorldInfo info = new ServerWorldInfo(CutsceneServerWorld.CUTSCENE_SETTINGS,new ServerPropertiesProvider(DynamicRegistries.builtin(), Paths.get("server.properties")).getProperties().worldGenSettings, Lifecycle.stable());
         try {
-            world = new ServerWorld(player.getServer(), Util.backgroundExecutor(), format.createAccess(""),info,World.OVERWORLD, this.dimType,new TrackingChunkStatusListener(0), player.getServer().overworld().getChunkSource().getGenerator(), false,0,new ArrayList<>(),false);
+            this.world = new ServerWorld(player.getServer(), Util.backgroundExecutor(), format.createAccess(""),info,null, this.dimType,new TrackingChunkStatusListener(0), player.getServer().overworld().getChunkSource().getGenerator(), false,0,new ArrayList<>(),false);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        Teleport.teleport(player,world,new BlockPos(0,0,0));
+
+//        Teleport.teleport(player,world,new BlockPos(0,0,0));
     }
 }
