@@ -22,7 +22,7 @@ public class NpcData implements INpcData {
     @Override
     public void saveNpc(Npc npc) {
         CompoundNBT nbt = nbts;
-        nbt.put(Registration.NPC_REGISTRY.get().getKey(npc.getType()).getPath(),npc.save());
+        nbt.put(npc.getType().getRegistryName().toString(),npc.save());
         for(Npc npc1 : Npc.allNpcs){
             if(npc.getType().equals(npc1.getType())){
                 npc1.load(npc.save());
@@ -35,7 +35,7 @@ public class NpcData implements INpcData {
         CompoundNBT nbt = nbts;
         for(Npc npc : Npc.allNpcs){
             if(npc.isDirty) {
-                nbt.put(Registration.NPC_REGISTRY.get().getKey(npc.getType()).getPath(), npc.save());
+                nbt.put(npc.getType().getRegistryName().toString(), npc.save());
                 npc.setDirty(false);
             }
         }
@@ -53,7 +53,7 @@ public class NpcData implements INpcData {
     public void loadNpcs(){
         CompoundNBT nbt = nbts;
         for(Npc npc : Npc.allNpcs){
-            npc.load((CompoundNBT) nbt.get(npc.getType().getRegistryName().getPath()));
+            npc.load((CompoundNBT) nbt.get(npc.getType().getRegistryName().toString()));
         }
     }
 }

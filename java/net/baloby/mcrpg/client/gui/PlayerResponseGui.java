@@ -41,7 +41,7 @@ public class PlayerResponseGui extends Screen {
         this.element = element;
         for(Response response : element.getOptions()){
             if(response.getInsertDialogue().isPresent()) {
-                CompoundNBT nbt = player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts().getCompound(response.getInsertDialogue().get().getPath());
+                CompoundNBT nbt = player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts().getCompound(response.getInsertDialogue().get().toString());
                 if (nbt.contains("insert") && !(nbt.getCompound("insert").getString("response").equals("")))
                     response.text = nbt.getCompound("insert").getString("response");
                     responses.add(response);
@@ -53,6 +53,8 @@ public class PlayerResponseGui extends Screen {
     }
 
     public boolean isPauseScreen(){return Battle.isActive == false;}
+
+    public boolean shouldCloseOnEsc(){return false;}
 
     public void addButtons(){
         for (int i = 0; i < responses.size(); i++) {

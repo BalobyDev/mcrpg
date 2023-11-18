@@ -17,7 +17,7 @@ public class ModDataSerializers {
         }
 
         public Npc read(PacketBuffer buffer) {
-            Npc npc = new Npc(Registration.NPC_REGISTRY.get().getValue(buffer.readResourceLocation()),buffer.readUtf(),buffer.readRegistryId(),buffer.readResourceLocation());
+            Npc npc = new Npc(Registration.NPC_REGISTRY.get().getValue(buffer.readResourceLocation()),buffer.readUtf(),buffer.readRegistryId(),buffer.readResourceLocation(),buffer.readFloat());
             return npc;
         }
 

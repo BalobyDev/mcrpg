@@ -8,12 +8,16 @@ public class PronounConfig {
 
     private String subjective;
     private String objective;
-    private String possessive;
+    private String posNoun;
+    private String posAdj;
+    private String contraction;
 
-    public PronounConfig(String subjective,String objective, String possessive){
+    public PronounConfig(String subjective,String objective, String posNoun, String posAdj, String contraction){
         this.subjective = subjective;
         this.objective = objective;
-        this.possessive = possessive;
+        this.posNoun = posNoun;
+        this.posAdj = posAdj;
+        this.contraction = contraction;
 
     }
 
@@ -25,16 +29,22 @@ public class PronounConfig {
         return objective;
     }
 
-    public String getPossessive(){
-        return possessive;
+    public String getPosNoun(){
+        return posNoun;
     }
+
+    public String getPosAdj() {return posAdj;}
+
+    public String getContraction(){return contraction;}
 
     public void save(ServerPlayerEntity player){
         CompoundNBT nbt = new CompoundNBT();
         nbt.putString("sub",this.subjective);
         nbt.putString("obj",this.objective);
-        nbt.putString("pos",this.possessive);
+        nbt.putString("pos_noun",this.posNoun);
         IPlayerData playerData = player.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get();
         playerData.setPronouns(nbt);
     }
+
+
 }

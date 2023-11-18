@@ -13,6 +13,7 @@ public abstract class Move {
     public String altText;
     public Element type;
     public boolean friendly = false;
+    public boolean ranged = false;
     public Unit user;
     public Unit target;
     public int spd = 100;

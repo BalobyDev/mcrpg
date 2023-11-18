@@ -15,6 +15,7 @@ import net.baloby.mcrpg.entities.HumanoidEntity;
 import net.baloby.mcrpg.entities.models.HumanoidModel;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.quest.Quest;
+import net.baloby.mcrpg.setup.ModDimensions;
 import net.baloby.mcrpg.setup.ModEntities;
 import net.baloby.mcrpg.setup.ModSetup;
 import net.baloby.mcrpg.setup.Registration;
@@ -32,6 +33,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.client.renderer.vertex.VertexFormatElement;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -43,6 +45,7 @@ import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.DimensionType;
 import org.codehaus.plexus.util.dag.Vertex;
 import org.lwjgl.opengl.GL11;
 
@@ -50,6 +53,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DialougeGui extends Screen {
+
 
     public String name;
     public ITextComponent message;
@@ -157,8 +161,11 @@ public class DialougeGui extends Screen {
         String toAdd = "";
         for (int i = 0; i < str.length()-1; i++) {
             if(str.substring(i,i+1).equals(" ")){
-                if(toAdd.equals("PLAYERNAME")){
+                if(toAdd.equals("{PLAYERNAME}")){
                     toAdd=player.getName().getString();
+                }
+                if(toAdd.equals("{POS_ADJ}")){
+                    toAdd=player.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get().getPronouns().getString("pos_adj").toLowerCase();
                 }
                 texts.add(new StringTextComponent(toAdd));
                 toAdd = "";
@@ -175,7 +182,7 @@ public class DialougeGui extends Screen {
         ArrayList<ITextComponent> lines = new ArrayList<>();
         String str = "";
         for (int i = 0; i < words.size(); i++) {
-            if((str + words.get(i).getString()).length()<44){
+            if((str + words.get(i).getString()).length()<42){
                 str += words.get(i).getString()+" ";
             }
             else {

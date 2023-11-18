@@ -15,6 +15,7 @@ import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -37,7 +38,7 @@ import java.util.Map;
 public abstract class UniqueFeature<C extends IFeatureConfig> extends Structure<C> {
 
 
-    private HashMap<NpcType, BlockPos> npcMap = new HashMap<>();
+    private HashMap<NpcType, Vector3d> npcMap = new HashMap<>();
     protected ResourceLocation PIECE;
 
     @Override
@@ -67,17 +68,22 @@ public abstract class UniqueFeature<C extends IFeatureConfig> extends Structure<
         return "";
     }
 
-    public HashMap<NpcType, BlockPos> getNpcMap(){return npcMap;}
+    public HashMap<NpcType, Vector3d> getNpcMap(){return npcMap;}
 
-    public void addNpc(NpcType type,BlockPos pos){
+    public void addNpc(NpcType type, Vector3d pos){
         npcMap.put(type, pos);
     }
 
     public void addNpcs(ServerWorld world,BlockPos pos,Rotation rotation){
-        for (Map.Entry<NpcType,BlockPos> entry : getNpcMap().entrySet()){
+        for (Map.Entry<NpcType,Vector3d> entry : getNpcMap().entrySet()){
             Npc npc = entry.getKey().listCreate();
-            BlockPos rotationOffset = entry.getValue().rotate(rotation);
-            npc.setHome(world,pos.offset(rotationOffset));
+            Vector3d pos1 = entry.getValue();
+                if(rotation.equals(Rotation.CLOCKWISE_90)) pos1 = new Vector3d(-pos1.z(), pos1.y(), pos1.x());
+                if(rotation.equals(Rotation.CLOCKWISE_180))pos1 = new Vector3d(-pos1.x(), pos1.y(), -pos1.z());
+                if(rotation.equals(Rotation.COUNTERCLOCKWISE_90))pos1 = new Vector3d(pos1.z(), pos1.y(), -pos1.x());
+
+            Vector3d rotationOffset = pos1.add(pos.getX(),pos.getY(),pos.getZ());
+            npc.setHome(world,rotationOffset);
             npc.setDirty();
         }
     }

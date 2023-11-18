@@ -10,6 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -33,10 +34,10 @@ public class SunRootStructure extends LocationStructure {
         Building bakery = new Building(new ResourceLocation(mcrpg.MODID, "bakery"),new BlockPos(0,0,30),Rotation.NONE);
         this.addBuilding(bakery);
 
-        this.addNpc(Npcs.RANA.get(),new NpcOffset(new BlockPos(10,0,10), felinaHouse, Rotation.NONE));
-        this.addNpc(Npcs.FELINA.get(),new NpcOffset(new BlockPos(10,11,10), felinaHouse, Rotation.NONE));
-        this.addNpc(Npcs.ALEX.get(),new NpcOffset(new BlockPos(10,0,7), smithShop, Rotation.NONE));
-        this.addNpc(Npcs.GUNTER.get(),new NpcOffset(new BlockPos(9,0,7), smithShop, Rotation.NONE));
+        this.addNpc(Npcs.RANA.get(),new NpcOffset(new Vector3d(10,0,10), felinaHouse, Rotation.NONE));
+        this.addNpc(Npcs.FELINA.get(),new NpcOffset(new Vector3d(10,11,10), felinaHouse, Rotation.NONE));
+        this.addNpc(Npcs.ALEX.get(),new NpcOffset(new Vector3d(11.5,0,8.5), smithShop, Rotation.NONE));
+        this.addNpc(Npcs.GUNTER.get(),new NpcOffset(new Vector3d(9.5,0,8.5), smithShop, Rotation.NONE));
     }
 
     @Override

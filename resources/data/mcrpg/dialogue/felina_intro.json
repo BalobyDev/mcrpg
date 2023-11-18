@@ -108,13 +108,13 @@
     {
       "id": "018",
       "speaker": "mcrpg:rana",
-      "text": "I-I'm so sorry auntie! I just wanted to know if I could go with PLAYERNAME on POS_ADJ quest? I think I wanna get out of the house more! ^.^",
+      "text": "I-I'm so sorry auntie! I just wanted to know if I could go with {PLAYERNAME} on {POS_ADJ} quest? I think I wanna get out of the house more! ^.^",
       "next": "019"
     },
     {
       "id": "019",
       "speaker": "mcrpg:felina",
-      "text": "Well I can't say I love that idea. But you are an adult now so if you get POS_ADJ permission then I suppose I can't say no",
+      "text": "Well I can't say I love that idea. But you are an adult now so if you get {POS_ADJ} permission then I suppose I can't say no.",
       "responses":[
       {"text": "Yeah she can come!","next": "020","party_add": "mcrpg:rana"},
       {"text": "No.","next": "022"}

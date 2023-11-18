@@ -65,7 +65,7 @@ public class PlayerData implements IPlayerData {
     }
 
     public NpcType getPartyMember(int num){
-        return Registration.NPC_REGISTRY.get().getValue(new ResourceLocation(mcrpg.MODID,partyMembers.getString(""+num)));
+        return Registration.NPC_REGISTRY.get().getValue(new ResourceLocation(partyMembers.getString(""+num)));
     }
 
     @Override
@@ -75,13 +75,13 @@ public class PlayerData implements IPlayerData {
 
     public void addPartyMember(int num, NpcType type){
         if(num>0&&num<8&&type!=null)
-        partyMembers.putString(""+num,Registration.NPC_REGISTRY.get().getKey(type).getPath());
+        partyMembers.putString(""+num,type.getRegistryName().toString());
     }
 
     public void addPartyMember(NpcType type){
         for (int i = 1; i < 8; i++) {
             if(partyMembers.contains(""+i)){
-                if(partyMembers.getString(""+i).equalsIgnoreCase(Registration.NPC_REGISTRY.get().getKey(type).getPath()))return;
+                if(partyMembers.getString(""+i).equalsIgnoreCase(type.getRegistryName().toString()))return;
             }
         }
         for (int i = 1; i < 8; i++) {
@@ -106,14 +106,14 @@ public class PlayerData implements IPlayerData {
         for(String key : availableMoves.getAllKeys()){
             i++;
         }
-        availableMoves.putString(i+"",type.getRegistryName().getPath());
+        availableMoves.putString(i+"",type.getRegistryName().toString());
     }
 
     @Override
     public void addMove(MoveType type) {
         for (int i = 1; i < 8; i++) {
             if(moveSet.contains(""+i)){
-                if(moveSet.getString(""+i).equalsIgnoreCase(Registration.MOVE_REGISTRY.get().getKey(type).getPath()))return;
+                if(moveSet.getString(""+i).equalsIgnoreCase(type.getRegistryName().toString()))return;
             }
         }
 
@@ -133,7 +133,7 @@ public class PlayerData implements IPlayerData {
     @Override
     public void addMove(int num, MoveType type){
         if(num>0&&num<8&&type!=null)
-            moveSet.putString(""+num,Registration.MOVE_REGISTRY.get().getKey(type).getPath());
+            moveSet.putString(""+num,type.getRegistryName().toString());
     }
 
     @Override
@@ -145,7 +145,7 @@ public class PlayerData implements IPlayerData {
     public void setPartyMembers(HashMap<Integer, Profile> partyMembers) {
         for (Map.Entry<Integer, Profile> entry:partyMembers.entrySet()){
             if(entry.getValue()instanceof NpcProfile){
-                this.partyMembers.putString(entry.getKey()+"",Registration.NPC_REGISTRY.get().getKey(((NpcProfile) entry.getValue()).type).getPath());
+                this.partyMembers.putString(entry.getKey()+"",((NpcProfile) entry.getValue()).npc.getType().getRegistryName().toString());
             }
         }
     }
@@ -179,7 +179,6 @@ public class PlayerData implements IPlayerData {
     @Override
     public void setQuests(CompoundNBT nbt) {
         this.quests = nbt;
-
     }
 
     @Override
@@ -206,7 +205,7 @@ public class PlayerData implements IPlayerData {
     @Override
     public void setMoves(HashMap<Integer, MoveType> moves) {
         for(Map.Entry<Integer, MoveType> entry : moves.entrySet()){
-            this.moveSet.putString(""+entry.getKey(),entry.getValue().getRegistryName().getPath());
+            this.moveSet.putString(""+entry.getKey(),entry.getValue().getRegistryName().toString());
         }
     }
 

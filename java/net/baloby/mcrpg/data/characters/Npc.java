@@ -20,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -51,7 +52,7 @@ public class Npc {
     private ResourceLocation dialogueIndex;
     private EntityType entityType;
     private DialogueInsert dialogueInsert;
-    protected BlockPos homePos;
+    protected Vector3d homePos;
     protected ServerWorld homeWorld;
     public boolean isAddedToWorld;
     public SoundEvent hurtSound;
@@ -75,6 +76,11 @@ public class Npc {
         this.dialogueTree = new DialogueTree();
         this.isAddedToWorld = false;
         this.dialogueTree = new DialogueTree();
+    }
+
+    public Npc(NpcType<?> type, String name, EntityType entityType, ResourceLocation skin,float size){
+        this(type, name, entityType, skin);
+        this.size = size;
     }
 
     public void addToList(){
@@ -111,7 +117,7 @@ public class Npc {
 
 
     public Entity spawnAtHome(ServerWorld world){
-        Entity entity = spawnLoad(world,new Vector3d(homePos.getX(),homePos.getY(),homePos.getZ()));
+        Entity entity = spawnLoad(world,new Vector3d(homePos.x(),homePos.y(),homePos.z()));
         this.isAddedToWorld = true;
         return entity;
     }
@@ -120,8 +126,8 @@ public class Npc {
 
     public Entity spawnLoad(ServerWorld world, Vector3d pos){
         CompoundNBT nbt = world.getServer().getLevel(world.OVERWORLD).getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts();
-        if(nbt.contains(type.getRegistryName().getPath())){
-        load((CompoundNBT) nbt.get(type.getRegistryName().getPath()));}
+        if(nbt.contains(type.getRegistryName().toString())){
+        load((CompoundNBT) nbt.get(type.getRegistryName().toString()));}
         return spawn(world,pos);
     }
 
@@ -135,7 +141,7 @@ public class Npc {
         }
     }
 
-    public void setHome(ServerWorld world, BlockPos pos){
+    public void setHome(ServerWorld world, Vector3d pos){
         this.homeWorld = world;
         this.homePos = pos;
     }
@@ -145,7 +151,7 @@ public class Npc {
 
     }
 
-    public BlockPos getHomePos(){
+    public Vector3d getHomePos(){
         return homePos;
     }
 
@@ -161,7 +167,11 @@ public class Npc {
 
     public CompoundNBT save(){
         CompoundNBT nbt = new CompoundNBT();
-        if(homePos!=null)nbt.putIntArray("homePos",new int[]{homePos.getX(), homePos.getY(), homePos.getZ()});
+        CompoundNBT homeNbt = new CompoundNBT();
+        if(homePos!=null)nbt.put("homePos",homeNbt);
+        homeNbt.putDouble("x",homePos.x());
+        homeNbt.putDouble("y",homePos.y());
+        homeNbt.putDouble("z",homePos.z());
 
         if(item!=null)nbt.put("item", item.serializeNBT());
         if(dialogueIndex!=null) nbt.putString("dialogue_index", dialogueIndex.toString());
@@ -196,11 +206,11 @@ public class Npc {
     public void load(CompoundNBT nbt){
         if(nbt==null)return;
         if(nbt.contains("homePos")) {
-            int[] array = nbt.getIntArray("homePos");
-            int x = array[0];
-            int y = array[1];
-            int z = array[2];
-            homePos = new BlockPos(x, y, z);
+            CompoundNBT home = nbt.getCompound("homePos");
+            double x = home.getDouble("x");
+            double y = home.getDouble("y");
+            double z = home.getDouble("z");
+            homePos = new Vector3d(x, y, z);
         }
         dialogueIndex = new ResourceLocation(nbt.getString("dialogue_index"));
         dialogueInsert = new DialogueInsert(

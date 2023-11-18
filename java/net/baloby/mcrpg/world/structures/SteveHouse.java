@@ -14,6 +14,7 @@ import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.biome.Biome;
@@ -34,7 +35,7 @@ public class SteveHouse extends UniqueFeature {
     public SteveHouse() {
         super(NoFeatureConfig.CODEC);
         this.PIECE = new ResourceLocation(mcrpg.MODID,"steve_house");
-        this.addNpc(Npcs.STEVE.get(), new BlockPos(7,1,5));
+        this.addNpc(Npcs.STEVE.get(), new Vector3d(7,1,5));
     }
 
 

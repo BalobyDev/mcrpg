@@ -13,10 +13,10 @@ import net.minecraft.world.gen.WorldGenRegion;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 
-public class CutsceneChunkGenerator extends ChunkGenerator {
+public class StageChunkGenerator extends ChunkGenerator {
 
     public static final Codec SETTINGS_CODEC = ArenaChunkGenerator.SETTINGS_CODEC;
-    public CutsceneChunkGenerator(BiomeProvider p_i231888_1_) {
+    public StageChunkGenerator(BiomeProvider p_i231888_1_) {
         super(p_i231888_1_, new DimensionStructuresSettings(false));
     }
 

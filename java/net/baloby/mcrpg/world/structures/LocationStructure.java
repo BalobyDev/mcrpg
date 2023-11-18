@@ -12,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -46,11 +47,13 @@ public abstract class LocationStructure extends UniqueFeature{
         this.positions.put(npc,offset);
     }
 
-    public void addNpcs(ServerWorld world, BlockPos pos, Rotation rotation){
+    public void addNpcs(ServerWorld world, Vector3d pos, Rotation rotation){
         for (Map.Entry<NpcType,NpcOffset> entry : getPositions().entrySet()){
             Npc npc = entry.getKey().listCreate();
-            BlockPos rotationOffset = entry.getValue().getBuilding().getPos().offset(entry.getValue().getPos().rotate(rotation));
-            npc.setHome(world,pos.offset(rotationOffset));
+            entry.getValue().rotatePos(rotation);
+            BlockPos building = entry.getValue().getBuilding().getPos();
+            Vector3d rotationOffset = (entry.getValue().getPos()).add(building.getX(),building.getY(),building.getZ());
+            npc.setHome(world,pos.add(rotationOffset.x(),rotationOffset.y(),rotationOffset.z()));
             npc.setDirty();
         }
     }
@@ -93,7 +96,8 @@ public abstract class LocationStructure extends UniqueFeature{
                     Npc npc = entry.getKey().listCreate();
                     BlockPos rotationOffset = entry.getValue().getBuilding().getPos().rotate(entry.getValue().getBuilding().getRotation()).offset(pos);
                     BlockPos newPos = new BlockPos(rotationOffset.getX(),generator.getBaseHeight(rotationOffset.getX(),rotationOffset.getZ(),this.height), rotationOffset.getZ());
-                    npc.setHome(world,entry.getValue().getPos().rotate(entry.getValue().getBuilding().getRotation()).offset(newPos).offset(0,1,0));
+                    entry.getValue().rotatePos(entry.getValue().getBuilding().getRotation());
+                    npc.setHome(world,entry.getValue().getPos().add(newPos.getX(),newPos.getY(),newPos.getZ()));
                     npc.setDirty(true);
                 }
             }

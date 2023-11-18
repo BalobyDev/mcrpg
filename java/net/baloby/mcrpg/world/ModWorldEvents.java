@@ -115,10 +115,8 @@ public class ModWorldEvents {
         if(event.player instanceof ServerPlayerEntity){
             for (Npc npc : Npc.allNpcs){
                 if(npc.getHomePos()!=null && !npc.isAddedToWorld()){
-                    if(Math.abs((int) event.player.position().x-npc.getHomePos().getX())<32&&Math.abs((int) event.player.position().z-npc.getHomePos().getZ())<32) {
+                    if(Math.abs((int) event.player.position().x-npc.getHomePos().x())<32&&Math.abs((int) event.player.position().z-npc.getHomePos().z())<32) {
                         ((ServerPlayerEntity) event.player).getLevel().getServer().submitAsync(()->{npc.spawnAtHome(((ServerPlayerEntity) event.player).getLevel());});
-
-
                         }
                     }
                 }

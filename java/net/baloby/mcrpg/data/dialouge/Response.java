@@ -33,7 +33,8 @@ public class Response {
             ResourceLocation.CODEC.optionalFieldOf("dialogue").forGetter(Response::getDialogue),
             ResourceLocation.CODEC.optionalFieldOf("shop").forGetter(Response::getShop),
             ResourceLocation.CODEC.optionalFieldOf("party_add").forGetter(Response::getPartyAdd),
-            QuestCheck.CODEC.optionalFieldOf("quest_check").forGetter(Response::getQuestCheck)
+            QuestCheck.CODEC.optionalFieldOf("quest_check").forGetter(Response::getQuestCheck),
+            Swap.CODEC.optionalFieldOf("swap").forGetter(Response::getSwap)
     ).apply(instance, Response::new));
 
 
@@ -47,12 +48,13 @@ public class Response {
     private Optional<ResourceLocation> shop;
     private Optional<ResourceLocation> partyAdd;
     private Optional<QuestCheck> questCheck;
+    private Optional<Swap> swap;
     public DialogueChain chain;
     public DialogueInstance instance;
 
     public Response(String text, Optional<String> next, Optional<ResourceLocation> quest, Optional<ResourceLocation> nextDialogue,
                     Optional<ResourceLocation> insertDialogue, Optional<DialogueInsert> nextInsert, Optional<ResourceLocation> dialogue,
-                    Optional<ResourceLocation> shop, Optional<ResourceLocation> partyAdd, Optional<QuestCheck> questCheck){
+                    Optional<ResourceLocation> shop, Optional<ResourceLocation> partyAdd, Optional<QuestCheck> questCheck, Optional<Swap> swap){
         this.text = text;
         this.next = next;
         this.quest = quest;
@@ -63,6 +65,7 @@ public class Response {
         this.shop = shop;
         this.partyAdd = partyAdd;
         this.questCheck = questCheck;
+        this.swap = swap;
     }
 
     public void select(ServerPlayerEntity player){
@@ -76,13 +79,13 @@ public class Response {
                 Npc npc = Registration.NPC_REGISTRY.get().getValue(this.instance.getNpc()).create();
                 INpcData npcData = player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get();
                 CompoundNBT nbt = npcData.getNbts();
-                npc.load((CompoundNBT) nbt.get(npc.getType().getRegistryName().getPath()));
+                npc.load((CompoundNBT) nbt.get(npc.getType().getRegistryName().toString()));
                 npc.setDialogueIndex(questCheck.get().getPassNextDialogue());
-                npcData.saveNpc(npc);
-                npcData.loadNpcs();
                 if(questCheck.get().getInsert().isPresent()){
                     this.nextInsert = questCheck.get().getInsert();
                 }
+                npcData.saveNpc(npc);
+                npcData.loadNpcs();
 
             }
         } else if (shop.isPresent()) {
@@ -99,7 +102,7 @@ public class Response {
             Npc npc = Registration.NPC_REGISTRY.get().getValue(this.instance.getNpc()).create();
             INpcData npcData = player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get();
             CompoundNBT nbt = npcData.getNbts();
-            npc.load((CompoundNBT) nbt.get(npc.getType().getRegistryName().getPath()));
+            npc.load((CompoundNBT) nbt.get(npc.getType().getRegistryName().toString()));
             npc.setDialogueIndex(nextDialogue.get());
             npcData.saveNpc(npc);
             npcData.loadNpcs();
@@ -116,18 +119,19 @@ public class Response {
             Npc npc = Registration.NPC_REGISTRY.get().getValue(instance.getNpc()).create();
             INpcData npcData = player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get();
             CompoundNBT nbt = npcData.getNbts();
-            npc.load((CompoundNBT) nbt.get(nextInsert.get().getNpc().getPath()));
+            npc.load((CompoundNBT) nbt.get(nextInsert.get().getNpc().toString()));
             npc.setDialogueInsert(nextInsert.get());
             npcData.saveNpc(npc);
             npcData.loadNpcs();
         }
 
         if(insertDialogue.isPresent()){
-            CompoundNBT nbt = player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts().getCompound(insertDialogue.get().getPath()).getCompound("insert");
+            CompoundNBT nbt = player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts().getCompound(insertDialogue.get().toString()).getCompound("insert");
             ResourceLocation location = new ResourceLocation(nbt.getString("dialogue"));
             Map<ResourceLocation, DialogueChain> map = ModSetup.DIALOGUE_MANAGER.data;
             if(map.containsKey(location)) map.get(location).start(player);
         }
+
 
     }
 
@@ -153,5 +157,9 @@ public class Response {
 
     public Optional<ResourceLocation> getDialogue() {
         return dialogue;
+    }
+
+    public Optional<Swap> getSwap() {
+        return swap;
     }
 }

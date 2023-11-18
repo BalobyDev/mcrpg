@@ -60,7 +60,7 @@ public abstract class Profile {
 
     public static NpcProfile fromNpc(NpcType type, ServerPlayerEntity player){
         BattleNpc npc = (BattleNpc) type.create();
-        CompoundNBT nbt = player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts().getCompound(type.getRegistryName().getPath());
+        CompoundNBT nbt = player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get().getNbts().getCompound(type.getRegistryName().toString());
         npc.load(nbt);
         return new NpcProfile(player,npc);
     }

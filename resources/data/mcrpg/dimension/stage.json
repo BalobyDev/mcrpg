@@ -1,11 +1,11 @@
 {
-  "type": "mcrpg:stage",
+  "type": "mcrpg:overworld_arena",
   "generator": {
-    "type": "minecraft:flat",
+    "type": "mcrpg:stage_generator",
     "settings": {
       "base": 65,
       "verticalvariance": 16,
-      "biome": "minecraft:mushroom_fields",
+      "biome": "mcrpg:overworld_stage_biome",
       "horizontalvariance": 10
     }
   }

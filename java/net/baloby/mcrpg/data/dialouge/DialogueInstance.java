@@ -40,7 +40,6 @@ public class DialogueInstance implements IDialogueElement  {
                     ResourceLocation.CODEC.listOf().optionalFieldOf("party_present").forGetter(DialogueInstance::getPartyPresent),
                     ResourceLocation.CODEC.listOf().optionalFieldOf("party_absent").forGetter(DialogueInstance::getPartyAbsent),
                     ResourceLocation.CODEC.listOf().optionalFieldOf("shop_update").forGetter(DialogueInstance::getPartyAbsent),
-
                     Swap.CODEC.optionalFieldOf("swap").forGetter(DialogueInstance::getSwap),
                     DialogueSet.CODEC.optionalFieldOf("set").forGetter(DialogueInstance::getSet))
             .apply(instance,DialogueInstance::new));
@@ -77,7 +76,7 @@ public class DialogueInstance implements IDialogueElement  {
             Npc npc = Registration.NPC_REGISTRY.get().getValue(set.get().getNpc()).create();
             INpcData npcData = player.getServer().overworld().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get();
             CompoundNBT nbt = npcData.getNbts();
-            npc.load((CompoundNBT) nbt.get(npc.getType().getRegistryName().getPath()));
+            npc.load((CompoundNBT) nbt.get(npc.getType().getRegistryName().toString()));
             npc.setDialogueIndex(set.get().getDialogue());
             npcData.saveNpc(npc);
             npcData.loadNpcs();

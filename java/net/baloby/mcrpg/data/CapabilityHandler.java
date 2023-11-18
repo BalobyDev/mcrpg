@@ -46,7 +46,7 @@ public class CapabilityHandler {
         Minecraft.getInstance().submitAsync(()->{
             INpcData charProfile = event.getObject().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get();
             for(String str : charProfile.getNbts().getAllKeys()){
-                Npc npc = Registration.NPC_REGISTRY.get().getValue(new ResourceLocation(mcrpg.MODID,str)).listCreate();
+                Npc npc = Registration.NPC_REGISTRY.get().getValue(new ResourceLocation(str)).listCreate();
                 npc.load((CompoundNBT) charProfile.getNbts().get(str));
            }
 

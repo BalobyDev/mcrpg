@@ -22,7 +22,7 @@ public class Gaurd extends Move{
     public Gaurd() {
         super(new StringTextComponent("Gaurd"));
         addItem(Items.SHIELD,20);
-        addItem(ModItems.IRONSHIELD.get(),50);
+        addItem(ModItems.IRON_SHIELD.get(),50);
     }
 
     public void execute(Unit user, Unit target){

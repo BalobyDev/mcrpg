@@ -5,7 +5,6 @@ import com.mojang.serialization.Lifecycle;
 import net.baloby.mcrpg.setup.ModDimensions;
 import net.baloby.mcrpg.tools.Teleport;
 import net.baloby.mcrpg.world.ArenaChunkGenerator;
-import net.baloby.mcrpg.world.CutsceneChunkGenerator;
 import net.baloby.mcrpg.world.ModWorldEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;

@@ -4,12 +4,12 @@
       "id": "000",
       "speaker": "mcrpg:rana",
       "text": "I can't wait to get back from our quest, then we can make friendship bracelets together!!! ^_^",
-      "next": "002"
+      "next": "001"
     },
     {
       "id": "001",
       "speaker": "mcrpg:rana",
-      "text": "Unless we happen to become super-duper best bffs forever on the trip, then we can knit matching sweaters instead!"
+      "text": "Unless we happen to become super-duper best bffs forever on the trip, then we can knit each other matching sweaters instead!"
     }
   ]
 }

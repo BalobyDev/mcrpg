@@ -94,7 +94,7 @@ public class RpgEventHandler {
                 ServerPlayerEntity player = (ServerPlayerEntity) e;
                 IPlayerData data = player.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get();
                 if(!(data.getPronouns().contains("sub")&&data.getPronouns().contains("obj")&&data.getPronouns().contains("pos"))){
-                    PronounSelectScreen.open(player);
+
                 }
             }
         }

@@ -7,6 +7,7 @@
       "verticalvariance": 16,
       "horizontalvariance": 10,
       "arena": "mcrpg:cave_arena",
+      "biome": "mcrpg:overworld_stage_biome",
       "xoffset": 0,
       "zoffset": 0
     }

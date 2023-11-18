@@ -34,7 +34,7 @@
           "dialogue": "mcrpg:felina_blaze_rods",
           "response": "About those blaze rods!"
         }},
-        {"text": "No I'm too scared!"}
+        {"text": "No I'm too scared!","next": "007"}
       ]
     },
     {
@@ -58,6 +58,7 @@
       "id": "008",
       "speaker": "mcrpg:felina",
       "text": "The nether is a really dangerous place and I didn't like the idea of you taking rana there anyways.",
+      "party_present": "mcrpg:rana",
       "next": "009"
     },
     {

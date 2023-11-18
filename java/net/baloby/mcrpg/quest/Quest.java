@@ -3,11 +3,13 @@ package net.baloby.mcrpg.quest;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.baloby.mcrpg.data.PlayerCapabilityProvider;
+import net.baloby.mcrpg.data.dialouge.ShopAdd;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
+import java.util.List;
 import java.util.Optional;
 
 public class Quest {
@@ -18,6 +20,7 @@ public class Quest {
     private Status status;
     private Optional<ItemRequirement> itemRequirement;
     private Optional<ItemReward> itemReward;
+    private Optional<List<ShopAdd>> shopAdds;
     private ResourceLocation resourceLocation;
 
     public static final Codec<Quest> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -25,21 +28,23 @@ public class Quest {
             Codec.STRING.fieldOf("title").forGetter(Quest::getTitle),
             Codec.STRING.fieldOf("description").forGetter(Quest::getDescription),
             ItemRequirement.CODEC.optionalFieldOf("item_requirement").orElseGet(Optional::empty).forGetter(Quest::getItemRequirement),
-            ItemReward.CODEC.optionalFieldOf("item_reward").orElseGet(Optional::empty).forGetter(Quest::getItemReward)
+            ItemReward.CODEC.optionalFieldOf("item_reward").orElseGet(Optional::empty).forGetter(Quest::getItemReward),
+            ShopAdd.CODEC.listOf().optionalFieldOf("shop_add").forGetter(Quest::getShopAdds)
     ).apply(instance,Quest::new));
 
 
-    public Quest(String id,String title, String description, Optional<ItemRequirement> itemRequirement, Optional<ItemReward> itemReward){
+    public Quest(String id,String title, String description, Optional<ItemRequirement> itemRequirement, Optional<ItemReward> itemReward,Optional<List<ShopAdd>> shopAdds){
         this.id = id;
         this.title = title;
         this.description = description;
         this.itemRequirement = itemRequirement;
         this.itemReward = itemReward;
         this.status = Status.LOCKED;
+        this.shopAdds = shopAdds;
     }
 
     public Quest copy(){
-        Quest quest = new Quest(this.id,this.title,this.description,this.itemRequirement,this.itemReward);
+        Quest quest = new Quest(this.id,this.title,this.description,this.itemRequirement,this.itemReward,this.shopAdds);
         return quest;
     }
 
@@ -98,5 +103,9 @@ public class Quest {
 
     public void setResourceLocation(ResourceLocation resourceLocation) {
         this.resourceLocation = resourceLocation;
+    }
+
+    public Optional<List<ShopAdd>> getShopAdds() {
+        return shopAdds;
     }
 }

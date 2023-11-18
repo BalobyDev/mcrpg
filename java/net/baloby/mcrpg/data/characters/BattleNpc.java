@@ -106,7 +106,7 @@ public class BattleNpc extends Npc implements INamedContainerProvider {
         CompoundNBT moves = new CompoundNBT();
         for (int i = 0; i < moveSet.size(); i++) {
             if(moveSet.get(i)!=null) {
-                moves.putString("" + i, Registration.MOVE_REGISTRY.get().getKey(moveSet.get(i)).getPath());
+                moves.putString("" + i, moveSet.get(i).getRegistryName().toString());
             }
         }
         nbt.put("moveset",moves);
@@ -130,7 +130,7 @@ public class BattleNpc extends Npc implements INamedContainerProvider {
         HashMap<Integer,MoveType> movelist = new HashMap<>();
         for (int i = 0; i < 8; i++) {
             if(moves.contains(""+i)){
-                movelist.put(i,Registration.MOVE_REGISTRY.get().getValue(new ResourceLocation(mcrpg.MODID,moves.getString(""+i))));
+                movelist.put(i,Registration.MOVE_REGISTRY.get().getValue(new ResourceLocation(moves.getString(""+i))));
             }
         }
         this.moveSet = movelist;

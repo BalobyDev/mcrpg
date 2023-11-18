@@ -26,6 +26,7 @@ public class ItemReward {
 
     public ItemReward(ResourceLocation item, Optional<List<Enchantment>> enchantments, Optional<Integer> amount){
         this.item = item;
+        this.enchantments = enchantments;
         this.amount = 1;
         if(amount.isPresent()){
             this.amount = amount.get();

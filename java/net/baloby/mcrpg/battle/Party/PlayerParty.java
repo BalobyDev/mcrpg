@@ -44,7 +44,7 @@ public class PlayerParty extends Party{
         IPlayerData profile = this.player.profile;
         for (int i = 0; i < 3; i++) {
             if(profile.getPartyMembers().contains(""+(i+1))){
-                NpcType npcType = Registration.NPC_REGISTRY.get().getValue(new ResourceLocation(mcrpg.MODID, profile.getPartyMembers().getString(""+(i+1))));
+                NpcType npcType = Registration.NPC_REGISTRY.get().getValue(new ResourceLocation(profile.getPartyMembers().getString(""+(i+1))));
                 addMember(new NpcUnit((BattleNpc) npcType.listCreate()));}
         }
         for(Unit unit : active){

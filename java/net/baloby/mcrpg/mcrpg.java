@@ -10,8 +10,8 @@ import net.baloby.mcrpg.network.RpgNetwork;
 import net.baloby.mcrpg.setup.ModEntities;
 import net.baloby.mcrpg.world.ArenaBiomeProvider;
 import net.baloby.mcrpg.world.ArenaChunkGenerator;
-import net.baloby.mcrpg.world.CutsceneChunkGenerator;
 import net.baloby.mcrpg.world.RpgNoiseGenerator;
+import net.baloby.mcrpg.world.StageChunkGenerator;
 import net.baloby.mcrpg.world.structures.ModStructures;
 import net.baloby.mcrpg.setup.Registration;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
@@ -53,12 +53,10 @@ public class mcrpg
             GlobalEntityTypeAttributes.put(ModEntities.VILER_WITCH.get(), ModEntities.setCustomAttributes(3,30).build());
 
             ModStructures.setupStructures();
-            Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(mcrpg.MODID, "arenagen"),
+            Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(mcrpg.MODID, "arena_generator"),
                     ArenaChunkGenerator.CODEC);
-            Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(mcrpg.MODID,"cutscenegen"),
-                    CutsceneChunkGenerator.CODEC);
-            Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation("wew"),
-                    RpgNoiseGenerator.CODEC);
+            Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(mcrpg.MODID,"stage_generator"),
+                    StageChunkGenerator.CODEC);
             Registry.register(Registry.BIOME_SOURCE, new ResourceLocation(mcrpg.MODID, "biomes"),
                     ArenaBiomeProvider.CODEC);
             CapabilityManager.INSTANCE.register(IPlayerData.class, new PlayerStorage(), PlayerData::new);
