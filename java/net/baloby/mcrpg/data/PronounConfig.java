@@ -11,13 +11,15 @@ public class PronounConfig {
     private String posNoun;
     private String posAdj;
     private String contraction;
+    private String reflexive;
 
-    public PronounConfig(String subjective,String objective, String posNoun, String posAdj, String contraction){
+    public PronounConfig(String subjective,String objective, String posNoun, String posAdj, String contraction, String reflexive){
         this.subjective = subjective;
         this.objective = objective;
         this.posNoun = posNoun;
         this.posAdj = posAdj;
         this.contraction = contraction;
+        this.reflexive = reflexive;
 
     }
 
@@ -37,6 +39,10 @@ public class PronounConfig {
 
     public String getContraction(){return contraction;}
 
+    public String getReflexive() {
+        return reflexive;
+    }
+
     public void save(ServerPlayerEntity player){
         CompoundNBT nbt = new CompoundNBT();
         nbt.putString("sub",this.subjective);
@@ -45,6 +51,7 @@ public class PronounConfig {
         IPlayerData playerData = player.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get();
         playerData.setPronouns(nbt);
     }
+
 
 
 }

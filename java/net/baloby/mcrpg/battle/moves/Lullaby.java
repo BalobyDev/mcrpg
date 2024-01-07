@@ -9,6 +9,7 @@ public class Lullaby extends AilmentInflictingMove{
 
     public Lullaby() {
         super(new StringTextComponent("Lullaby"), new StringTextComponent("Puts one enemy to sleep"),50);
+        this.cost = 2;
     }
 
     @Override

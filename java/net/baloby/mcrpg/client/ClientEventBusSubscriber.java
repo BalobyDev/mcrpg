@@ -40,6 +40,7 @@ public class ClientEventBusSubscriber {
     public static NewFPRenderer fpRenderer = new NewFPRenderer(Minecraft.getInstance());
     public static void init(final FMLClientSetupEvent event) {
 
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CORPSE.get(), CorpseRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CULTIST.get(), (EntityRendererManager manager1) -> new CodRenderer(manager1));
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.HUMANOID.get(), manager -> {

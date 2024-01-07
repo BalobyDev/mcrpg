@@ -5,7 +5,6 @@
     "settings": {
       "base": 65,
       "verticalvariance": 16,
-      "biome": "mcrpg:overworld_stage_biome",
       "horizontalvariance": 10
     }
   }

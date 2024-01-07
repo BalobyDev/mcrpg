@@ -22,6 +22,7 @@ public class DialogueInstance implements IDialogueElement  {
     private String text;
     private String next;
     private Optional<ResourceLocation> questComplete;
+    private Optional<ResourceLocation> voice;
     private Optional<List<Response>> responses;
     private Optional<List<ResourceLocation>> partyPresent;
     private Optional<List<ResourceLocation>> partyAbsent;
@@ -33,6 +34,7 @@ public class DialogueInstance implements IDialogueElement  {
                     Codec.STRING.fieldOf("id").forGetter(DialogueInstance::getId),
                     ResourceLocation.CODEC.fieldOf("speaker").forGetter(DialogueInstance::getNpc),
                     ResourceLocation.CODEC.optionalFieldOf("quest_complete").forGetter(DialogueInstance::getQuestComplete),
+                    ResourceLocation.CODEC.optionalFieldOf("voice").forGetter(DialogueInstance::getVoice),
                     Codec.STRING.fieldOf("text").forGetter(DialogueInstance::getMessage),
                     Codec.STRING.optionalFieldOf("next").orElseGet(Optional::empty).forGetter((generator -> {
                         return Optional.of(generator.getNext());})),
@@ -45,7 +47,9 @@ public class DialogueInstance implements IDialogueElement  {
             .apply(instance,DialogueInstance::new));
 
 
-    public DialogueInstance(String id, ResourceLocation npc, Optional<ResourceLocation> questComplete, String text, Optional<String> next, Optional<List<Response>> responses,
+
+
+    public DialogueInstance(String id, ResourceLocation npc, Optional<ResourceLocation> questComplete, Optional<ResourceLocation> voice, String text, Optional<String> next, Optional<List<Response>> responses,
                             Optional<List<ResourceLocation>> partyPresent, Optional<List<ResourceLocation>> partyAbsent, Optional<List<ResourceLocation>> shopUpdate,
                             Optional<Swap> swap, Optional<DialogueSet> set){
         this.id = id;
@@ -110,6 +114,8 @@ public class DialogueInstance implements IDialogueElement  {
     public Optional<ResourceLocation> getQuestComplete() {
         return questComplete;
     }
+
+    private Optional<ResourceLocation> getVoice() {return voice;}
 
     public Optional<List<ResourceLocation>> getPartyPresent(){return partyPresent;}
 

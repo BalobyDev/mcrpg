@@ -23,6 +23,6 @@ public class Chicken extends AilmentInflictingMove{
     @Override
     public void execute(Unit user, Unit target){
         super.execute(user, target);
-        target.spawn(EntityType.CHICKEN);
+        target.setUpEntity(target.spawn(EntityType.CHICKEN));
     }
 }

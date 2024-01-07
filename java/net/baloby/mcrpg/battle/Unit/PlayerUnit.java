@@ -97,7 +97,7 @@ public class PlayerUnit extends Unit{
         CompoundNBT moves = this.profile.getMoves();
         for (int i = 0; i < 8; i++) {
             if(moves.contains(""+i)){
-                moveSet.add(Registration.MOVE_REGISTRY.get().getValue(new ResourceLocation(mcrpg.MODID,moves.getString(""+i))).create());
+                moveSet.add(Registration.MOVE_REGISTRY.get().getValue(new ResourceLocation(moves.getString(""+i))).create());
             }
         }
     }

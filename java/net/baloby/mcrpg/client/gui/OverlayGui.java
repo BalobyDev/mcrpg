@@ -57,7 +57,6 @@ public class OverlayGui extends AbstractGui implements IRenderable {
         Battle battle = Battle.instance;
         RenderSystem.color4f(1,1,1,1);
         for (int i = 0; i<battle.playerParty.members.size(); i++){
-
             renderBars(event.getMatrixStack(),battle.playerParty.members.get(i));
             renderFace(event.getMatrixStack(),battle.playerParty.members.get(i));
         }
@@ -124,9 +123,9 @@ public class OverlayGui extends AbstractGui implements IRenderable {
                 this.blit(matrixStack, width - 55, y + 3, 0, 17, currentHealth + 1, 5);
             }
             this.blit(matrixStack, width-55, y + 11, 0, 12, currentMp + 1, 5);
-            drawString(matrixStack, mc.font, (int) unit.HP + "", width-70, y + 2, 16777215);
-            drawString(matrixStack, mc.font, (int) unit.MP + "", width-70, y + 11, 16777215);
-    }
+                drawString(matrixStack, mc.font, (int) unit.HP + "", width-70, y + 2, 16777215);
+                drawString(matrixStack, mc.font, (int) unit.MP + "", width-70, y + 11, 16777215);
+            }
 
     public void renderFace(MatrixStack matrixStack, Unit unit){
         Minecraft mc = Minecraft.getInstance();

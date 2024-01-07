@@ -15,13 +15,13 @@ public class ModBiomes {
                     .generationSettings(BiomeGenerationSettings.EMPTY)
                     .build());
 
-    public static RegistryObject<Biome> OVERWORLD_STAGE_BIOME = Registration.BIOMES.register("overworld_stage_biome",()->
-            new Biome.Builder().precipitation(Biome.RainType.NONE).biomeCategory(Biome.Category.NETHER).depth(0.1f)
-                    .scale(0.1f).temperature(0.2f).downfall(0.0f)
-                    .specialEffects((new BiomeAmbience.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392).skyColor(calculateSkyColor(0.8f)).build())
-                    .mobSpawnSettings(MobSpawnInfo.EMPTY)
-                    .generationSettings(BiomeGenerationSettings.EMPTY)
-                    .build());
+//    public static RegistryObject<Biome> OVERWORLD_STAGE_BIOME = Registration.BIOMES.register("overworld_stage_biome",()->
+//            new Biome.Builder().precipitation(Biome.RainType.NONE).biomeCategory(Biome.Category.NETHER).depth(0.1f)
+//                    .scale(0.1f).temperature(0.2f).downfall(0.0f)
+//                    .specialEffects((new BiomeAmbience.Builder()).waterColor(4159204).waterFogColor(329011).fogColor(3344392).skyColor(calculateSkyColor(0.8f)).build())
+//                    .mobSpawnSettings(MobSpawnInfo.EMPTY)
+//                    .generationSettings(BiomeGenerationSettings.EMPTY)
+//                    .build());
 
 
     private static int calculateSkyColor(float p_244206_0_) {

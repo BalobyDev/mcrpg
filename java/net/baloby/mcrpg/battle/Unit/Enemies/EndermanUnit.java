@@ -26,7 +26,6 @@ public class EndermanUnit extends Unit {
     @Override
     public MobEntity spawn(EntityType type){
         MobEntity e = new NewEndermanEntity(EntityType.ENDERMAN, arena);
-
         return e;
     }
 }

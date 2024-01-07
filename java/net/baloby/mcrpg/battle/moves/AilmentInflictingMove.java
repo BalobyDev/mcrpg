@@ -16,12 +16,13 @@ public class AilmentInflictingMove extends Move{
     public AilmentInflictingMove(ITextComponent name, ITextComponent desc,int chance) {
         super(name, desc);
         this.chance = chance;
+        this.type = Element.AILMENT;
     }
     protected Ailment createAilment(){return new PoisonAilment();}
 
     public void trySetAilment(Unit target, Ailment ailment){
         Random random = new Random(100);
-        if(random.nextInt()>chance||target.getAilment()!=null){
+        if(random.nextInt()<chance||target.getAilment()!=null){
             target.miss();
             return;
         }

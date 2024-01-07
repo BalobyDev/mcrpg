@@ -49,7 +49,7 @@ public class HumanoidEntity extends MobEntity {
         this(ModEntities.HUMANOID.get(), world);
     }
     public HumanoidEntity(EntityType<? extends HumanoidEntity> entityEntityType, World world) {
-        this(entityEntityType,world,new Npc());
+        this(entityEntityType,world, new Npc());
     }
 
     public HumanoidEntity(EntityType<? extends HumanoidEntity> p_i48553_1_, World world, Npc character){
@@ -80,7 +80,6 @@ public class HumanoidEntity extends MobEntity {
         super.defineSynchedData();
         this.entityData.define(NPC_DATA, new Npc());
     }
-
 
     @Override
     protected void registerGoals(){

@@ -2,11 +2,11 @@ package net.baloby.mcrpg.battle.ailments;
 
 public class ChickenAilment extends ActionPreventAilment{
     public ChickenAilment() {
-        super("Chicken", 100);
+        super("Chicken", 0);
     }
 
     public String getTextToShow(){
-        return unit.name+" is too busy being a chicken!";
+        return unit.name + " is too busy being a chicken!";
     }
 
 }

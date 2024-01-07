@@ -6,6 +6,7 @@ import net.baloby.mcrpg.entities.models.HumanoidModel;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;
 import net.minecraft.client.renderer.entity.layers.HeldItemLayer;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.item.CrossbowItem;
@@ -21,6 +22,7 @@ public class HumanoidRenderer extends BipedRenderer<HumanoidEntity, HumanoidMode
 
     public HumanoidRenderer(EntityRendererManager manager, boolean slim) {
         super(manager, new HumanoidModel(0,slim), 1.0f);
+        this.addLayer(new BipedArmorLayer<>(this, new BipedModel(0.5F), new BipedModel(1.0F)));
         this.addLayer(new HeldItemLayer<>(this));
     }
 
@@ -46,14 +48,12 @@ public class HumanoidRenderer extends BipedRenderer<HumanoidEntity, HumanoidMode
 
 
     private void setModelProperties(HumanoidEntity p_177137_1_) {
-        HumanoidModel<HumanoidEntity> playermodel = this.getModel();
+        HumanoidModel<HumanoidEntity> model = this.getModel();
         if (p_177137_1_.isSpectator()) {
-            playermodel.setAllVisible(false);
-            playermodel.head.visible = true;
-            playermodel.hat.visible = true;
+            model.setAllVisible(false);
         } else {
-            playermodel.setAllVisible(true);
-            playermodel.crouching = p_177137_1_.isCrouching();
+            model.setAllVisible(true);
+            model.crouching = p_177137_1_.isCrouching();
             BipedModel.ArmPose bipedmodel$armpose = getArmPose(p_177137_1_, Hand.MAIN_HAND);
             BipedModel.ArmPose bipedmodel$armpose1 = getArmPose(p_177137_1_, Hand.OFF_HAND);
             if (bipedmodel$armpose.isTwoHanded()) {
@@ -61,14 +61,13 @@ public class HumanoidRenderer extends BipedRenderer<HumanoidEntity, HumanoidMode
             }
 
             if (p_177137_1_.getMainArm() == HandSide.RIGHT) {
-                playermodel.rightArmPose = bipedmodel$armpose;
-                playermodel.leftArmPose = bipedmodel$armpose1;
+                model.rightArmPose = bipedmodel$armpose;
+                model.leftArmPose = bipedmodel$armpose1;
             } else {
-                playermodel.rightArmPose = bipedmodel$armpose1;
-                playermodel.leftArmPose = bipedmodel$armpose;
+                model.rightArmPose = bipedmodel$armpose1;
+                model.leftArmPose = bipedmodel$armpose;
             }
         }
-
     }
 
     private static BipedModel.ArmPose getArmPose(HumanoidEntity p_241741_0_, Hand p_241741_1_) {

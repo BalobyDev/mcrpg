@@ -19,6 +19,7 @@ public class GunterNpc extends Npc implements ShopNpc{
         super(Npcs.GUNTER.get(), "Gunter", ModEntities.HUMANOID_SLIM.get(), new ResourceLocation(mcrpg.MODID, "textures/entity/gunther.png"),0.5f);
         this.shop = new Shop(new ShopItem(Items.IRON_SWORD,3,1, CostType.EMERALDS));
         this.dialogueTree = new DialogueTree(ModSetup.DIALOGUE_MANAGER.getData(new ResourceLocation(mcrpg.MODID,"gunter_intro")));
+
     }
 
 

@@ -1,8 +1,9 @@
 package net.baloby.mcrpg.battle.ailments;
 
 public class SleepAilment extends ActionPreventAilment{
+
     public SleepAilment() {
-        super("Sleep", 100);
+        super("Sleep", 0);
     }
 
     @Override

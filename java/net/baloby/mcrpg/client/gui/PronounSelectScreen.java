@@ -25,9 +25,9 @@ public class PronounSelectScreen extends Screen {
     protected PronounSelectScreen(ServerPlayerEntity player) {
         super(new StringTextComponent("of course you have blue hair and pronouns"));
         this.player = player;
-        this.pronounConfigs.add(new PronounConfig("They","Them","Theirs","Their","They're"));
-        this.pronounConfigs.add(new PronounConfig("He","Him","His","His","He's"));
-        this.pronounConfigs.add(new PronounConfig("She","Her","Hers","Her","She's"));
+        this.pronounConfigs.add(new PronounConfig("They","Them","Theirs","Their","They're", "Themselves"));
+        this.pronounConfigs.add(new PronounConfig("He","Him","His","His","He's","Himself"));
+        this.pronounConfigs.add(new PronounConfig("She","Her","Hers","Her","She's","Herself"));
         this.selected = pronounConfigs.get(0);
     }
 

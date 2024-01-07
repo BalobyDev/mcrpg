@@ -19,8 +19,9 @@ public class Units {
     public static final RegistryObject<UnitType<PhantomUnit>> PHANTOM = Registration.UNIT_TYPES.register("phantom",()->new UnitType<>(EntityType.PHANTOM, PhantomUnit::new));
     public static final RegistryObject<UnitType<PigmanUnit>> PIGMAN = Registration.UNIT_TYPES.register("pigman",()->new UnitType<>(EntityType.PIGLIN, PigmanUnit::new));
     public static final RegistryObject<UnitType<PillagerUnit>> PILLAGER = Registration.UNIT_TYPES.register("pillager",()-> new UnitType<>(EntityType.PILLAGER, PillagerUnit::new));
-    public static final RegistryObject<UnitType<SkeletonUnit>> SILVERFISH = Registration.UNIT_TYPES.register("silverfish",()-> new UnitType<>(EntityType.SILVERFISH, SilverfishUnit::new));
+    public static final RegistryObject<UnitType<SilverfishUnit>> SILVERFISH = Registration.UNIT_TYPES.register("silverfish",()-> new UnitType<>(EntityType.SILVERFISH, SilverfishUnit::new));
     public static final RegistryObject<UnitType<SkeletonUnit>> SKELETON = Registration.UNIT_TYPES.register("skeleton",()-> new UnitType<>(EntityType.SKELETON, SkeletonUnit::new));
+    public static final RegistryObject<UnitType<SlimeUnit>> SLIME = Registration.UNIT_TYPES.register("slime",()-> new UnitType<>(EntityType.SLIME, SlimeUnit::new));
     public static final RegistryObject<UnitType<SpiderUnit>> SPIDER = Registration.UNIT_TYPES.register("spider",()-> new UnitType<>(EntityType.SPIDER, SpiderUnit::new));
     public static final RegistryObject<UnitType<StrayUnit>> STRAY = Registration.UNIT_TYPES.register("stray",()-> new UnitType<>(EntityType.STRAY, StrayUnit::new));
     public static final RegistryObject<UnitType<VexUnit>> VEX = Registration.UNIT_TYPES.register("vex",()-> new UnitType<>(EntityType.VEX, VexUnit::new));

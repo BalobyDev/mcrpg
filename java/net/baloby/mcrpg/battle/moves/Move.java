@@ -40,6 +40,10 @@ public abstract class Move {
         this.deduct(user);
     }
 
+    public ITextComponent getName(){
+        return name;
+    }
+
     public SoundEvent getSound(){
         return SoundEvents.CAT_DEATH;
     }

@@ -60,7 +60,7 @@
     {
       "id": "009",
       "speaker": "mcrpg:felina",
-      "text": "Anyways, Have you any further questions for me?",
+      "text": "Anyways, Do you have any questions for me?",
       "responses": [
         {"text": "Can I be your apprentice?","next": "012"},
         {"text": "Nope see ya!","next": "026"}
@@ -75,7 +75,7 @@
     {
       "id": "013",
       "speaker": "mcrpg:felina",
-      "text": "But... if I were to give you a chance do you truly think you could prove yourself?",
+      "text": "But... if I were to give you a chance do you really think you could prove yourself?",
       "responses": [
         {"text": "Oh yeah baby!","next": "014", "quest": "mcrpg:felina_lapis","next_dialogue": "mcrpg:felina_lapis_quest"},
         {"text": "Uh... never mind actually.","next": "020"}
@@ -134,7 +134,7 @@
     {
       "id": "021",
       "speaker": "mcrpg:felina",
-      "text": "Oh and PLAYERNAME might I ask you to please keep an eye on her? Rana is all I have left in this world so please try to keep her safe.",
+      "text": "Oh and {PLAYERNAME} might I ask you to please keep an eye on her? Rana is all I have left in this world so please try to keep her safe.",
       "next": "026"
     },
     {

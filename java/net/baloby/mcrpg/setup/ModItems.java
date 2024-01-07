@@ -23,6 +23,10 @@ public class ModItems {
             new MagicMilkshakeItem(new Item.Properties().tab(ItemGroup.TAB_BREWING)));
     public static final RegistryObject<Item> RUBY = Registration.ITEMS.register("ruby", () ->
             new Item(new Item.Properties().tab(ItemGroup.TAB_MATERIALS)));
+    public static final RegistryObject<Item> RUBY_ORE = Registration.ITEMS.register("ruby_ore", () ->
+            new BlockItem(ModBlocks.RUBY_ORE.get(),new Item.Properties().tab(ItemGroup.TAB_BUILDING_BLOCKS)));
+    public static final RegistryObject<Item> SLIME_CHEST = Registration.ITEMS.register("slime_chest", () ->
+            new BlockItem(ModBlocks.SLIME_CHEST.get(),new Item.Properties().tab(ItemGroup.TAB_DECORATIONS)));
     public static final RegistryObject<Item> SPICY_MILKSHAKE = Registration.ITEMS.register("spicy_milkshake", () ->
             new MagicMilkshakeItem(new Item.Properties().tab(ItemGroup.TAB_BREWING)));
     public static final RegistryObject<Item> WITCH_HAT = Registration.ITEMS.register("witch_hat", () ->

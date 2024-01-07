@@ -4,7 +4,15 @@ import net.baloby.mcrpg.battle.Unit.Unit;
 import net.baloby.mcrpg.battle.moves.Affinity;
 import net.baloby.mcrpg.battle.moves.Attack;
 import net.baloby.mcrpg.battle.moves.Element;
+import net.baloby.mcrpg.entities.custom.enemies.NewEndermanEntity;
+import net.baloby.mcrpg.entities.custom.enemies.NewSkeletonEntity;
+import net.baloby.mcrpg.entities.custom.enemies.NewZombieEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.monster.ZombieEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.Hand;
 
 public class SkeletonUnit extends Unit {
     public SkeletonUnit(){
@@ -16,5 +24,12 @@ public class SkeletonUnit extends Unit {
         addAffinity(Element.WITHER, Affinity.STRONG);
         addSummonable(EntityType.ZOMBIE,2);
         addSummonable(EntityType.SPIDER,2);
+    }
+
+    @Override
+    public MobEntity spawn(EntityType type){
+        MobEntity e = new NewSkeletonEntity(EntityType.SKELETON, arena);
+        e.setItemInHand(Hand.MAIN_HAND,new ItemStack(Items.BOW));
+        return e;
     }
 }

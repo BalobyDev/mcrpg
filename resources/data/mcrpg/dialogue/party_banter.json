@@ -15,13 +15,13 @@
     {
       "id": "002",
       "speaker": "mcrpg:rana",
-      "text": "yeah u! y are u so smiling so much?",
+      "text": "yea u! y are u so smiling so much?",
       "next": "003"
     },
     {
       "id": "003",
       "speaker": "mcrpg:rana",
-      "text": "did u get to eat a yummy cake today? or did u see a cute puppy? if so where is it i wanna see!",
+      "text": "did u get to eat a yummy cake today? or did u see a cute puppy? if so where is it? i wanna see!",
       "next": "004"
     },
     {

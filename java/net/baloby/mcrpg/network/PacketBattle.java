@@ -10,10 +10,6 @@ import java.util.function.Supplier;
 public class PacketBattle {
 
 
-
-
-
-
     public boolean handle(Supplier<NetworkEvent.Context> ctx){
       ctx.get().enqueueWork(() -> {
           PlayerEntity player = Minecraft.getInstance().player;
@@ -21,6 +17,8 @@ public class PacketBattle {
           player.xRot = 0;
       });
       return true;
-
     }
+
+
+
 }

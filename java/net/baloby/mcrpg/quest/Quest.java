@@ -6,6 +6,7 @@ import net.baloby.mcrpg.data.PlayerCapabilityProvider;
 import net.baloby.mcrpg.data.dialouge.ShopAdd;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
@@ -19,7 +20,7 @@ public class Quest {
     private String description;
     private Status status;
     private Optional<ItemRequirement> itemRequirement;
-    private Optional<ItemReward> itemReward;
+    private Optional<CompoundNBT> itemReward;
     private Optional<List<ShopAdd>> shopAdds;
     private ResourceLocation resourceLocation;
 
@@ -28,12 +29,12 @@ public class Quest {
             Codec.STRING.fieldOf("title").forGetter(Quest::getTitle),
             Codec.STRING.fieldOf("description").forGetter(Quest::getDescription),
             ItemRequirement.CODEC.optionalFieldOf("item_requirement").orElseGet(Optional::empty).forGetter(Quest::getItemRequirement),
-            ItemReward.CODEC.optionalFieldOf("item_reward").orElseGet(Optional::empty).forGetter(Quest::getItemReward),
+            CompoundNBT.CODEC.optionalFieldOf("item_reward").orElseGet(Optional::empty).forGetter(Quest::getItemReward),
             ShopAdd.CODEC.listOf().optionalFieldOf("shop_add").forGetter(Quest::getShopAdds)
     ).apply(instance,Quest::new));
 
 
-    public Quest(String id,String title, String description, Optional<ItemRequirement> itemRequirement, Optional<ItemReward> itemReward,Optional<List<ShopAdd>> shopAdds){
+    public Quest(String id,String title, String description, Optional<ItemRequirement> itemRequirement, Optional<CompoundNBT> itemReward,Optional<List<ShopAdd>> shopAdds){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -69,7 +70,7 @@ public class Quest {
         return itemRequirement;
     }
 
-    public Optional<ItemReward> getItemReward(){
+    public Optional<CompoundNBT> getItemReward(){
         return itemReward;
     }
 

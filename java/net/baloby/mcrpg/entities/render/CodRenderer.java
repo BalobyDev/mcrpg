@@ -40,10 +40,6 @@ public class CodRenderer extends BipedRenderer<CultistEntity, HumanoidModel<Cult
 
     }
 
-
-
-
-
     private void setModelProperties(CultistEntity p_177137_1_) {
         HumanoidModel<CultistEntity> playermodel = this.getModel();
         if (p_177137_1_.isSpectator()) {

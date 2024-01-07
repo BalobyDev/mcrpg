@@ -44,8 +44,6 @@ public class MagicMilkshakeItem extends Item implements BattleItem, INonBattleMo
         return DrinkHelper.useDrink(world, player, hand);
     }
 
-
-
     @Override
     public void use(Unit user, Unit target) {
         target.MP += 20;

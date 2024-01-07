@@ -56,7 +56,6 @@ public class SingleCharacterScreen extends Screen {
                 player.openMenu(npc);
             }
             catch (UnsupportedOperationException exception){};
-                    EquipScreen.open(player,null,this.minecraft.player,npc);
 
 
         }));

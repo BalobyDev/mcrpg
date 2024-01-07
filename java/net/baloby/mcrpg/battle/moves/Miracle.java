@@ -7,7 +7,7 @@ import net.minecraft.util.text.StringTextComponent;
 public class Miracle extends SpellMove{
 
     public Miracle() {
-        super(new StringTextComponent("Miracle"), new StringTextComponent("Cures one ally of any status ailment"));
+        super(new StringTextComponent("Miracle"), new StringTextComponent("Cures one ally of any physical ailment"));
         this.cost = 2;
         this.type = Element.SUPPORT;
     }
@@ -17,6 +17,5 @@ public class Miracle extends SpellMove{
         this.target.cureAilment();
         AnimationSequence sequence = AnimationSequence.basicAllySequence(this,user,target,0);
         sequence.start();
-
     }
 }

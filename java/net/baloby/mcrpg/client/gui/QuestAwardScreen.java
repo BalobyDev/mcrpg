@@ -12,6 +12,7 @@ import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.registry.Registry;
@@ -46,8 +47,8 @@ public class QuestAwardScreen extends Screen{
             this.removeItemType(Registry.ITEM.get(requirement.getItem()),requirement.getAmount());
         }
         if(quest.getItemReward().isPresent()){
-            ItemReward reward = quest.getItemReward().get();
-            ItemStack stack = reward.createItem();
+            CompoundNBT reward = quest.getItemReward().get();
+            ItemStack stack = ItemStack.of(reward);
             if(player.inventory.getFreeSlot()>-1) {
                 this.player.addItem(stack);
             }
@@ -61,10 +62,10 @@ public class QuestAwardScreen extends Screen{
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks){
         this.renderBackground(matrixStack);
         if(quest.getItemReward().isPresent()){
-            ItemReward reward = quest.getItemReward().get();
-            this.drawCenteredString(matrixStack, this.font, new ItemStack(Registry.ITEM.get(reward.getItem())).getDisplayName().getString()+" x "+ reward.getAmount(),this.width/2,this.height/2+32,-1);
-            this.minecraft.getTextureManager().bind(new ResourceLocation(reward.getItem().getNamespace(),"textures/item/"+reward.getItem().getPath()+".png"));
-            this.blit(matrixStack,this.width/2 - 32,this.height/2-32,0,0,64,64,64,64);
+//            Item reward = quest.getItemReward().get().get();
+//            this.drawCenteredString(matrixStack, this.font, new ItemStack(Registry.ITEM.get(reward.getItem())).getDisplayName().getString()+" x "+ reward.getAmount(),this.width/2,this.height/2+32,-1);
+//            this.minecraft.getTextureManager().bind(new ResourceLocation(reward.getNamespace(),"textures/item/"+reward.getPath()+".png"));
+//            this.blit(matrixStack,this.width/2 - 32,this.height/2-32,0,0,64,64,64,64);
         }
         super.render(matrixStack, mouseX, mouseY, partialTicks);
     }

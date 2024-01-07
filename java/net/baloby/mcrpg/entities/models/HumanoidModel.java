@@ -58,9 +58,6 @@ public class HumanoidModel<T extends MobEntity> extends BipedModel<T> {
             this.rightSleeve.addBox(-2.0F, -2.0F, -2.0F, 3.0F, 12.0F, 4.0F, p_i46304_1_ + 0.25F);
             this.rightSleeve.setPos(-5.0F, 2.5F, 10.0F);
         } else {
-            this.leftArm = new ModelRenderer(this, 32, 48);
-            this.leftArm.addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, p_i46304_1_);
-            this.leftArm.setPos(5.0F, 2.0F, 0.0F);
             this.leftSleeve = new ModelRenderer(this, 48, 48);
             this.leftSleeve.addBox(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, p_i46304_1_ + 0.25F);
             this.leftSleeve.setPos(5.0F, 2.0F, 0.0F);
@@ -68,16 +65,13 @@ public class HumanoidModel<T extends MobEntity> extends BipedModel<T> {
             this.rightSleeve.addBox(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F, p_i46304_1_ + 0.25F);
             this.rightSleeve.setPos(-5.0F, 2.0F, 10.0F);
         }
-
-        this.leftLeg = new ModelRenderer(this, 16, 48);
-        this.leftLeg.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, p_i46304_1_);
-        this.leftLeg.setPos(1.9F, 12.0F, 0.0F);
         this.leftPants = new ModelRenderer(this, 0, 48);
         this.leftPants.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, p_i46304_1_ + 0.25F);
         this.leftPants.setPos(1.9F, 12.0F, 0.0F);
         this.rightPants = new ModelRenderer(this, 0, 32);
         this.rightPants.addBox(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F, p_i46304_1_ + 0.25F);
         this.rightPants.setPos(-1.9F, 12.0F, 0.0F);
+
         this.jacket = new ModelRenderer(this, 16, 32);
         this.jacket.addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, p_i46304_1_ + 0.25F);
         this.jacket.setPos(0.0F, 0.0F, 0.0F);
@@ -96,6 +90,7 @@ public class HumanoidModel<T extends MobEntity> extends BipedModel<T> {
 
     public void renderCloak(MatrixStack p_228289_1_, IVertexBuilder p_228289_2_, int p_228289_3_, int p_228289_4_) {
         this.cloak.render(p_228289_1_, p_228289_2_, p_228289_3_, p_228289_4_);
+
     }
 
 
@@ -129,6 +124,12 @@ public class HumanoidModel<T extends MobEntity> extends BipedModel<T> {
 
     }
 
+    public void setupAnim(float p1, float p2, float p3, float p4){
+        this.young = false;
+
+
+    }
+
     public void prepareMobModel(T p_212843_1_, float p_212843_2_, float p_212843_3_, float p_212843_4_) {
         this.rightArmPose = BipedModel.ArmPose.EMPTY;
         this.leftArmPose = BipedModel.ArmPose.EMPTY;
@@ -140,7 +141,6 @@ public class HumanoidModel<T extends MobEntity> extends BipedModel<T> {
                 this.leftArmPose = BipedModel.ArmPose.BOW_AND_ARROW;
             }
         }
-
         super.prepareMobModel(p_212843_1_, p_212843_2_, p_212843_3_, p_212843_4_);
     }
 

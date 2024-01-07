@@ -6,6 +6,7 @@ import net.baloby.mcrpg.battle.moves.Element;
 import net.minecraft.entity.EntityType;
 
 public class WitherSkeletonUnit extends Unit {
+
     public WitherSkeletonUnit(){
         super(EntityType.WITHER_SKELETON);
         addAffinity(Element.LIFE, Affinity.WEAK);

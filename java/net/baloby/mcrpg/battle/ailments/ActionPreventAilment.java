@@ -17,7 +17,7 @@ public class ActionPreventAilment extends Ailment{
 
     @Override
     public void execute(Unit unit){
-        Random random = new Random();
+        Random random = new Random(100);
         if(random.nextInt()+1<chance){
             MoveTextGui.open(this);
         }

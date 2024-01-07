@@ -9,6 +9,5 @@ public class HuskUnit extends Unit {
     public HuskUnit(){
         super(EntityType.HUSK);
         addAffinity(Element.FIRE, Affinity.WEAK);
-
     }
 }

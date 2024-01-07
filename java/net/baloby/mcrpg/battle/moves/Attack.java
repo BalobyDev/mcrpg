@@ -13,6 +13,7 @@ public class Attack extends Move {
 
     public float dmg;
     public float spd = 100;
+    public boolean ranged;
 
     public Attack(){
         super(new StringTextComponent("Attack"));

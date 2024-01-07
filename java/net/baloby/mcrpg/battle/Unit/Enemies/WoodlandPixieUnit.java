@@ -5,7 +5,7 @@ import net.baloby.mcrpg.setup.ModEntities;
 
 public class WoodlandPixieUnit extends Unit {
     public WoodlandPixieUnit(){
-        super(ModEntities.WOODLAND_PIXIE.get());
+        super(ModEntities.WOODLAND_FAIRY.get());
     }
 
 }

@@ -48,8 +48,13 @@ public class BattleGui extends Screen {
         Button spells = addButton(new Button(relX+10, relY+35,60,20, new StringTextComponent("Skill"), button -> SkillScreen.open(unit)));
 
         Button inventory = addButton(new Button(relX+75, relY+35, 60, 20, new StringTextComponent("Inventory"), button -> {
-            battle.sp.openMenu(npc);
-            EquipScreen.open(battle.sp, this.battle, this.minecraft.player, npc);}));
+            if(npc!=null) {
+                battle.sp.openMenu(npc);
+            }
+            else {
+                NewPlayerInventory.open(getMinecraft().player);
+            }
+        }));
         Button analyze = addButton(new Button(relX+10, relY+60, 60 , 20, new StringTextComponent("Tactics"),button ->{UnitSelectionScreen.open(battle.enemyParty);}));
         Button escape = addButton(new Button(relX+75, relY+60, 60 , 20, new StringTextComponent("Escape"),button -> battle.conclude()));
         if(battle instanceof BossBattle)escape.active = false;

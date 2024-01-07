@@ -4,6 +4,7 @@ import net.baloby.mcrpg.battle.Unit.Unit;
 import net.baloby.mcrpg.battle.moves.Affinity;
 import net.baloby.mcrpg.battle.moves.Element;
 import net.baloby.mcrpg.battle.moves.Move;
+import net.baloby.mcrpg.entities.custom.enemies.NewZombieEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.monster.ZombieEntity;
@@ -19,8 +20,9 @@ public class ZombieUnit extends Unit {
     }
 
     public MobEntity spawn(EntityType type){
-        ZombieEntity zombie = (ZombieEntity) super.spawn(type);
+        ZombieEntity zombie = new NewZombieEntity(arena);
         if(zombie.isBaby()){
+            zombie.remove();
             return spawn(type);
         }
         return zombie;

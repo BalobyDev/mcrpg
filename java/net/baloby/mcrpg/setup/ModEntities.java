@@ -1,11 +1,10 @@
 package net.baloby.mcrpg.setup;
 
+import net.baloby.mcrpg.entities.CorpseEntity;
 import net.baloby.mcrpg.entities.HumanoidPiglinEntity;
 import net.baloby.mcrpg.entities.HumanoidSlimEntity;
 import net.baloby.mcrpg.entities.custom.enemies.*;
 import net.baloby.mcrpg.entities.HumanoidEntity;
-import net.baloby.mcrpg.entities.custom.partyMembers.RanaEntity;
-import net.baloby.mcrpg.entities.custom.partyMembers.SteveEntity;
 import net.baloby.mcrpg.mcrpg;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -17,6 +16,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 
 public class ModEntities {
+
+    public static final RegistryObject<EntityType<CorpseEntity>> CORPSE = Registration.ENTITY_TYPES.register("corpse",() -> EntityType.Builder.<CorpseEntity>of
+                    (CorpseEntity::new, EntityClassification.AMBIENT)
+            .sized(0.6f,1.8f)
+            .build("corpse"));
 
     public static final RegistryObject<EntityType<HumanoidEntity>> HUMANOID = Registration.ENTITY_TYPES.register("humanoid",() -> EntityType.Builder.<HumanoidEntity>of
                     (HumanoidEntity::new, EntityClassification.MONSTER)
@@ -69,10 +73,10 @@ public class ModEntities {
             .sized(0.6f,1.8f)
             .build("viler_witch"));
 
-    public static final RegistryObject<EntityType<WoodlandPixieEntity>> WOODLAND_PIXIE = Registration.ENTITY_TYPES.register("woodland_pixie", ()-> EntityType.Builder.of
+    public static final RegistryObject<EntityType<WoodlandPixieEntity>> WOODLAND_FAIRY = Registration.ENTITY_TYPES.register("woodland_fairy", ()-> EntityType.Builder.of
             (WoodlandPixieEntity::new, EntityClassification.MONSTER)
             .sized(0.6f,1.8f)
-            .build("woodland_pixie"));
+            .build("woodland_fairy"));
 
     public static AttributeModifierMap.MutableAttribute setCustomAttributes(){
         return setCustomAttributes(3,20);

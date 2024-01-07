@@ -12,7 +12,6 @@ public class RpgNetwork {
     private static int ID = 0;
 
     private static int nextID(){
-
         return ID++;
     }
 
@@ -36,10 +35,10 @@ public class RpgNetwork {
                 .decoder(buf ->new PacketSendCharacter(buf))
                 .consumer(PacketSendCharacter::handle)
                 .add();
-        INSTANCE.messageBuilder(PlayerSyncPacket.class, nextID())
+        INSTANCE.messageBuilder(NpcSavePacket.class, nextID())
                 .encoder((playerSyncPacket, buffer) -> {})
-                .decoder(buffer -> new PlayerSyncPacket(buffer))
-                .consumer(PlayerSyncPacket::handle)
+                .decoder(buffer -> new NpcSavePacket(buffer))
+                .consumer(NpcSavePacket::handle)
                 .add();
 
     }

@@ -7,6 +7,8 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.baloby.mcrpg.client.gui.PartyManagerScreen;
 import net.baloby.mcrpg.cutscene.Cutscene;
+import net.baloby.mcrpg.data.PlayerCapabilityProvider;
+import net.baloby.mcrpg.data.characters.Npcs;
 import net.baloby.mcrpg.entities.custom.enemies.NewEndermanEntity;
 import net.baloby.mcrpg.setup.ModDimensions;
 import net.minecraft.command.CommandSource;
@@ -15,6 +17,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.StringTextComponent;
+import org.lwjgl.system.CallbackI;
 
 public class TestCommand implements Command<CommandSource> {
 
@@ -28,8 +32,8 @@ public class TestCommand implements Command<CommandSource> {
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().getPlayerOrException();
-        Cutscene cutscene = new Cutscene(new CompoundNBT(), player.getServer().overworld().dimensionType(),ModDimensions.ARENA);
-        cutscene.loadCutscene(player);
+        player.sendMessage(new StringTextComponent("Hello!"),player.getUUID());
+
         return 0;
     }
 }

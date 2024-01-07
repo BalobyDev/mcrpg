@@ -21,7 +21,7 @@
     {
       "id": "003",
       "speaker": "mcrpg:felina",
-      "text": "You must create a portal from obsidian, find a fortress, and from there, destroy the firey machines known as 'blazes' they may drop a blaze rod when slain.",
+      "text": "You need to create a portal from obsidian, find a fortress, and from there, destroy the firey machines known as 'blazes' they may drop a blaze rod when slain.",
       "next":"004"
     },
     {
@@ -57,20 +57,20 @@
     {
       "id": "008",
       "speaker": "mcrpg:felina",
-      "text": "The nether is a really dangerous place and I didn't like the idea of you taking rana there anyways.",
-      "party_present": "mcrpg:rana",
+      "text": "The nether is a really dangerous place and I didn't like the idea of you taking Rana there anyways.",
+      "party_present": ["mcrpg:rana"],
       "next": "009"
     },
     {
       "id": "009",
       "speaker": "mcrpg:felina",
-      "text": "As for the blaze rods... *sigh* I think I'll have to ask Gary even though I already owe him a favor or ten.",
+      "text": "But I still need those rods... *sigh* I think I'll have to ask Gary, even though I already owe him a favor or ten.",
       "next": "010"
     },
     {
       "id": "010",
       "speaker": "mcrpg:felina",
-      "text":  "I'll try and think of another assignment for you in the meantime."
+      "text":  "I guess I'll try and think of another assignment for you in the meantime..."
     }
   ]
 }

@@ -54,7 +54,7 @@ public class ArenaChunkGenerator extends ChunkGenerator {
                     Codec.INT.fieldOf("zoffset").forGetter(Settings::getZOffset)
             ).apply(instance, Settings::new));
 
-    public static final Codec<ArenaChunkGenerator> CODEC = RecordCodecBuilder.create(instance ->
+    public static final Codec<ArenaChunkGenerator>  CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     RegistryLookupCodec.create(Registry.BIOME_REGISTRY).forGetter(ArenaChunkGenerator::getBiomeRegistry),
                     SETTINGS_CODEC.fieldOf("settings").forGetter(ArenaChunkGenerator::getArenaSettings)
@@ -153,7 +153,5 @@ public class ArenaChunkGenerator extends ChunkGenerator {
         public int getZOffset(){return zOffset;}
 
         public Biome getBiome(){return biome.get();}
-
-
     }
 }

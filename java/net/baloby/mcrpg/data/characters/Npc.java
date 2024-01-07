@@ -76,6 +76,11 @@ public class Npc {
         this.dialogueTree = new DialogueTree();
         this.isAddedToWorld = false;
         this.dialogueTree = new DialogueTree();
+        this.offhandItem = new ItemStack(Items.AIR);
+        this.headItem = new ItemStack(Items.AIR);
+        this.chestItem = new ItemStack(Items.AIR);
+        this.legsItem = new ItemStack(Items.AIR);
+        this.feetItem = new ItemStack(Items.AIR);
     }
 
     public Npc(NpcType<?> type, String name, EntityType entityType, ResourceLocation skin,float size){
@@ -168,10 +173,12 @@ public class Npc {
     public CompoundNBT save(){
         CompoundNBT nbt = new CompoundNBT();
         CompoundNBT homeNbt = new CompoundNBT();
-        if(homePos!=null)nbt.put("homePos",homeNbt);
-        homeNbt.putDouble("x",homePos.x());
-        homeNbt.putDouble("y",homePos.y());
-        homeNbt.putDouble("z",homePos.z());
+        if(homePos!=null) {
+            nbt.put("homePos", homeNbt);
+            homeNbt.putDouble("x", homePos.x());
+            homeNbt.putDouble("y", homePos.y());
+            homeNbt.putDouble("z", homePos.z());
+        }
 
         if(item!=null)nbt.put("item", item.serializeNBT());
         if(dialogueIndex!=null) nbt.putString("dialogue_index", dialogueIndex.toString());

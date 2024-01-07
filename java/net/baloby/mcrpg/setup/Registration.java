@@ -59,6 +59,7 @@ public class Registration {
             IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
             BIOMES.register(eventBus);
             ITEMS.register(eventBus);
+            BLOCKS.register(eventBus);
             SOUNDS.register(eventBus);
             ENTITY_TYPES.register(eventBus);
             STRUCTURES.register(eventBus);
@@ -71,6 +72,7 @@ public class Registration {
 
             ModBiomes.register();
             ModItems.register();
+            ModBlocks.register();
             ModSounds.register();
             ModEntities.register();
             ModStructures.register();

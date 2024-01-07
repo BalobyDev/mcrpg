@@ -1,7 +1,7 @@
 {
   "type": "mcrpg:arena",
   "generator": {
-    "type": "mcrpg:arenagen",
+    "type": "mcrpg:arena_generator",
     "settings": {
       "base": 65,
       "verticalvariance": 16,

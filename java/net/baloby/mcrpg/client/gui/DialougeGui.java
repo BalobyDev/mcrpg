@@ -20,13 +20,16 @@ import net.baloby.mcrpg.setup.ModEntities;
 import net.baloby.mcrpg.setup.ModSetup;
 import net.baloby.mcrpg.setup.Registration;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundSource;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.model.PiglinModel;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.IUnbakedModel;
+import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -74,6 +77,7 @@ public class DialougeGui extends Screen {
     private static final int WIDTH = 256;
     private static final int HEIGHT = 85;
     private ResourceLocation GUI = new ResourceLocation(mcrpg.MODID, "textures/gui/dialougegui.png");
+    private Model model;
 
     protected DialougeGui(ServerPlayerEntity player, DialogueInstance instance) {
         super(new StringTextComponent("Dialouge"));
@@ -91,6 +95,12 @@ public class DialougeGui extends Screen {
         for (int i = 0; i < lines.size(); i++) {
             shownLines.add(new StringTextComponent(""));
         }
+        if (npc.getEntityType().equals(ModEntities.HUMANOID_PIGLIN)){
+            this.model = new PiglinModel<>(0,64,64);
+        }
+        else {
+            this.model = new HumanoidModel<>(0.0f,npc.getSlim());
+        }
     }
 
     protected DialougeGui(ServerPlayerEntity player, DialogueInstance instance,int index) {
@@ -101,6 +111,10 @@ public class DialougeGui extends Screen {
     public void newLine(){
         lines.add(new StringTextComponent(""));
         lineOn+=1;
+    }
+
+    protected void say(ResourceLocation location){
+
     }
 
     @Override
@@ -114,7 +128,7 @@ public class DialougeGui extends Screen {
     }
 
     @Override
-    public boolean isPauseScreen(){return !cutsceneOrBattle;}
+    public boolean isPauseScreen(){return true;}
 
     @Override
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks){
@@ -126,8 +140,9 @@ public class DialougeGui extends Screen {
         }
         int relX = (this.width - WIDTH)/2;
         int relY = this.height - HEIGHT - 3;
-        this.renderCharacter(matrixStack, relX+18, relY-50);
+        this.renderHead(matrixStack);
         this.minecraft.getTextureManager().bind(GUI);
+
         this.blit(matrixStack,relX,relY,0,0,WIDTH,HEIGHT);
         this.blit(matrixStack,relX+8,relY+15,8,94,242,63);
 
@@ -135,6 +150,7 @@ public class DialougeGui extends Screen {
             drawString(matrixStack,this.font,shownLines.get(i),relX+13,relY+20+(i*10),-1);
         }
         font.draw(matrixStack,name , (float)(relX+28 - font.width(name) / 2),relY+5,5592405);
+        renderCharacter(matrixStack,0,0);
 
         super.render(matrixStack,mouseX,mouseY,partialTicks);
 
@@ -234,47 +250,107 @@ public class DialougeGui extends Screen {
         }
     }
 
-    public void renderCharacter(MatrixStack stack,int k, int j){
-
-            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.minecraft.getTextureManager().bind(npc.getSkin());
-            RenderSystem.enableBlend();
+    public void renderFace(MatrixStack stack, int k , int j){
         this.blit(stack, k, j, 32.0F, 32.0F, 32, 32, 256, 256);
         this.blit(stack, k, j, 160.0F, 32.0F, 32, 32, 256, 256);
+    }
 
-        this.blit(stack, k, j+32, 80.0F, 80.0F, 32, 48, 256, 256);
-        this.blit(stack, k, j+32, 80.0F, 144.0F, 32, 48, 256, 256);
+    public void renderHead(MatrixStack stack){
+//        int x = this.width/2 - WIDTH/2;
+//        int y = this.height - HEIGHT*2 ;
+//        stack.pushPose();
+//        minecraft.getTextureManager().bind(npc.getSkin());
+//        stack.translate(x,y,0);
+//        stack.pushPose();
+//        stack.mulPose(new Quaternion(30,65,0,true));
+//        this.blit(stack, 0, 0, 0, 32.0F, 32, 32, 256, 256);
+//        this.blit(stack, 0, 0, 160.0F, 32.0F, 32, 32, 256, 256);
+//        stack.popPose();
+//
+//        stack.pushPose();
+//        stack.mulPose(new Quaternion(-30,25,0,true));
+//        stack.translate(0,0,32);
+//        this.blit(stack, 0, 0, 32.0F, 32.0F, 32, 32, 256, 256);
+//        this.blit(stack, 0, 0, 160.0F, 32.0F, 32, 32, 256, 256);
+//        stack.popPose();
+//        stack.pushPose();
+//        stack.mulPose(new Quaternion(60,0,65,true));
+//        stack.translate(0,-32,0);
+//
+//        this.blit(stack, 0, 0,32.0F , 0, 32, 32, 256, 256);
+//        this.blit(stack, 0, 0, 160.0F, 32.0F, 32, 32, 256, 256);
+//        stack.popPose();
+//        stack.popPose();
+    }
 
-        if(npc.getEntityType().equals(ModEntities.HUMANOID_SLIM.get()))
-        {
-            this.blit(stack, k-12, j+32, 176.0F, 80.0F, 12, 48, 256, 256);
-            this.blit(stack, k-12, j+32, 176.0F, 144.0F, 12, 48, 256, 256);
-        }
+    public void renderCharacter(MatrixStack stack,int k, int j){
 
-        else
-        {
-            this.blit(stack, k-16, j+32, 176.0F, 80.0F, 16, 48, 256, 256);
-            this.blit(stack, k-16, j+32, 176.0F, 144.0F, 16, 48, 256, 256);
-        }
+        RenderSystem.pushMatrix();
+        Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);
+        Quaternion quaternion1 = Vector3f.XP.rotationDegrees(1 * 20.0F);
+        quaternion.mul(quaternion1);
+        stack.mulPose(quaternion);
+        stack.mulPose(Vector3f.YP.rotation(200));
+        quaternion1.conj();
+        IRenderTypeBuffer.Impl irendertypebuffer$impl = this.minecraft.renderBuffers().bufferSource();
+        IVertexBuilder iVertexBuilder = irendertypebuffer$impl.getBuffer(RenderType.entityCutout(npc.getSkin()));
+        EntityRendererManager entityrenderermanager = Minecraft.getInstance().getEntityRenderDispatcher();
+        this.model.renderToBuffer(stack,iVertexBuilder,15728880,OverlayTexture.NO_OVERLAY,1.0f,1.0f,1.0f,1.0f);
+        RenderSystem.popMatrix();
 
-        if(npc.getEntityType().equals(ModEntities.HUMANOID_SLIM.get()))
-        {
-            this.blit(stack, k+32, j+32, 144.0F, 208.0F, 12, 48, 256, 256);
-            this.blit(stack, k+32, j+32, 208.0F, 208.0F, 12, 48, 256, 256);
-        }
-        else
-        {
-            this.blit(stack, k+32, j+32, 144.0F, 208.0F, 16, 48, 256, 256);
-            this.blit(stack, k+32, j+32, 208.0F, 208.0F, 16, 48, 256, 256);
-        }
+//        stack.pushPose();
+//            RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+//            this.minecraft.getTextureManager().bind(npc.getSkin());
+//            RenderSystem.enableBlend();
+//        stack.mulPose(new Quaternion(-45,35,0,true));
+//        stack.translate(30,135,0);
+//
+//        this.blit(stack, k, j+32, 80.0F, 80.0F, 32, 48, 256, 256);
+//        this.blit(stack, k, j+32, 80.0F, 144.0F, 32, 48, 256, 256);
+//
+//        if(npc.getEntityType().equals(ModEntities.HUMANOID_SLIM.get()))
+//        {
+//            this.blit(stack, k-12, j+32, 176.0F, 80.0F, 12, 48, 256, 256);
+//            this.blit(stack, k-12, j+32, 176.0F, 144.0F, 12, 48, 256, 256);
+//        }
+//
+//        else
+//        {
+//            this.blit(stack, k-16, j+32, 176.0F, 80.0F, 16, 48, 256, 256);
+//            this.blit(stack, k-16, j+32, 176.0F, 144.0F, 16, 48, 256, 256);
+//        }
+//
+//        if(npc.getEntityType().equals(ModEntities.HUMANOID_SLIM.get()))
+//        {
+//            this.blit(stack, k+32, j+32, 144.0F, 208.0F, 12, 48, 256, 256);
+//            this.blit(stack, k+32, j+32, 208.0F, 208.0F, 12, 48, 256, 256);
+//        }
+//        else
+//        {
+//            this.blit(stack, k+32, j+32, 144.0F, 208.0F, 16, 48, 256, 256);
+//            this.blit(stack, k+32, j+32, 208.0F, 208.0F, 16, 48, 256, 256);
+//        }
+//
+//        this.blit(stack, k+16, j+80, 16.0F, 80.0F, 16, 48, 256, 256);
+//        this.blit(stack, k+16, j+80, 16.0F, 144.0F, 16, 48, 256, 256);
+//
+//        this.blit(stack, k, j+80, 80.0F, 208.0F, 16, 48, 256, 256);
+//        this.blit(stack, k, j+80, 16.0F, 208.0F, 16, 48, 256, 256);
+//        stack.pushPose();
+//        stack.translate(4,4,0);
+//        this.blit(stack, k, j, 32.0F, 32.0F, 32, 32, 256, 256);
+//        this.blit(stack, k, j, 160.0F, 32.0F, 32, 32, 256, 256);
+//        stack.popPose();
+//        stack.popPose();
+//
+//        stack.pushPose();
+//        stack.mulPose(new Quaternion(45,35,0,true));
+//        this.blit(stack, k+2, j-32, 0, 32.0F, 32, 32, 256, 256);
+//        this.blit(stack, k+2, j-32, 160.0F, 32.0F, 32, 32, 256, 256);
+//        stack.popPose();
+//
+//        RenderSystem.disableBlend();
 
-        this.blit(stack, k+16, j+80, 16.0F, 80.0F, 16, 48, 256, 256);
-        this.blit(stack, k+16, j+80, 16.0F, 144.0F, 16, 48, 256, 256);
-
-        this.blit(stack, k, j+80, 80.0F, 208.0F, 16, 48, 256, 256);
-        this.blit(stack, k, j+80, 16.0F, 208.0F, 16, 48, 256, 256);
-
-        RenderSystem.disableBlend();
 
     }
 

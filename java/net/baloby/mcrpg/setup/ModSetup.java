@@ -1,7 +1,7 @@
 package net.baloby.mcrpg.setup;
 
 import com.mojang.serialization.Lifecycle;
-import net.baloby.mcrpg.commands.CharacterCommand;
+import net.baloby.mcrpg.commands.*;
 import net.baloby.mcrpg.commands.arguments.NpcArgument;
 import net.baloby.mcrpg.data.dialouge.DialogueManager;
 import net.baloby.mcrpg.quest.QuestManager;
@@ -12,7 +12,6 @@ import net.minecraftforge.server.command.ConfigCommand;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import net.baloby.mcrpg.commands.ModCommands;
 import net.baloby.mcrpg.mcrpg;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -37,9 +36,15 @@ public class ModSetup {
 
     @SubscribeEvent
     public static void serverLoad(RegisterCommandsEvent event){
+        BattleCommand.register(event.getDispatcher());
+        CutsceneCommand.register(event.getDispatcher());
         ModCommands.register(event.getDispatcher());
         CharacterCommand.register(event.getDispatcher());
         ConfigCommand.register(event.getDispatcher());
+        MoveAdd.register(event.getDispatcher());
+        MoveForget.register(event.getDispatcher());
+        PartyAdd.register(event.getDispatcher());
+        PartyRemove.register(event.getDispatcher());
     }
 
 

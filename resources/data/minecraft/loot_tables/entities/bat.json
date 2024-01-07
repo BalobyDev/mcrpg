@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "mcrpg:batwing",
+          "name": "mcrpg:bat_wing",
           "functions": [
             {
               "function": "minecraft:set_count",

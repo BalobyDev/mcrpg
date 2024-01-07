@@ -15,6 +15,7 @@ import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.IntArray;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -36,7 +37,8 @@ public class BattleNpc extends Npc implements INamedContainerProvider {
     @Nullable
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity playerEntity) {
-        return new NpcContainer(id,playerInventory,new NpcInventory(this));
+
+        return new NpcContainer(id,playerInventory, new NpcInventory(this));
     }
 
     public enum WeaponType{SWORD, BOW, SPEAR, AXE, GREATSWORD, YOYO}

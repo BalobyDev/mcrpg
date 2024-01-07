@@ -12,7 +12,7 @@ public class BillieNpc extends BattleNpc {
     public BillieNpc(){
         super(Npcs.BILLIE.get(),"Billie",new ResourceLocation(mcrpg.MODID,"textures/entity/billie.png"), ModEntities.HUMANOID.get(), Items.NETHERITE_AXE,40,40, Moves.ENDRA.get());
         this.hurtSound = SoundEvents.ENDERMAN_HURT;
-        this.size = 1;
+        this.size = 1.2f;
         this.weaponType = WeaponType.AXE;
 
     }

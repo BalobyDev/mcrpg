@@ -15,6 +15,7 @@ public class SpellAttack extends Attack{
         super(dmg,type,name,desc);
         this.particle = particle;
         this.sound = sound;
+        this.ranged = true;
         this.cost = 1;
     }
 

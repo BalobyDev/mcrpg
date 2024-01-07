@@ -18,7 +18,7 @@ public class CharacterCommand {
     public static void register(CommandDispatcher<CommandSource> dispatcher){
         dispatcher.register(Commands.literal("character").requires((source)->{
             return source.hasPermission(2);
-        }).then(Commands.argument("npc",NpcArgument.id()).executes((context) -> {
+        }).then(Commands.argument("npc", NpcArgument.id()).executes((context) -> {
             return addNpc(context.getSource(),NpcArgument.getSummonableNpc(context,"npc"));
         })));
     }
@@ -28,9 +28,4 @@ public class CharacterCommand {
         Registration.NPC_REGISTRY.get().getValue(type).listCreate().spawnLoad(player.getLevel(),player.position());
         return 0;
     }
-
-    public static SuggestionProvider<CommandSource> SUMMONABLE_NPCS = SuggestionProviders.register(new ResourceLocation(mcrpg.MODID,"summonable_npcs"), (p_197495_0_, p_197495_1_) -> {
-        return ISuggestionProvider.suggestResource(p_197495_0_.getSource().getAvailableSoundEvents(), p_197495_1_);
-    });
-
 }

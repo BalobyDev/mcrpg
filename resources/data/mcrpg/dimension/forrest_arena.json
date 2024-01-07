@@ -1,13 +1,12 @@
 {
   "type": "mcrpg:overworld_arena",
   "generator": {
-    "type": "mcrpg:arenagen",
+    "type": "mcrpg:arena_generator",
     "settings": {
       "base": 65,
       "verticalvariance": 16,
       "horizontalvariance": 10,
       "arena": "mcrpg:forrest_arena",
-      "biome": "mcrpg:overworld_stage_biome",
       "xoffset": -4,
       "zoffset": 2
     }

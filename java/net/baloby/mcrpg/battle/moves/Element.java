@@ -11,7 +11,8 @@ public enum Element {
     LIFE(new ResourceLocation(mcrpg.MODID,"textures/element/life.png")),
     ENDER(new ResourceLocation(mcrpg.MODID,"textures/element/ender.png")),
     WITHER(new ResourceLocation(mcrpg.MODID,"textures/element/wither.png")),
-    AILMENT(new ResourceLocation(""),false),
+    PSYCHIC(new ResourceLocation(mcrpg.MODID,"textures/element/psychic.png")),
+    AILMENT(new ResourceLocation(mcrpg.MODID,"textures/element/ailment.png"),false),
     SUPPORT(new ResourceLocation(mcrpg.MODID,"textures/element/support.png"),false),
     STATMOD(new ResourceLocation(mcrpg.MODID,"textures/element/statmod.png"),false);
 

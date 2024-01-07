@@ -101,7 +101,6 @@ public class Unit {
         if(this.entity!=null&&!(this.entity instanceof PlayerEntity)){entity.remove();}
         if(entity instanceof PlayerEntity) entity.setInvisible(!entity.isInvisible());
         MobEntity entity = (MobEntity)type.spawn(arena, null, null, new BlockPos(station), SpawnReason.SPAWN_EGG,true,true);
-        entity.goalSelector.addGoal(0, new IdleGoal());
         return entity;
     }
 
@@ -246,7 +245,9 @@ public class Unit {
 
     public void getMove(){
         int i = Dice.roll(moveSet.size());
-        action(moveSet.get(i), battle.playerParty.random());
+        Move move = moveSet.get(i);
+        Unit target = moveSet.get(i).friendly ? this.party.random() : battle.playerParty.random();
+        action(move, target);
     }
 
     public void removeMoves(){

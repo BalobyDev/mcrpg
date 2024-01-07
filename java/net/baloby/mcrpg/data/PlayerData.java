@@ -111,13 +111,13 @@ public class PlayerData implements IPlayerData {
 
     @Override
     public void addMove(MoveType type) {
-        for (int i = 1; i < 8; i++) {
+        for (int i = 0; i < 8; i++) {
             if(moveSet.contains(""+i)){
                 if(moveSet.getString(""+i).equalsIgnoreCase(type.getRegistryName().toString()))return;
             }
         }
 
-        for (int i = 1; i < 8; i++) {
+        for (int i = 0; i < 8; i++) {
             if (moveSet.contains("" + i)) {
                 if (moveSet.getString("" + i).equalsIgnoreCase("-")) {
                     addMove(i, type);
@@ -126,13 +126,14 @@ public class PlayerData implements IPlayerData {
             }
             else {
                 addMove(i,type);
+                return;
             }
         }
     }
 
     @Override
     public void addMove(int num, MoveType type){
-        if(num>0&&num<8&&type!=null)
+        if(num>-1&&num<8&&type!=null)
             moveSet.putString(""+num,type.getRegistryName().toString());
     }
 
@@ -196,7 +197,7 @@ public class PlayerData implements IPlayerData {
         HashMap<Integer,MoveType> moveTypes = new HashMap<Integer, MoveType>();
         for (int i = 0; i < 8; i++) {
             if(moves.contains(""+i)){
-                moveTypes.put(i,Registration.MOVE_REGISTRY.get().getValue(new ResourceLocation(mcrpg.MODID,moves.getString(""+i))));
+                moveTypes.put(i,Registration.MOVE_REGISTRY.get().getValue(new ResourceLocation(moves.getString(""+i))));
             }
         }
         return moveTypes;
@@ -224,7 +225,7 @@ public class PlayerData implements IPlayerData {
         HashMap<Integer,MoveType> moveTypes = new HashMap<Integer, MoveType>();
         for (int i = 0; i < 8; i++) {
             if(moves.contains(""+i)){
-                moveTypes.put(i,Registration.MOVE_REGISTRY.get().getValue(new ResourceLocation(mcrpg.MODID,moves.getString(""+i))));
+                moveTypes.put(i,Registration.MOVE_REGISTRY.get().getValue(new ResourceLocation(moves.getString(""+i))));
             }
         }
         return moveTypes;

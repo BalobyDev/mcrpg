@@ -11,7 +11,8 @@ public class VilerWitchUnit extends Unit {
         addSummonable(EntityType.WITCH,2);
         this.MAX_HP = 30;
         this.HP = MAX_HP;
+        this.removeMoves();
         this.addMove(Moves.CHICKEN.get().create());
-        this.addMove(Moves.HASTE.get().create());
+//        this.addMove(Moves.HASTE.get().create());
     }
 }
