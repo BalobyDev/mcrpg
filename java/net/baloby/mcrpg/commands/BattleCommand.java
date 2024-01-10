@@ -7,6 +7,7 @@ import net.baloby.mcrpg.battle.Unit.UnitType;
 import net.baloby.mcrpg.battle.Unit.Units;
 import net.baloby.mcrpg.commands.arguments.ArenaArgument;
 import net.baloby.mcrpg.commands.arguments.EntityArgument;
+import net.baloby.mcrpg.data.characters.NpcType;
 import net.baloby.mcrpg.entities.custom.enemies.ICustomBattleEntity;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.setup.ModDimensions;
@@ -37,6 +38,12 @@ public class BattleCommand {
         ServerPlayerEntity player = source.getPlayerOrException();
         EntityType entityType = Registry.ENTITY_TYPE.get(type);
         ServerWorld world = player.getServer().getLevel(ModDimensions.ARENA);
+        for (ResourceLocation npc : Registration.NPC_REGISTRY.get().getKeys()) {
+            if(type.equals(npc)){
+
+                return 0;
+            }
+        }
         Entity entity = entityType.create(player.getLevel());
         if(UnitType.unitMap.containsKey(entityType)||entity instanceof ICustomBattleEntity){
             if(arena.getPath().equals("forrest_arena")){

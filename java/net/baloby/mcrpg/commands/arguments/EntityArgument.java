@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 public class EntityArgument implements ArgumentType<ResourceLocation> {
 
     public static ResourceLocation getEntity(CommandContext<CommandSource> source, String str){
-        return new ResourceLocation(source.getArgument(str, ResourceLocation.class).getPath());
+        return new ResourceLocation(source.getArgument(str, ResourceLocation.class).toString());
     }
 
     public static EntityArgument id(){

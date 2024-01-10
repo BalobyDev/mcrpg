@@ -7,22 +7,29 @@ import net.baloby.mcrpg.quest.Quest;
 import net.baloby.mcrpg.quest.Status;
 import net.minecraft.nbt.CompoundNBT;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public interface IPlayerData {
 
+    void setLvl(int lvl);
+
+    int getLvl();
+
     void setMp(int mp);
 
-    void setMaxMp(int maxMp);
+    void setMind(int maxMp);
 
-    void setMaxHp(int maxHp);
+    void setEndurance(int endurance);
+
+    void setVigor(int mind);
 
     int getMp();
 
-    int getMaxMp();
+    int getMind();
 
-    int getMaxHp();
+    int getVigor();
+
+    int getEndurance();
 
     int getStr();
 
@@ -36,9 +43,6 @@ public interface IPlayerData {
 
     void setDef(int def);
 
-    int getSpd();
-
-    void setSpd(int spd);
 
     NpcType getPartyMember(int num);
 

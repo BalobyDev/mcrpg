@@ -26,12 +26,12 @@ public class AutoRecoverScreen extends Screen {
 
     @Override
     protected void init() {
-        Button no = new Button(this.width/2-120,this.height/2-10,80,20,new StringTextComponent("Nah nevermind"),button ->{
+        Button no = new Button(this.width/2-120,this.height/2-10,80,20,new StringTextComponent("Nah, never-mind"),button ->{
             Minecraft mc = Minecraft.getInstance();
             mc.submitAsync(() -> {mc.setScreen(null);});
         });
 
-        Button yes = new Button(this.width/2+120,this.height/2-10,80,20,new StringTextComponent("Yeah sure"),button ->{
+        Button yes = new Button(this.width/2+120,this.height/2-10,80,20,new StringTextComponent("Yeah okay sure"),button ->{
             this.player.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get().getPartyMembers();
             Minecraft mc = Minecraft.getInstance();
             mc.submitAsync(() -> {mc.setScreen(null);});

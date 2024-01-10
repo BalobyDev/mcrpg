@@ -1,14 +1,10 @@
 package net.baloby.mcrpg.battle.Unit;
 
 import net.baloby.mcrpg.battle.Party.PlayerParty;
-import net.baloby.mcrpg.battle.moves.MoveType;
 import net.baloby.mcrpg.data.characters.BattleNpc;
 import net.baloby.mcrpg.entities.HumanoidEntity;
 import net.baloby.mcrpg.misc.IdleGoal;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.network.play.server.SAnimateHandPacket;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.vector.Vector3d;
 
@@ -23,12 +19,12 @@ public class NpcUnit extends Unit{
         this.playerControl = (party instanceof PlayerParty);
         this.setStation();
         this.entity = this.spawnAndLoad(character);
-        this.MAX_MP = character.MAXMP;
+        this.MAX_MP = character.MIND;
         this.MP = character.MP;
         if(entity instanceof HumanoidEntity) ((HumanoidEntity) entity).setCharacter(character);
         this.battle.entityMap.put(this.entity,this);
-        this.name = character.getName();
-        this.MAX_HP = character.MAXHP;
+        this.name = character.getName().getString();
+        this.MAX_HP = character.VIGOR;
         this.HP = character.HP;
         this.DEF += this.getArmorValue();
         this.update();

@@ -4,7 +4,6 @@ import net.baloby.mcrpg.battle.ailments.PoisonAilment;
 import net.baloby.mcrpg.battle.moves.*;
 import net.baloby.mcrpg.data.IPlayerData;
 import net.baloby.mcrpg.data.PlayerCapabilityProvider;
-import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.setup.Registration;
 import net.baloby.mcrpg.tools.Teleport;
 import net.minecraft.client.Minecraft;
@@ -16,8 +15,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.ArrayList;
 
 public class PlayerUnit extends Unit{
     public ServerPlayerEntity player;
@@ -32,11 +29,11 @@ public class PlayerUnit extends Unit{
         this.playerControl = true;
         Teleport.teleport(player,station.x,102,station.z);
         this.setMoves();
-        MAX_HP = profile.getMaxHp();
-        float oneUnit = profile.getMaxHp()/20;
+        MAX_HP = profile.getVigor();
+        float oneUnit = profile.getVigor()/20;
         HP = player.getHealth()*oneUnit;
         MP = profile.getMp();
-        MAX_MP = profile.getMaxMp();
+        MAX_MP = profile.getMind();
         this.BASE_STR = 10;
         this.STR = BASE_STR;
         this.BASE_MAG = 10;
@@ -81,7 +78,7 @@ public class PlayerUnit extends Unit{
 
     public void action(Move move, Unit target){
         super.action(move,target);
-        entity.swing(entity.swingingArm);
+        if(entity.swingingArm!=null) entity.swing(entity.swingingArm);
     }
 
     public void setPlayer(ServerPlayerEntity p){this.player = p;}

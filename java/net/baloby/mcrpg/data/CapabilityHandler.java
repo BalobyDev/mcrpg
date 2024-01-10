@@ -68,7 +68,7 @@ public class CapabilityHandler {
     public static void playerEvent(PlayerEvent.Clone event){
         if(event.isWasDeath()){
             IPlayerData profile = event.getPlayer().getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get();
-            profile.getMaxMp();
+            profile.getMind();
 
 
         }

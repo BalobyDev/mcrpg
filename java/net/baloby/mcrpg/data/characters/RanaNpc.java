@@ -8,11 +8,13 @@ import net.baloby.mcrpg.setup.ModItems;
 import net.baloby.mcrpg.setup.ModSetup;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class RanaNpc extends BattleNpc{
 
     public RanaNpc(){
-        super(Npcs.RANA.get(),"Rana", new ResourceLocation(mcrpg.MODID, "textures/entity/rana.png"), ModEntities.HUMANOID_SLIM.get(), ModItems.IRON_YOYO.get(), 20,20, Moves.FLORA.get(),Moves.HEAL.get());
+        super(Npcs.RANA.get(),new TranslationTextComponent("npc.mcrpg.rana"), new ResourceLocation(mcrpg.MODID, "textures/entity/rana.png"), ModEntities.HUMANOID_SLIM.get(), ModItems.IRON_YOYO.get(), 10,10, Moves.FLORA.get(),Moves.HEAL.get());
+        this.LVL = 5;
         this.dialogueTree = new DialogueTree(ModSetup.DIALOGUE_MANAGER.getData(new ResourceLocation(mcrpg.MODID,"rana_intro")));
         this.STR = 8;
         this.MAG = 10;

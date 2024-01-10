@@ -5,6 +5,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import net.baloby.mcrpg.client.gui.DisclaimerScreen;
 import net.baloby.mcrpg.client.gui.PartyManagerScreen;
 import net.baloby.mcrpg.cutscene.Cutscene;
 import net.baloby.mcrpg.data.PlayerCapabilityProvider;
@@ -32,8 +33,7 @@ public class TestCommand implements Command<CommandSource> {
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
         ServerPlayerEntity player = context.getSource().getPlayerOrException();
-        player.sendMessage(new StringTextComponent("Hello!"),player.getUUID());
-
+        DisclaimerScreen.open();
         return 0;
     }
 }

@@ -39,7 +39,7 @@ public class PartyRemove {
             party.remove(num);
         }
 
-        player.sendMessage(new StringTextComponent(npc.create().getName()+" has left your party!"),player.getUUID());
+        player.sendMessage(new StringTextComponent(npc.create().getName().getString()+" has left your party!"),player.getUUID());
         return 0;
     }
 }

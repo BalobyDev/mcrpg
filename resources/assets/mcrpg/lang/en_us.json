@@ -18,9 +18,20 @@
   "entity.mcrpg.inferno": "Inferno",
   "entity.mcrpg.viler_witch": "Viler Witch",
 
+  "npc.mcrpg.alex": "Alex",
+  "npc.mcrpg.austin": "Austin",
+  "npc.mcrpg.billie": "Billie",
+  "npc.mcrpg.claire": "Claire",
+  "npc.mcrpg.dani": "Dani",
+  "npc.mcrpg.felina": "Felina",
+  "npc.mcrpg.gunter": "Günter",
+  "npc.mcrpg.ida": "Ida",
+  "npc.mcrpg.jean": "Jean",
+  "npc.mcrpg.maven": "Maven",
   "npc.mcrpg.rana": "Rana",
   "npc.mcrpg.steve": "Steve",
 
   "move.mcrpg.aqua": "Aqua",
-  "move.mcrpg.igni": "Igni"
+  "move.mcrpg.igni": "Igni",
+  "move.mcrpg.heal": "Heal"
 }

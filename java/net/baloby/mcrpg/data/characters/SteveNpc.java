@@ -8,14 +8,15 @@ import net.baloby.mcrpg.setup.ModSetup;
 import net.baloby.mcrpg.setup.ModSounds;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 
 public class SteveNpc extends BattleNpc{
     public SteveNpc(){
-        super(Npcs.STEVE.get(),"Steve", new ResourceLocation(mcrpg.MODID, "textures/entity/steve.png"), ModEntities.HUMANOID.get(), Items.IRON_SWORD,20,20, Moves.AQUA.get());
+        super(Npcs.STEVE.get(),new StringTextComponent("Steve"), new ResourceLocation(mcrpg.MODID, "textures/entity/steve.png"), ModEntities.HUMANOID.get(), Items.IRON_SWORD,10,10, Moves.AQUA.get());
+        this.LVL = 5;
         this.hurtSound = ModSounds.OOH.get();
         this.dialogueTree = new DialogueTree(ModSetup.DIALOGUE_MANAGER.getData(new ResourceLocation(mcrpg.MODID,"steve_intro")));
-        this.STR = 9;
-        this.MAG = 9;
+        this.ENDURANCE = 12;
         this.weaponType = WeaponType.SWORD;
     }
 }

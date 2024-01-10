@@ -87,7 +87,7 @@ public class DialougeGui extends Screen {
         this.player = player;
         this.npc = Registration.NPC_REGISTRY.get().getValue(instance.getNpc()).create();
         this.lineOn=0;
-        this.name = npc.getName();
+        this.name = npc.getName().getString();
         this.speed = 1;
         this.cutsceneOrBattle = Battle.isActive;
         this.words = this.carveWords();

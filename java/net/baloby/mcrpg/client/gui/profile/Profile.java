@@ -17,6 +17,8 @@ import java.util.HashMap;
 public abstract class Profile {
 
     public String name;
+    public int lvl;
+    private int xp;
     public int hp;
     public int maxHp;
     public int mp;
@@ -29,9 +31,10 @@ public abstract class Profile {
     protected ServerPlayerEntity player;
     private HashMap<Integer, MoveType> moves;
 
-    public Profile(ServerPlayerEntity player, String name, int hp, int maxHp, int mp, int maxMp, int str, int mag, int def, int spd, ResourceLocation skin, HashMap<Integer,MoveType> moves){
+    public Profile(ServerPlayerEntity player, String name, int lvl, int hp, int maxHp, int mp, int maxMp, int str, int mag, int def, int spd, ResourceLocation skin, HashMap<Integer,MoveType> moves){
         this.player = player;
         this.name = name;
+        this.lvl = lvl;
         this.hp = hp;
         this.maxHp = maxHp;
         this.mp = mp;
@@ -51,10 +54,10 @@ public abstract class Profile {
     public static PlayerProfile fromPlayer(ServerPlayerEntity player){
         IPlayerData playerData = player.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get();
 
-        PlayerProfile prof = new PlayerProfile(player,player.getDisplayName().getString(), (int) player.getHealth(), playerData.getMaxHp(), playerData.getMp(),
-                playerData.getMaxMp(),
+        PlayerProfile prof = new PlayerProfile(player,player.getDisplayName().getString(),playerData.getLvl(), (int) player.getHealth(), playerData.getVigor(), playerData.getMp(),
+                playerData.getMind(),
                 playerData.getStr(), playerData.getMag(),
-                playerData.getDef(), playerData.getSpd(), new ResourceLocation(mcrpg.MODID,"textures/entity/camryn.png"),playerData.moveList());
+                playerData.getDef(), playerData.getEndurance(), new ResourceLocation(mcrpg.MODID,"textures/entity/camryn.png"),playerData.moveList());
         return prof;
     }
 
@@ -82,6 +85,14 @@ public abstract class Profile {
         if(mp<0){
             this.mp = 0;
         }
+    }
+
+    public void setXp(int xp){
+        this.xp = xp;
+    }
+
+    public int getXp(){
+        return xp;
     }
 
     public ServerPlayerEntity getPlayer(){

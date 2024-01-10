@@ -3,46 +3,27 @@ package net.baloby.mcrpg.client.gui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.baloby.mcrpg.battle.Battle;
-import net.baloby.mcrpg.battle.Unit.PlayerUnit;
 import net.baloby.mcrpg.data.characters.*;
 import net.baloby.mcrpg.entities.models.HumanoidModel;
 import net.baloby.mcrpg.entities.render.HumanoidRenderer;
-import net.baloby.mcrpg.mcrpg;
-import net.baloby.mcrpg.network.NpcSavePacket;
-import net.baloby.mcrpg.network.RpgNetwork;
-import net.baloby.mcrpg.world.ModWorldEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.model.BookModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.client.renderer.model.Model;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.Dimension;
-import net.minecraft.world.DimensionType;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.client.ForgeRenderTypes;
 
 import java.util.Optional;
 
@@ -84,7 +65,7 @@ public class EquipScreen extends ContainerScreen<NpcContainer> {
         this.font.draw(mStack,"STR: "+npc.STR,leftPos+100,topPos+25,4210752);
         this.font.draw(mStack,"MAG: "+npc.MAG,leftPos+100,topPos+35,4210752);
         this.font.draw(mStack,"DEF: "+npc.DEF,leftPos+100,topPos+45,4210752);
-        this.font.draw(mStack,"SPD: "+npc.SPD,leftPos+100,topPos+55,4210752);
+        this.font.draw(mStack,"ENDURANCE: "+npc.ENDURANCE,leftPos+100,topPos+55,4210752);
         this.font.draw(mStack,"LOAD: 00/00",leftPos+100,topPos+65,4210752);
 
 //        InventoryScreen.renderEntityInInventory(leftPos + 51, topPos + 75, 30, (float)(leftPos + 51) - mouseX, (float)(topPos + 75 - 50) - mouseY, inventory.player);
@@ -214,11 +195,7 @@ public class EquipScreen extends ContainerScreen<NpcContainer> {
         IRenderTypeBuffer.Impl irendertypebuffer$impl1 = Minecraft.getInstance().renderBuffers().bufferSource();
         IVertexBuilder ivertexbuilder = irendertypebuffer$impl.getBuffer(RenderType.entityCutout(npc.getSkin()));
         IVertexBuilder ivertexbuilder1 = irendertypebuffer$impl1.getBuffer(RenderType.entityCutout(npc.getSkin()));
-
-        RenderSystem.runAsFancy(()->{
-            this.model.renderToBuffer(mStack,ivertexbuilder,15728880, OverlayTexture.NO_OVERLAY,1,1,1,1);
-
-        });
+        this.model.renderToBuffer(mStack,ivertexbuilder,15728880, OverlayTexture.NO_OVERLAY,1,1,1,1);
         irendertypebuffer$impl.endBatch();
         entityrenderermanager.setRenderShadow(true);
 

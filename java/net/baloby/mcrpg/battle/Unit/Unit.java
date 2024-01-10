@@ -5,6 +5,7 @@ import net.baloby.mcrpg.battle.Party.Party;
 import net.baloby.mcrpg.battle.Party.PlayerParty;
 import net.baloby.mcrpg.battle.StatMod.Stat;
 import net.baloby.mcrpg.battle.StatMod.StatMod;
+import net.baloby.mcrpg.battle.ailments.ActionPreventAilment;
 import net.baloby.mcrpg.battle.ailments.Ailment;
 import net.baloby.mcrpg.battle.ailments.DamageAilment;
 import net.baloby.mcrpg.battle.moves.*;
@@ -33,6 +34,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 public class Unit {
@@ -255,6 +257,11 @@ public class Unit {
     }
 
     public void takeTurn(){
+        if(ailment!=null&&ailment instanceof ActionPreventAilment){
+            if(new Random().nextInt(100)>((ActionPreventAilment) ailment).chance){
+                this.ailment.getTextToShow();
+            }
+        }
         if (!playerControl){
             getMove();
         }

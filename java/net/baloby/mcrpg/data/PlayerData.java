@@ -2,31 +2,29 @@ package net.baloby.mcrpg.data;
 
 import net.baloby.mcrpg.battle.moves.MoveType;
 import net.baloby.mcrpg.client.gui.profile.NpcProfile;
-import net.baloby.mcrpg.client.gui.profile.PlayerProfile;
 import net.baloby.mcrpg.client.gui.profile.Profile;
 import net.baloby.mcrpg.data.characters.NpcType;
-import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.quest.Quest;
 import net.baloby.mcrpg.quest.Status;
 import net.baloby.mcrpg.setup.Registration;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerData implements IPlayerData {
 
-    private int MAX_HP = 20;
-    private int MAX_MP = 20;
-    private int MP = MAX_MP;
+    private int LVL = 1;
+    private int VIGOR = 10;
+    private int MIND = 10;
+    private int MP = MIND*2;
+    private int ENDURANCE = 10;
     private int STR = 10;
     private int MAG = 10;
     private int DEF = 10;
-    private int SPD = 10;
     private CompoundNBT backItem = new CompoundNBT();
-    private CompoundNBT moveSet = new CompoundNBT();
+    private CompoundNBT moveSet = getPlayerStartingMoveSet();
     private CompoundNBT availableMoves = new CompoundNBT();
     private CompoundNBT partyMembers = new CompoundNBT();
     private CompoundNBT pronouns = new CompoundNBT();
@@ -35,18 +33,33 @@ public class PlayerData implements IPlayerData {
 
 
     @Override
+    public void setLvl(int lvl) {
+        this.LVL = lvl;
+    }
+
+    @Override
+    public int getLvl() {
+        return LVL;
+    }
+
+    @Override
     public void setMp(int mp) {
         this.MP = mp;
     }
 
     @Override
-    public void setMaxMp(int maxMp) {
-        this.MAX_MP = maxMp;
+    public void setVigor(int vigor) {
+        this.VIGOR = vigor;
     }
 
     @Override
-    public void setMaxHp(int maxHp) {
-        this.MAX_HP = maxHp;
+    public void setEndurance(int endurance) {
+        this.ENDURANCE = endurance;
+    }
+
+    @Override
+    public void setMind(int mind) {
+        this.MIND = mind;
     }
 
     @Override
@@ -55,14 +68,17 @@ public class PlayerData implements IPlayerData {
     }
 
     @Override
-    public int getMaxMp() {
-        return MAX_MP;
+    public int getMind() {
+        return MIND;
     }
 
     @Override
-    public int getMaxHp() {
-        return MAX_HP;
+    public int getVigor() {
+        return VIGOR;
     }
+
+    @Override
+    public int getEndurance(){return ENDURANCE;}
 
     public NpcType getPartyMember(int num){
         return Registration.NPC_REGISTRY.get().getValue(new ResourceLocation(partyMembers.getString(""+num)));
@@ -265,14 +281,6 @@ public class PlayerData implements IPlayerData {
         this.DEF = DEF;
     }
 
-    public int getSpd() {
-        return SPD;
-    }
-
-    public void setSpd(int SPD) {
-        this.SPD = SPD;
-    }
-
     @Override
     public CompoundNBT getBackItem() {
         return backItem;
@@ -280,5 +288,11 @@ public class PlayerData implements IPlayerData {
 
     public void setBackItem(CompoundNBT item) {
         this.backItem = item;
+    }
+
+    public static CompoundNBT getPlayerStartingMoveSet(){
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putString("0","mcrpg:heal");
+        return nbt;
     }
 }

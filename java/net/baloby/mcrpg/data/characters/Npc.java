@@ -26,6 +26,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.common.Mod;
@@ -36,7 +37,7 @@ import java.util.List;
 public class Npc {
 
     public static ArrayList<Npc> allNpcs = new ArrayList<>();
-    protected String name;
+    protected ITextComponent name;
     public boolean slim = false;
     public boolean isDirty;
     private ResourceLocation skin;
@@ -60,12 +61,12 @@ public class Npc {
     public int bounty;
 
     public Npc(){
-        this.name = "Nobody";
+        this.name = new StringTextComponent("Nobody");
         this.skin = new ResourceLocation(mcrpg.MODID, "textures/entity/steve.png");
         this.entityType = ModEntities.HUMANOID.get();
     }
 
-    public Npc(NpcType<?> type, String name, EntityType entityType, ResourceLocation skin){
+    public Npc(NpcType<?> type, ITextComponent name, EntityType entityType, ResourceLocation skin){
         this.item = new ItemStack(Items.AIR);
         this.type = type;
         this.name = name;
@@ -83,7 +84,7 @@ public class Npc {
         this.feetItem = new ItemStack(Items.AIR);
     }
 
-    public Npc(NpcType<?> type, String name, EntityType entityType, ResourceLocation skin,float size){
+    public Npc(NpcType<?> type, ITextComponent name, EntityType entityType, ResourceLocation skin,float size){
         this(type, name, entityType, skin);
         this.size = size;
     }
@@ -98,7 +99,7 @@ public class Npc {
         allNpcs.add(this);
     }
 
-    public String getName() {
+    public ITextComponent getName() {
         return name;
     }
 

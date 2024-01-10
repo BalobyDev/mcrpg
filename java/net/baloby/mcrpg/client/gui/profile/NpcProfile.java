@@ -12,7 +12,7 @@ public class NpcProfile extends Profile{
     public BattleNpc npc;
 
     public NpcProfile(ServerPlayerEntity player, BattleNpc npc) {
-        super(player,npc.getName(), npc.HP, npc.MAXHP, npc.MP, npc.MAXMP, npc.STR, npc.MAG,npc.DEF,npc.SPD,npc.getSkin(), npc.moveSet);
+        super(player,npc.getName().getString(), npc.LVL, npc.HP, npc.VIGOR, npc.MP, npc.MIND, npc.STR, npc.MAG,npc.DEF,npc.ENDURANCE,npc.getSkin(), npc.moveSet);
         this.type = npc.getType();
         this.npc = npc;
     }

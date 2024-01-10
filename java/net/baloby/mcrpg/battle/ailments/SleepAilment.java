@@ -4,6 +4,7 @@ public class SleepAilment extends ActionPreventAilment{
 
     public SleepAilment() {
         super("Sleep", 0);
+        this.mental = true;
     }
 
     @Override

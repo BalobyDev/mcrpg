@@ -21,8 +21,8 @@ public class AilmentInflictingMove extends Move{
     protected Ailment createAilment(){return new PoisonAilment();}
 
     public void trySetAilment(Unit target, Ailment ailment){
-        Random random = new Random(100);
-        if(random.nextInt()<chance||target.getAilment()!=null){
+        Random random = new Random();
+        if(random.nextInt(100)<chance||target.getAilment()!=null){
             target.miss();
             return;
         }

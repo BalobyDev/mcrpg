@@ -46,7 +46,7 @@ public class NpcData implements INpcData {
     @Override
     public void loadNpc(CompoundNBT nbt, Npc npc){
 
-        npc.load((CompoundNBT) nbt.get(npc.getName()));
+        npc.load((CompoundNBT) nbt.get(npc.getType().getRegistryName().toString()));
     }
 
     @Override

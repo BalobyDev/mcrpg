@@ -7,12 +7,14 @@ import net.baloby.mcrpg.setup.ModEntities;
 import net.baloby.mcrpg.setup.ModSetup;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 
 public class AlexNpc extends BattleNpc{
 
     public AlexNpc(){
-        super(Npcs.ALEX.get(),"Alex",new ResourceLocation("textures/entity/alex.png"), ModEntities.HUMANOID_SLIM.get(), Items.TRIDENT, 20,20,
+        super(Npcs.ALEX.get(),new StringTextComponent("Alex"),new ResourceLocation("textures/entity/alex.png"), ModEntities.HUMANOID_SLIM.get(), Items.TRIDENT, 10,10,
                 Moves.VOLTAGE.get(),Moves.VITALITY.get());
+        this.LVL = 5;
         this.dialogueTree = new DialogueTree(ModSetup.DIALOGUE_MANAGER.getData(new ResourceLocation(mcrpg.MODID,"alex_intro")));
         this.STR = 10;
         this.MAG = 8;

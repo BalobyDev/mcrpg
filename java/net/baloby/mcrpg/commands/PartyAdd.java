@@ -28,7 +28,7 @@ public class PartyAdd {
         ServerPlayerEntity player = source.getPlayerOrException();
         NpcType npc = Registration.NPC_REGISTRY.get().getValue(type);
         player.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get().addPartyMember(npc);
-        player.sendMessage(new StringTextComponent(npc.create().getName()+" has joined your party!"),player.getUUID());
+        player.sendMessage(new StringTextComponent(npc.create().getName().getString()+" has joined your party!"),player.getUUID());
         return 0;
     }
 }

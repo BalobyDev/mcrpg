@@ -48,7 +48,7 @@ public class SingleCharacterScreen extends Screen {
         this.addButton(new Button(relX-60,relY,60,20,new StringTextComponent("Learn"),
                 button ->{MoveLearnScreen.open(profile,player);}));
         this.addButton(new Button(relX-60,relY+30,60,20,new StringTextComponent("Upgrade"),
-                button ->{}));
+                button ->{UpgradeScreen.open(profile);}));
         this.addButton(new Button(relX-60,relY+60,60,20,new StringTextComponent("Equip"),
                 button ->{
 
@@ -77,32 +77,28 @@ public class SingleCharacterScreen extends Screen {
         this.minecraft.getTextureManager().bind(profile.getSkin());
         this.blit(matrixStack,relX+10,relY+10,32,32,32,32);
         this.blit(matrixStack,relX+10,relY+10,160,32,32,32);
-        this.font.draw(matrixStack,profile.name,relX+12,relY+48,5592405);
+        this.font.draw(matrixStack,profile.name,relX+12,relY+48,4210752);
         this.renderBars(matrixStack,relX,relY);
         this.renderStats(matrixStack,relX,relY);
 
         this.renderMoves(matrixStack,relX,relY);
-
-
-
-
-
     }
 
     public void renderStats(MatrixStack matrixStack, int x, int y){
         int relX = x + 12;
         int relY = y + 70;
-        this.font.draw(matrixStack,"STR: "+profile.STR,relX,relY,5592405);
-        this.font.draw(matrixStack,"MAG: "+ profile.MAG,relX+50,relY,5592405);
-        this.font.draw(matrixStack,"DEF: "+ profile.DEF,relX,relY+20,5592405);
-        this.font.draw(matrixStack,"SPD: "+ profile.SPD,relX+50,relY+20,5592405);
+        this.font.draw(matrixStack,"LVL: "+profile.lvl,relX,relY,4210752);
+        this.font.draw(matrixStack,"STR: "+profile.STR,relX,relY+20,4210752);
+        this.font.draw(matrixStack,"MAG: "+ profile.MAG,relX+50,relY+20,4210752);
+        this.font.draw(matrixStack,"DEF: "+ profile.DEF,relX,relY+40,4210752);
+        this.font.draw(matrixStack,"SPD: "+ profile.SPD,relX+50,relY+40,4210752);
 
         }
 
 
     public void renderBars(MatrixStack matrixStack, int relX, int relY){
-        this.font.draw(matrixStack,profile.hp+"/"+ profile.maxHp,relX+58,relY+10,5592405);
-        this.font.draw(matrixStack,profile.mp+"/"+ profile.maxMp,relX+58,relY+30,5592405);
+        this.font.draw(matrixStack,profile.hp+"/"+ profile.maxHp*2,relX+58,relY+10,4210752);
+        this.font.draw(matrixStack,profile.mp+"/"+ profile.maxMp*2,relX+58,relY+30,4210752);
         this.minecraft.getTextureManager().bind(ICONS);
         float hpUnit = (float)50/profile.maxHp;
         float mpUnit = (float)50/profile.maxMp;
@@ -123,10 +119,10 @@ public class SingleCharacterScreen extends Screen {
                     Move move = profile.getMoves().get(i).create();
                     this.minecraft.getTextureManager().bind(move.type.getIcon());
                     this.blit(matrixStack, relX + WIDTH/2 +20, relY + 6 + (j * 20), 0, 0, 12, 12, 12, 12);
-                    this.font.draw(matrixStack, move.name, relX + WIDTH/2 +35, relY +  8 + (j * 20), 5592405);
+                    this.font.draw(matrixStack, move.name, relX + WIDTH/2 +35, relY +  8 + (j * 20), 4210752);
                 }
                 else {
-                    this.font.draw(matrixStack, "-", relX + WIDTH/2 +35, relY + 10 + (j * 20), 5592405);
+                    this.font.draw(matrixStack, "-", relX + WIDTH/2 +35, relY + 10 + (j * 20), 4210752);
                 }
                 i++;
             }
