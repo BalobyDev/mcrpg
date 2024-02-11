@@ -21,14 +21,16 @@ public class PronounSelectScreen extends Screen {
     private ArrayList<PronounConfig> pronounConfigs = new ArrayList<PronounConfig>();
     private PronounConfig selected;
     private Button pronouns;
+    private boolean first;
 
-    protected PronounSelectScreen(ServerPlayerEntity player) {
+    protected PronounSelectScreen(ServerPlayerEntity player, boolean first) {
         super(new StringTextComponent("of course you have blue hair and pronouns"));
         this.player = player;
         this.pronounConfigs.add(new PronounConfig("They","Them","Theirs","Their","They're", "Themselves"));
         this.pronounConfigs.add(new PronounConfig("He","Him","His","His","He's","Himself"));
         this.pronounConfigs.add(new PronounConfig("She","Her","Hers","Her","She's","Herself"));
         this.selected = pronounConfigs.get(0);
+        this.first = first;
     }
 
     @Override
@@ -40,7 +42,20 @@ public class PronounSelectScreen extends Screen {
 
 
         Button confirm = this.addButton(new Button(this.width/2-50,this.height/2-10,100,20,new StringTextComponent("Confirm"),
-                button -> this.setPronouns()));
+                button ->
+                {
+                    this.setPronouns();
+                    if(!first){
+                        String sub = this.selected.getSubjective();
+                        String obj = this.selected.getObjective();
+                        this.minecraft.submitAsync(()->{
+                            player.sendMessage(new StringTextComponent("Updated pronouns to " + this.selected.getSubjective()+"/"+this.selected.getObjective()), player.getUUID());
+
+                        });
+                    }
+                }
+        ));
+
     }
 
 
@@ -77,7 +92,7 @@ public class PronounSelectScreen extends Screen {
         this.pronounConfigs.add(config);
     }
 
-    public static void open(ServerPlayerEntity player){
+    public static void open(ServerPlayerEntity player, boolean first){
         Minecraft mc = Minecraft.getInstance();
-        mc.submitAsync(() -> {mc.setScreen(new PronounSelectScreen(player));});}
+        mc.submitAsync(() -> {mc.setScreen(new PronounSelectScreen(player,first));});}
 }

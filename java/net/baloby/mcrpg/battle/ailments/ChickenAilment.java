@@ -2,7 +2,7 @@ package net.baloby.mcrpg.battle.ailments;
 
 public class ChickenAilment extends ActionPreventAilment{
     public ChickenAilment() {
-        super("Chicken", 0);
+        super("ChickenMove", 0);
     }
 
     public String getTextToShow(){

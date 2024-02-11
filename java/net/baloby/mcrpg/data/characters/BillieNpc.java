@@ -1,5 +1,7 @@
 package net.baloby.mcrpg.data.characters;
 
+import net.baloby.mcrpg.battle.moves.Affinity;
+import net.baloby.mcrpg.battle.moves.Element;
 import net.baloby.mcrpg.battle.moves.Moves;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.setup.ModEntities;
@@ -15,6 +17,8 @@ public class BillieNpc extends BattleNpc {
         this.hurtSound = SoundEvents.ENDERMAN_HURT;
         this.size = 1.2f;
         this.weaponType = WeaponType.AXE;
+        this.addAffinity(Element.ENDER, Affinity.STRONG);
+        this.addAffinity(Element.ICE, Affinity.WEAK);
 
     }
 }

@@ -2,7 +2,7 @@ package net.baloby.mcrpg.battle;
 
 import net.baloby.mcrpg.battle.Party.Party;
 import net.baloby.mcrpg.battle.Party.PlayerParty;
-import net.baloby.mcrpg.battle.Unit.Enemies.Bosses.BossUnit;
+import net.baloby.mcrpg.battle.Unit.NpcUnit;
 import net.baloby.mcrpg.battle.Unit.Unit;
 import net.baloby.mcrpg.battle.moves.MoveType;
 import net.baloby.mcrpg.client.gui.BattleGui;
@@ -10,7 +10,7 @@ import net.baloby.mcrpg.client.gui.OverlayGui;
 import net.baloby.mcrpg.client.gui.WinScreen;
 import net.baloby.mcrpg.data.INpcData;
 import net.baloby.mcrpg.data.PlayerCapabilityProvider;
-import net.baloby.mcrpg.entities.custom.enemies.ICustomBattleEntity;
+import net.baloby.mcrpg.data.characters.BattleNpc;
 import net.baloby.mcrpg.entities.custom.enemies.ICustomBossEntity;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.network.PacketBattle;
@@ -29,7 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Dimension;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import org.apache.logging.log4j.Level;
@@ -96,27 +95,43 @@ public class Battle {
         conclude();
     }
 
-    public static void init(ServerPlayerEntity entity, Entity target, ServerWorld destination, BlockPos pos) {
-        ServerWorld world = entity.getLevel();
-        Battle battle;
-        Teleport.teleport(entity,destination,new BlockPos(1.5,1.0,1.5));
-        entity.teleportTo(-0.5,102,1.5);
 
-        if(target instanceof ICustomBossEntity ){
-            battle = new BossBattle(destination,target,entity);
-        }
-        else if(target instanceof EnderDragonPartEntity){
-            battle = new BossBattle(destination,new EnderDragonEntity(EntityType.ENDER_DRAGON,destination),entity);
-        }
-        else{
-            battle = new Battle(destination, (MobEntity) target,entity);
-        }
-        battle.returnWorld = world;
+
+    private static void finalize(ServerPlayerEntity player, ServerWorld returnWorld,BlockPos pos,Battle battle){
+        ServerWorld world = player.getLevel();
+        battle.returnWorld = returnWorld;
         battle.returnPoint = pos;
         CompoundNBT nbt = new CompoundNBT();
         nbt.putString("world",world.dimension().location().toString());
         nbt.putIntArray("pos",new int[]{pos.getX(),pos.getY(),pos.getZ()});
-        entity.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get().setSendBack(nbt);
+        player.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get().setSendBack(nbt);
+    }
+
+    public static void mobStart(ServerPlayerEntity player, Entity target, ServerWorld world, BlockPos pos) {
+        ServerWorld returnWorld = player.getLevel();
+        Teleport.teleport(player,world,new BlockPos(1.5,1.0,1.5));
+        player.teleportTo(-0.5,102,1.5);
+        Battle battle = new Battle(world, (MobEntity) target,player);
+
+        if(target instanceof ICustomBossEntity ){
+            battle = new BossBattle(world,target,player);
+        }
+        else if(target instanceof EnderDragonPartEntity){
+            battle = new BossBattle(world,new EnderDragonEntity(EntityType.ENDER_DRAGON,world),player);
+        }
+
+        finalize(player,returnWorld,pos,battle);
+
+
+    }
+
+    public static void npcStart(ServerPlayerEntity player, BattleNpc npc, ServerWorld world, BlockPos pos){
+        ServerWorld returnWorld = player.getLevel();
+        Teleport.teleport(player,world,new BlockPos(1.5,1.0,1.5));
+        player.teleportTo(-0.5,102,1.5);
+        Battle battle = new Battle(world, player, npc);
+
+        finalize(player,returnWorld,pos,battle);
     }
 
     public Battle(){
@@ -153,10 +168,47 @@ public class Battle {
             for(ItemStack item: unit.items){
                 addItem(item.getItem(),item.getCount());
             }
+        }
+        entity.remove();
+    }
+
+
+    public Battle(ServerWorld arena,  ServerPlayerEntity sp,BattleNpc npc){
+        this.sp = sp;
+        instance = this;
+        this.arena = arena;
+        this.clock = new Clock();
+        this.playerParty = new PlayerParty(this,sp);
+        playerParty.addPlayer(sp);
+        this.playerParty.addMembers();
+        this.turn = 0;
+        this.enemyParty = new Party(this,npc);
+        Unit npcUnit = new NpcUnit(npc);
+        npcUnit.HP = npcUnit.MAX_HP;
+        npcUnit.MP = npcUnit.MAX_MP;
+        this.enemyParty.addMember(npcUnit);
+        this.turnOrder.add(npcUnit);
+        this.setActiveUnit(playerParty.members.get(0));
+        RpgNetwork.sendToClient(new PacketBattle(),sp);
+        this.camera = new CustomCamera(arena);
+        this.overlay = new OverlayGui();
+        this.xp = getXp();
+        showStuff(false);
+        this.theme = new Theme(this);
+        playTheme(1);
+        setTime();
+        isActive = true;
+        for(Entity e : arena.getAllEntities()){
+            if(!entityMap.containsKey(e)){
+                e.remove();
+            }
+        }
+        for(Unit unit : enemyParty.members){
+            for(ItemStack item: unit.items){
+                addItem(item.getItem(),item.getCount());
+            }
 
         }
-
-        entity.remove();
     }
 
     public void setActiveUnit(Unit unit){

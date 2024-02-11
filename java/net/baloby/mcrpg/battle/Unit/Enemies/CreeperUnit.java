@@ -32,8 +32,8 @@ public class CreeperUnit extends Unit {
     public void explode(){action(new Explode(),battle.playerParty.random());}
 
     @Override
-    public void getMove(){
-        if(HP>MAX_HP/2){super.getMove();}
+    public void aiAction(){
+        if(HP>MAX_HP/2){super.aiAction();}
         else if (charged == true) {explode();}
         else{charge();}
     }

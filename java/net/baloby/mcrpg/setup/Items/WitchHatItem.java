@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nullable;
 
-public class WitchHatItem extends ArmorItem {
+public class WitchHatItem extends ArmorItem implements IWeightedItem {
     public WitchHatItem(IArmorMaterial p_i48534_1_, EquipmentSlotType p_i48534_2_, Properties p_i48534_3_) {
         super(p_i48534_1_, p_i48534_2_, p_i48534_3_);
     }
@@ -31,5 +31,10 @@ public class WitchHatItem extends ArmorItem {
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
         return "mcrpg:textures/models/armor/witch_hat.png";
+    }
+
+    @Override
+    public int getWeight() {
+        return 1;
     }
 }

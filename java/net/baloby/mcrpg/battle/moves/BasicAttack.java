@@ -1,20 +1,18 @@
 package net.baloby.mcrpg.battle.moves;
 
 import net.baloby.mcrpg.battle.Unit.Unit;
-import net.baloby.mcrpg.tools.AnimationSequence;
 import net.baloby.mcrpg.tools.Dice;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.ShortNBT;
-import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
 import java.util.Random;
 
-public class BasicAttack extends Attack{
+public class BasicAttack extends AttackMove {
 
     public ItemStack stack;
 

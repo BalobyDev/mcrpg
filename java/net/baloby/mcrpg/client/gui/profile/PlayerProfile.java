@@ -10,9 +10,16 @@ import java.util.HashMap;
 
 public class PlayerProfile extends Profile {
 
+    public IPlayerData getPlayerData() {
+        return playerData;
+    }
+
+    protected IPlayerData playerData;
+
 
     public PlayerProfile(ServerPlayerEntity player, String name, int lvl, int hp, int maxHp, int mp, int maxMp, int str, int mag, int def, int spd, ResourceLocation skin, HashMap<Integer,MoveType> moves) {
         super(player,name, lvl, hp, maxHp, mp, maxMp,str,mag,def,spd, skin, moves);
+        this.playerData = player.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get();
     }
 
 

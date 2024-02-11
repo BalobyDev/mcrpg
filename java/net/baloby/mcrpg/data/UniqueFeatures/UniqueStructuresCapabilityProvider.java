@@ -11,37 +11,37 @@ import net.minecraftforge.common.util.LazyOptional;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class UniqueFeaturesCapabilityProvider implements ICapabilitySerializable<INBT> {
+public class UniqueStructuresCapabilityProvider implements ICapabilitySerializable<INBT> {
 
-    @CapabilityInject(IUniqueFeatures.class)
+    @CapabilityInject(IUniqueStructures.class)
 
-    public static Capability<IUniqueFeatures> FEATURES_CAP = null;
+    public static Capability<IUniqueStructures> STRUCTURES_CAP = null;
 
-    private LazyOptional<IUniqueFeatures> instance = LazyOptional.of(()->FEATURES_CAP.getDefaultInstance());
+    private LazyOptional<IUniqueStructures> instance = LazyOptional.of(()-> STRUCTURES_CAP.getDefaultInstance());
 
 
 
     @Nonnull
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
-        return cap == FEATURES_CAP ? instance.cast() : LazyOptional.empty();
+        return cap == STRUCTURES_CAP ? instance.cast() : LazyOptional.empty();
     }
 
     @Override
     public INBT serializeNBT() {
         CompoundNBT nbt = new CompoundNBT();
-        if(FEATURES_CAP!=null)nbt = (CompoundNBT) FEATURES_CAP.getStorage().writeNBT(FEATURES_CAP,this.getInstance(),null);
+        if(STRUCTURES_CAP !=null)nbt = (CompoundNBT) STRUCTURES_CAP.getStorage().writeNBT(STRUCTURES_CAP,this.getInstance(),null);
         return nbt;    }
 
     @Override
     public void deserializeNBT(INBT nbt) {
-        if (FEATURES_CAP != null){
-            FEATURES_CAP.getStorage().readNBT(FEATURES_CAP, this.getInstance(),null,nbt);
+        if (STRUCTURES_CAP != null){
+            STRUCTURES_CAP.getStorage().readNBT(STRUCTURES_CAP, this.getInstance(),null,nbt);
         }
 
     }
 
-    private IUniqueFeatures getInstance(){
+    private IUniqueStructures getInstance(){
         return this.instance.orElseThrow(()->new IllegalStateException("Unable to obtain capability instance"));
     }
 }

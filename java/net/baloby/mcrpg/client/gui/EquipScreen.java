@@ -4,11 +4,16 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.baloby.mcrpg.data.characters.*;
+import net.baloby.mcrpg.entities.HumanoidEntity;
+import net.baloby.mcrpg.entities.HumanoidSlimEntity;
 import net.baloby.mcrpg.entities.models.HumanoidModel;
 import net.baloby.mcrpg.entities.render.HumanoidRenderer;
+import net.baloby.mcrpg.setup.ModEntities;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -17,6 +22,7 @@ import net.minecraft.client.renderer.entity.model.BookModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -31,15 +37,17 @@ public class EquipScreen extends ContainerScreen<NpcContainer> {
 
     private EntityModel model;
     private EntityRenderer renderer;
-    private ClientWorld world;
     private BattleNpc npc;
+    private HumanoidEntity entity;
     private static final ResourceLocation ENCHANTING_BOOK_LOCATION = new ResourceLocation("textures/entity/enchanting_table_book.png");
     private static final BookModel BOOK_MODEL = new BookModel();
+
 
 
     public EquipScreen(NpcContainer container, PlayerInventory inventory, ITextComponent textComponent) {
         super(container,inventory,textComponent);
         this.titleLabelX = 100;
+//        this.entity = new HumanoidSlimEntity(ModEntities.HUMANOID_SLIM.get(),this.minecraft.level,npc);
 //        this.world = new ClientWorld(this.minecraft.getConnection(), this.minecraft.level.dimension(), this.minecraft.level.dimensionType(), 16, ()->minecraft.getProfiler(), minecraft.levelRenderer, false, 0 );
         this.model = new HumanoidModel(0.0F, true);
         this.npc = (BattleNpc) container.getNpc().create();
@@ -65,13 +73,10 @@ public class EquipScreen extends ContainerScreen<NpcContainer> {
         this.font.draw(mStack,"STR: "+npc.STR,leftPos+100,topPos+25,4210752);
         this.font.draw(mStack,"MAG: "+npc.MAG,leftPos+100,topPos+35,4210752);
         this.font.draw(mStack,"DEF: "+npc.DEF,leftPos+100,topPos+45,4210752);
-        this.font.draw(mStack,"ENDURANCE: "+npc.ENDURANCE,leftPos+100,topPos+55,4210752);
-        this.font.draw(mStack,"LOAD: 00/00",leftPos+100,topPos+65,4210752);
+        this.font.draw(mStack,"SPD: "+npc.ENDURANCE,leftPos+100,topPos+55,4210752);
+        this.font.draw(mStack,"LOAD: 00/"+npc.ENDURANCE*2,leftPos+100,topPos+65,4210752);
 
-//        InventoryScreen.renderEntityInInventory(leftPos + 51, topPos + 75, 30, (float)(leftPos + 51) - mouseX, (float)(topPos + 75 - 50) - mouseY, inventory.player);
-
-//        this.renderBook(mStack,p_230450_2_);
-        this.renderCharacter(mStack, mouseX, mouseY);
+        this.renderCharacter(mStack, (i + 51) - mouseX, (j + 75 - 50) - mouseY);
     }
 
 
@@ -160,6 +165,9 @@ public class EquipScreen extends ContainerScreen<NpcContainer> {
     }
 
     public void renderCharacter(MatrixStack mStack, int mouseX, int mouseY){
+
+//        InventoryScreen.renderEntityInInventory(i + 51, j + 75, 30, (float)(i + 51) - this.xMouse, (float)(j + 75 - 50) - this.yMouse, this.minecraft.player);
+
         float f = (float)Math.atan((double) (mouseX / 40.0F));
         float f1 = (float)Math.atan((double)(mouseY / 40.0F));
 
@@ -175,15 +183,15 @@ public class EquipScreen extends ContainerScreen<NpcContainer> {
         MatrixStack.Entry matrixstack$entry = mStack.last();
         matrixstack$entry.pose().setIdentity();
         matrixstack$entry.normal().setIdentity();
-        mStack.translate(-0.4D, (double)3.3F, 1984.0D);
+        mStack.translate(-0.4D, (double)3.3F, 1986.0D);
         mStack.scale(3.3F,3.3F,3.3F);
         EntityRendererManager entityrenderermanager = Minecraft.getInstance().getEntityRenderDispatcher();
         Quaternion quaternion = Vector3f.ZP.rotationDegrees(180.0F);
-        Quaternion quaternion1 = Vector3f.XP.rotationDegrees(f1 * -20.0F);
+        Quaternion quaternion1 = Vector3f.XP.rotationDegrees(f1 * 20.0F);
         quaternion.mul(quaternion1);
         mStack.mulPose(quaternion);
 
-        mStack.mulPose(Vector3f.YP.rotationDegrees(180-f*40));
+        mStack.mulPose(Vector3f.YP.rotationDegrees(180+f*40));
         quaternion1.conj();
         entityrenderermanager.overrideCameraOrientation(quaternion1);
         RenderSystem.enableRescaleNormal();
@@ -200,10 +208,13 @@ public class EquipScreen extends ContainerScreen<NpcContainer> {
         entityrenderermanager.setRenderShadow(true);
 
         mStack.popPose();
+
         RenderSystem.matrixMode(5889);
         RenderSystem.viewport(0, 0, this.minecraft.getWindow().getWidth(), this.minecraft.getWindow().getHeight());
         RenderSystem.popMatrix();
         RenderSystem.matrixMode(5888);
+        RenderHelper.setupFor3DItems();
+        RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 
     }

@@ -8,6 +8,11 @@ public class Ailment {
     public Unit unit;
     public String name;
     public int turnsLeft;
+
+    public boolean isMental() {
+        return mental;
+    }
+
     protected boolean mental;
 
 

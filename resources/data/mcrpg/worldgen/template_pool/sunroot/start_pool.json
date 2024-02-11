@@ -1,0 +1,29 @@
+{
+  "name": "mcrpg:sunroot/start_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "mcrpg:felina_house",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "npcs": [
+          {
+            "npc": "mcrpg:rana",
+            "x": 10,
+            "y": 1,
+            "z": 10
+          },
+          {
+            "npc": "mcrpg:felina",
+            "x": 10,
+            "y": 12,
+            "z": 10
+          }
+        ],
+        "element_type": "minecraft:npc_pool_element"
+      }
+    }
+  ]
+}

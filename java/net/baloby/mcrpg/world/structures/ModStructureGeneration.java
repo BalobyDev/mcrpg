@@ -29,6 +29,6 @@ public class ModStructureGeneration {
 
 
         }
-        structures.add(() -> ModStructures.CATHEDRAL.get().configured(IFeatureConfig.NONE));
+        structures.add(() -> ModStructures.MONASTERY.get().configured(IFeatureConfig.NONE));
     }
 }

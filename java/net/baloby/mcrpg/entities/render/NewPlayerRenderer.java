@@ -48,7 +48,11 @@ public class NewPlayerRenderer extends LivingRenderer<AbstractClientPlayerEntity
 
     @Override
     public ResourceLocation getTextureLocation(AbstractClientPlayerEntity clientPlayerEntity){
-        return new ResourceLocation(mcrpg.MODID, "textures/entity/camryn.png");
+        ResourceLocation skin = clientPlayerEntity.getSkinTextureLocation();
+        if(skin.getPath().equals("textures/entity/steve.png")||skin.getPath().equals("textures/entity/alex.png")) {
+            return new ResourceLocation(mcrpg.MODID, "textures/entity/camryn.png");
+        }
+        return skin;
     }
 
     public void render(AbstractClientPlayerEntity p_225623_1_, float p_225623_2_, float p_225623_3_, MatrixStack p_225623_4_, IRenderTypeBuffer p_225623_5_, int p_225623_6_){

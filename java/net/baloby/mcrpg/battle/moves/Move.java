@@ -7,6 +7,8 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
+import java.util.Optional;
+
 public abstract class Move {
     public ITextComponent name;
     public ITextComponent desc;
@@ -44,6 +46,10 @@ public abstract class Move {
         return name;
     }
 
+    public Unit getTarget(Unit user){
+        Unit target = friendly ? user.party.random() : user.battle.playerParty.random();
+        return target;
+    }
     public SoundEvent getSound(){
         return SoundEvents.CAT_DEATH;
     }

@@ -1,6 +1,8 @@
 {
   "item.mcrpg.bat_wing": "Bat Wing",
   "item.mcrpg.fairy_dust": "Fairy Dust",
+  "item.mcrpg.golden_greatsword": "Golden Greatsword",
+
   "item.mcrpg.home_stew": "HomeStyle Stew",
   "item.mcrpg.iron_shield": "Iron Shield",
   "item.mcrpg.iron_spear": "Iron Spear",
@@ -16,6 +18,7 @@
   "entity.mcrpg.humanoid": "Character",
   "entity.mcrpg.iceologer": "Iceologer",
   "entity.mcrpg.inferno": "Inferno",
+  "entity.mcrpg.knight": "Knight",
   "entity.mcrpg.viler_witch": "Viler Witch",
 
   "npc.mcrpg.alex": "Alex",

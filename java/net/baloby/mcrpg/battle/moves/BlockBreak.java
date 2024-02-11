@@ -2,7 +2,7 @@ package net.baloby.mcrpg.battle.moves;
 
 import net.minecraft.block.Block;
 
-public class BlockBreak extends Attack{
+public class BlockBreak extends AttackMove {
 
 
     public Block block;

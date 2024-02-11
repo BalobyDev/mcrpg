@@ -1,5 +1,7 @@
 package net.baloby.mcrpg.data.characters;
 
+import net.baloby.mcrpg.battle.moves.Affinity;
+import net.baloby.mcrpg.battle.moves.Element;
 import net.baloby.mcrpg.battle.moves.Moves;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.setup.ModEntities;
@@ -14,5 +16,6 @@ public class DaniNpc extends BattleNpc{
         this.addMove(Moves.FLORA.get());
         this.addMove(Moves.HEAL.get());
         this.addMove(Moves.POISON.get());
+        this.addAffinity(Element.LIFE, Affinity.STRONG);
     }
 }

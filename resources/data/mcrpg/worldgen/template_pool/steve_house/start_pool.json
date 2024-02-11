@@ -5,10 +5,18 @@
     {
       "weight": 1,
       "element": {
-        "location": "mcrpg:smith",
+        "location": "mcrpg:steve_house",
         "processors": "minecraft:empty",
         "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
+        "npcs": [
+          {
+            "npc": "mcrpg:steve",
+            "x": 7,
+            "y": 1,
+            "z": 5
+          }
+        ],
+        "element_type": "minecraft:npc_pool_element"
       }
     }
   ]

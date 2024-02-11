@@ -69,8 +69,8 @@ public class ModWorldEvents {
 
             Map<Structure<?>, StructureSeparationSettings> tempMap =
                     new HashMap<>(world.getChunkSource().generator.getSettings().structureConfig());
-            tempMap.putIfAbsent(ModStructures.CATHEDRAL.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.CATHEDRAL.get()));
             tempMap.putIfAbsent(ModStructures.STEVE_HOUSE.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.STEVE_HOUSE.get()));
+            tempMap.putIfAbsent(ModStructures.MONASTERY.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.MONASTERY.get()));
             tempMap.putIfAbsent(ModStructures.SUNROOT.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.SUNROOT.get()));
             world.getChunkSource().generator.getSettings().structureConfig = tempMap;
 

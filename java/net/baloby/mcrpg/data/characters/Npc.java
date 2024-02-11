@@ -182,6 +182,12 @@ public class Npc {
         }
 
         if(item!=null)nbt.put("item", item.serializeNBT());
+        if(offhandItem!=null)nbt.put("offhand_item", offhandItem.serializeNBT());
+        if(headItem!=null)nbt.put("head_item", headItem.serializeNBT());
+        if(chestItem!=null)nbt.put("chest_item", chestItem.serializeNBT());
+        if(legsItem!=null)nbt.put("legs_item", legsItem.serializeNBT());
+        if(feetItem!=null)nbt.put("feet_item", feetItem.serializeNBT());
+
         if(dialogueIndex!=null) nbt.putString("dialogue_index", dialogueIndex.toString());
         CompoundNBT insert = new CompoundNBT();
 
@@ -191,6 +197,7 @@ public class Npc {
             insert.putString("response",dialogueInsert.getResponse());
             nbt.put("insert", insert);
         }
+
 //        if(this instanceof ShopNpc){
 //            CompoundNBT shop = new CompoundNBT();
 //            for (int i = 0; i < ((ShopNpc) this).getShop().getShopItems().size(); i++) {
@@ -226,6 +233,11 @@ public class Npc {
                 new ResourceLocation(nbt.getCompound("insert").getString("dialogue")),
                 nbt.getCompound("insert").getString("response"));
         item = ItemStack.of(nbt.getCompound("item"));
+        offhandItem = ItemStack.of(nbt.getCompound("offhand_item"));
+        headItem = ItemStack.of(nbt.getCompound("head_item"));
+        chestItem = ItemStack.of(nbt.getCompound("chest_item"));
+        legsItem = ItemStack.of(nbt.getCompound("legsItem"));
+        feetItem = ItemStack.of(nbt.getCompound("feet_item"));
     }
 
     public float getSize() {

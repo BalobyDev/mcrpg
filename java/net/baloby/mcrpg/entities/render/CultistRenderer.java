@@ -19,11 +19,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 
-public class CodRenderer extends BipedRenderer<CultistEntity, HumanoidModel<CultistEntity>> {
+public class CultistRenderer extends BipedRenderer<CultistEntity, HumanoidModel<CultistEntity>> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(mcrpg.MODID,"textures/entity/cult_member.png");
 
-    public CodRenderer(EntityRendererManager manager) {
+    public CultistRenderer(EntityRendererManager manager) {
         super(manager, new HumanoidModel<>(0,true), 1.0f);
         this.addLayer(new HeldItemLayer<>(this));
     }

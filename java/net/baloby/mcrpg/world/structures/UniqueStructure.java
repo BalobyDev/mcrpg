@@ -1,14 +1,12 @@
 package net.baloby.mcrpg.world.structures;
 
 import com.mojang.serialization.Codec;
-import net.baloby.mcrpg.data.UniqueFeatures.UniqueFeaturesCapabilityProvider;
+import net.baloby.mcrpg.data.UniqueFeatures.UniqueStructuresCapabilityProvider;
 import net.baloby.mcrpg.data.characters.Npc;
 import net.baloby.mcrpg.data.characters.NpcType;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.world.ModWorldEvents;
-import net.baloby.mcrpg.world.StructureGen;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.SharedSeedRandom;
@@ -17,8 +15,8 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -26,27 +24,32 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
+import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
+import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.server.ServerWorld;
+import org.apache.logging.log4j.Level;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class UniqueFeature<C extends IFeatureConfig> extends Structure<C> {
+public abstract class UniqueStructure<C extends IFeatureConfig> extends Structure<C> {
 
 
-    private HashMap<NpcType, Vector3d> npcMap = new HashMap<>();
-    protected ResourceLocation PIECE;
+    public static Codec<UniqueStructure> CODEC;
+
+
+    protected ResourceLocation location = new ResourceLocation("");
 
     @Override
     public GenerationStage.Decoration step(){
         return GenerationStage.Decoration.SURFACE_STRUCTURES;
     }
 
-    public UniqueFeature(Codec codec) {
+    public UniqueStructure(Codec codec) {
         super(codec);
     }
 
@@ -54,8 +57,8 @@ public abstract class UniqueFeature<C extends IFeatureConfig> extends Structure<
     protected boolean isFeatureChunk(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom,
                                      int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, IFeatureConfig featureConfig) {
         ServerWorld world = ModWorldEvents.getServer().overworld();
-        if (world.getCapability(UniqueFeaturesCapabilityProvider.FEATURES_CAP).resolve()
-                .get().getFeatures().contains(this.getName())) return false;
+        if (world.getCapability(UniqueStructuresCapabilityProvider.STRUCTURES_CAP).resolve()
+                .get().getStructures().contains(this.getName())) return false;
         BlockPos centerOfChunk = new BlockPos((chunkX << 4) + 7, 0, (chunkZ << 4) + 7);
         int landHeight = chunkGenerator.getBaseHeight(centerOfChunk.getX(), centerOfChunk.getZ(),
                 Heightmap.Type.WORLD_SURFACE_WG);
@@ -65,32 +68,13 @@ public abstract class UniqueFeature<C extends IFeatureConfig> extends Structure<
     }
 
     public String getName(){
-        return "";
+        return location.toString();
     }
 
-    public HashMap<NpcType, Vector3d> getNpcMap(){return npcMap;}
-
-    public void addNpc(NpcType type, Vector3d pos){
-        npcMap.put(type, pos);
-    }
-
-    public void addNpcs(ServerWorld world,BlockPos pos,Rotation rotation){
-        for (Map.Entry<NpcType,Vector3d> entry : getNpcMap().entrySet()){
-            Npc npc = entry.getKey().listCreate();
-            Vector3d pos1 = entry.getValue();
-                if(rotation.equals(Rotation.CLOCKWISE_90)) pos1 = new Vector3d(-pos1.z(), pos1.y(), pos1.x());
-                if(rotation.equals(Rotation.CLOCKWISE_180))pos1 = new Vector3d(-pos1.x(), pos1.y(), -pos1.z());
-                if(rotation.equals(Rotation.COUNTERCLOCKWISE_90))pos1 = new Vector3d(pos1.z(), pos1.y(), -pos1.x());
-
-            Vector3d rotationOffset = pos1.add(pos.getX(),pos.getY(),pos.getZ());
-            npc.setHome(world,rotationOffset);
-            npc.setDirty();
-        }
-    }
 
     public static class Start extends StructureStart<NoFeatureConfig>{
-        private UniqueFeature unique;
-        public Start(UniqueFeature structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int referenceIn, long seedIn){
+        private UniqueStructure unique;
+        public Start(UniqueStructure structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox, int referenceIn, long seedIn){
             super(structureIn,chunkX,chunkZ,mutableBoundingBox,referenceIn,seedIn);
             this.unique = structureIn;
 
@@ -103,12 +87,17 @@ public abstract class UniqueFeature<C extends IFeatureConfig> extends Structure<
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
             int y = generator.getBaseHeight(x,z, Heightmap.Type.WORLD_SURFACE);
-            BlockPos pos = new BlockPos(x,y-2, z);
+            BlockPos pos = new BlockPos(x,y,z);
+            JigsawManager.addPieces(
+                    dynamicRegistries,new VillageConfig(()-> dynamicRegistries.registryOrThrow(Registry.TEMPLATE_POOL_REGISTRY)
+                            .get(new ResourceLocation(unique.location.getNamespace(),unique.location.getPath()+"/start_pool")),
+                            10), AbstractVillagePiece::new,generator,manager,pos,this.pieces,this.random,false,false
+            );
+            this.calculateBoundingBox();
             ServerWorld world = ModWorldEvents.getServer().overworld();
-            Rotation rotation = Rotation.values()[this.random.nextInt(Rotation.values().length)];
-            StructureGen.placeManually(pos,world,unique.PIECE,rotation);
-            world.getCapability(UniqueFeaturesCapabilityProvider.FEATURES_CAP).resolve().get().addFeature(unique.getName(), pos);
-            unique.addNpcs(world,pos,rotation);
+            world.getCapability(UniqueStructuresCapabilityProvider.STRUCTURES_CAP).resolve().get().addStructure(unique.location.toString(),pos);
+            mcrpg.LOGGER.log(Level.DEBUG,unique.location.toString()+"  spawned at "+pos.getX()+", "+pos.getY()+", "+pos.getZ());
+
         }
     }
 }

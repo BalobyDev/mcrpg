@@ -11,6 +11,7 @@ import net.baloby.mcrpg.battle.ailments.DamageAilment;
 import net.baloby.mcrpg.battle.moves.*;
 import net.baloby.mcrpg.client.gui.BattleGui;
 import net.baloby.mcrpg.client.gui.MoveTextGui;
+import net.baloby.mcrpg.client.gui.SkillScreen;
 import net.baloby.mcrpg.client.gui.indicator.*;
 import net.baloby.mcrpg.entities.custom.enemies.ICustomBattleEntity;
 import net.baloby.mcrpg.misc.IdleGoal;
@@ -28,6 +29,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
@@ -45,6 +47,7 @@ public class Unit {
     public LivingEntity entity;
     public ServerWorld arena = battle.arena;
     public Party party;
+    public Party enemyParty;
     public float LVL, MP, MAX_HP = 20, MAX_MP,BASE_MAG=10, MAG =BASE_MAG, BASE_STR = 10, STR=BASE_STR,  BASE_DEF=10, DEF=10, BASE_SPD=10, SPD=BASE_SPD,POISE;
     public float HP = MAX_HP;
     public boolean playerControl = false;
@@ -62,6 +65,7 @@ public class Unit {
     public int XP;
     private Ailment ailment;
     private ArrayList<MoveType> moveReward = new ArrayList<>();
+    protected boolean flying;
 
     public Unit(){}
 
@@ -138,7 +142,7 @@ public class Unit {
 
             }
         }
-        Clock.waitFor(length,()-> Battle.getInstance().nextTurn());
+        Clock.waitFor(length,()-> battle.nextTurn());
         MoveTextGui.open(move);
         walk();
         swing();
@@ -218,8 +222,8 @@ public class Unit {
         entity.setSpeed(0.1f);
     }
 
-    public void  setParty(){
-        this.party = battle.enemyParty != null ? battle.enemyParty : battle.playerParty;
+    public void setParty(){
+        this.party = (battle.enemyParty != null || battle.playerParty.availableStations.size()==0) ? battle.enemyParty : battle.playerParty;
     }
 
     public void updateIndicator(Indicator indicator){
@@ -245,11 +249,19 @@ public class Unit {
         }
     }
 
-    public void getMove(){
+    public void aiAction(){
         int i = Dice.roll(moveSet.size());
-        Move move = moveSet.get(i);
-        Unit target = moveSet.get(i).friendly ? this.party.random() : battle.playerParty.random();
+        Move move = getMove();
+        Unit target = move.getTarget(this);
+        if(target==null){
+            aiAction();
+            return;
+        }
         action(move, target);
+    }
+    public Move getMove(){
+        Move move = moveSet.get(new Random().nextInt(moveSet.size()));
+        return move;
     }
 
     public void removeMoves(){
@@ -259,11 +271,13 @@ public class Unit {
     public void takeTurn(){
         if(ailment!=null&&ailment instanceof ActionPreventAilment){
             if(new Random().nextInt(100)>((ActionPreventAilment) ailment).chance){
-                this.ailment.getTextToShow();
+                MoveTextGui.open(new StringTextComponent(ailment.getTextToShow()));
+                battle.camera.setFacingAngled(this);
+                Clock.waitFor(3,()-> Battle.getInstance().nextTurn());
             }
         }
-        if (!playerControl){
-            getMove();
+        else if (!playerControl){
+            aiAction();
         }
         else{
             BattleGui.open();

@@ -24,6 +24,7 @@ public class HumanoidRenderer extends BipedRenderer<HumanoidEntity, HumanoidMode
         super(manager, new HumanoidModel(0,slim), 1.0f);
         this.addLayer(new BipedArmorLayer<>(this, new BipedModel(0.5F), new BipedModel(1.0F)));
         this.addLayer(new HeldItemLayer<>(this));
+        this.addLayer(new PonytailLayer(this));
     }
 
     @Override

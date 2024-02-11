@@ -6,7 +6,7 @@ import net.minecraft.particles.IParticleData;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
 
-public class SpellAttack extends Attack{
+public class SpellAttack extends AttackMove {
 
     public IParticleData particle;
     public SoundEvent sound;

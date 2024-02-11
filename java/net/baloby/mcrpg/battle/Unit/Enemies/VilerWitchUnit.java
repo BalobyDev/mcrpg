@@ -13,6 +13,6 @@ public class VilerWitchUnit extends Unit {
         this.HP = MAX_HP;
         this.removeMoves();
         this.addMove(Moves.CHICKEN.get().create());
-//        this.addMove(Moves.HASTE.get().create());
+        this.addMove(Moves.HASTE.get().create());
     }
 }

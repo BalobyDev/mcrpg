@@ -5,6 +5,7 @@ import net.baloby.mcrpg.battle.Unit.NpcUnit;
 import net.baloby.mcrpg.battle.Unit.PlayerUnit;
 import net.baloby.mcrpg.battle.Unit.Unit;
 import net.baloby.mcrpg.battle.moves.MoveType;
+import net.baloby.mcrpg.data.characters.BattleNpc;
 import net.baloby.mcrpg.entities.custom.enemies.ICustomBattleEntity;
 import net.baloby.mcrpg.tools.Dice;
 import net.minecraft.entity.Entity;
@@ -36,6 +37,12 @@ public class Party {
 
     public Party(Battle battle){
         this.battle = battle;
+    }
+
+    public Party(Battle battle, BattleNpc npc){
+        this.battle = battle;
+        this.size = 1;
+        this.configStations();
     }
 
     public Party(Battle battle, Entity entity){

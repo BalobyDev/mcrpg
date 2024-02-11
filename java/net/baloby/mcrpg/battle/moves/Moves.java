@@ -6,7 +6,7 @@ import net.minecraftforge.fml.RegistryObject;
 public class Moves {
 
     public static final RegistryObject<MoveType<?>> AQUA = Registration.MOVES.register("aqua", ()->new MoveType<>(Aqua::new));
-    public static final RegistryObject<MoveType<?>> CHICKEN = Registration.MOVES.register("chicken",()->new MoveType<>(Chicken::new));
+    public static final RegistryObject<MoveType<?>> CHICKEN = Registration.MOVES.register("chicken",()->new MoveType<>(ChickenMove::new));
     public static final RegistryObject<MoveType<?>> ENDRA = Registration.MOVES.register("endra",()->new MoveType<>(Endra::new));
     public static final RegistryObject<MoveType<?>> FLORA = Registration.MOVES.register("flora",()->new MoveType<>(Flora::new));
     public static final RegistryObject<MoveType<?>> FORTITUDE = Registration.MOVES.register("fortitude",()->new MoveType<>(Fortitude::new));

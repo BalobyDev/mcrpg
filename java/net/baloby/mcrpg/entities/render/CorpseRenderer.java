@@ -19,6 +19,7 @@ public class CorpseRenderer extends LivingRenderer<CorpseEntity, CorpseModel> {
 
     public CorpseRenderer(EntityRendererManager p_i50965_1_) {
         super(p_i50965_1_, new CorpseModel(), 0.0F);
+        this.addLayer(new PiercedSwordLayer(this));
     }
 
     @Override

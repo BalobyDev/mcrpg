@@ -5,14 +5,11 @@ import net.baloby.mcrpg.entities.HumanoidPiglinEntity;
 import net.baloby.mcrpg.entities.HumanoidSlimEntity;
 import net.baloby.mcrpg.entities.custom.enemies.*;
 import net.baloby.mcrpg.entities.HumanoidEntity;
-import net.baloby.mcrpg.mcrpg;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.passive.fish.CodEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 
 public class ModEntities {
@@ -30,7 +27,6 @@ public class ModEntities {
             .build("humanoid"));
 
 
-
     public static final RegistryObject<EntityType<HumanoidPiglinEntity>> HUMANOID_PIGLIN = Registration.ENTITY_TYPES.register("humanoid_piglin",() -> EntityType.Builder.<HumanoidPiglinEntity>of
                     (HumanoidPiglinEntity::new, EntityClassification.MONSTER)
             .sized(0.6f,1.8f)
@@ -45,6 +41,11 @@ public class ModEntities {
             .noSave()
             .setCustomClientFactory(HumanoidSlimEntity::new)
             .build("humanoid_slim"));
+
+    public static final RegistryObject<EntityType<KnightEntity>> KNIGHT = Registration.ENTITY_TYPES.register("knight",() -> EntityType.Builder.of
+                    (KnightEntity::new, EntityClassification.MONSTER)
+            .sized(0.6f,1.8f)
+            .build("knight"));
 
 
     public static final RegistryObject<EntityType<CultistEntity>> CULTIST = Registration.ENTITY_TYPES.register("cultist",() -> EntityType.Builder.of
@@ -73,8 +74,8 @@ public class ModEntities {
             .sized(0.6f,1.8f)
             .build("viler_witch"));
 
-    public static final RegistryObject<EntityType<WoodlandPixieEntity>> WOODLAND_FAIRY = Registration.ENTITY_TYPES.register("woodland_fairy", ()-> EntityType.Builder.of
-            (WoodlandPixieEntity::new, EntityClassification.MONSTER)
+    public static final RegistryObject<EntityType<FairyEntity>> WOODLAND_FAIRY = Registration.ENTITY_TYPES.register("woodland_fairy", ()-> EntityType.Builder.of
+            (FairyEntity::new, EntityClassification.MISC)
             .sized(0.6f,1.8f)
             .build("woodland_fairy"));
 

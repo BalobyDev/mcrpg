@@ -8,6 +8,7 @@ import net.baloby.mcrpg.data.characters.Npcs;
 import net.baloby.mcrpg.setup.ModContainers;
 import net.baloby.mcrpg.setup.Registration;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.*;
@@ -102,7 +103,7 @@ public class NpcContainer extends Container {
                 }
 
                 public boolean mayPlace(ItemStack p_75214_1_) {
-                    return equipmentslottype.equals(p_75214_1_.getEquipmentSlot());
+                    return equipmentslottype.equals(MobEntity.getEquipmentSlotForItem(p_75214_1_));
                 }
 
                 public boolean mayPickup(PlayerEntity p_82869_1_) {

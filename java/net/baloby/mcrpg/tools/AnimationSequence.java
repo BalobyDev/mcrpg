@@ -3,7 +3,6 @@ package net.baloby.mcrpg.tools;
 import net.baloby.mcrpg.battle.Battle;
 import net.baloby.mcrpg.battle.Party.Party;
 import net.baloby.mcrpg.battle.StatMod.Stat;
-import net.baloby.mcrpg.battle.StatMod.StatMod;
 import net.baloby.mcrpg.battle.Unit.Unit;
 import net.baloby.mcrpg.battle.ailments.Ailment;
 import net.baloby.mcrpg.battle.ailments.DamageAilment;
@@ -124,7 +123,7 @@ public class AnimationSequence {
         return sequence;
     }
 
-    public static AnimationSequence basicAtkSequence(Attack move, Unit user, Unit target, float dmg,boolean crit){
+    public static AnimationSequence basicAtkSequence(AttackMove move, Unit user, Unit target, float dmg, boolean crit){
         AnimationSequence sequence = new AnimationSequence();
         sequence.addPart(()->{
             Battle.getInstance().camera.setFacingAngled(user);

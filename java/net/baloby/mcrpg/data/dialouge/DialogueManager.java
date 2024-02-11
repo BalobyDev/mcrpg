@@ -3,17 +3,14 @@ package net.baloby.mcrpg.data.dialouge;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
-import com.sun.org.apache.bcel.internal.classfile.Code;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.profiler.IProfiler;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+
 
 public class DialogueManager extends JsonReloadListener {
 

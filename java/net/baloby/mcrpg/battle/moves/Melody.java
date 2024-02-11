@@ -5,6 +5,9 @@ import net.baloby.mcrpg.tools.AnimationSequence;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class Melody extends SpellMove{
 
     public Melody() {
@@ -18,5 +21,17 @@ public class Melody extends SpellMove{
         this.target.cureAilment();
         AnimationSequence sequence = AnimationSequence.basicAllySequence(this,user,target,0);
         sequence.start();
+    }
+
+    @Override
+    public Unit getTarget(Unit user) {
+        ArrayList<Unit> afflicted = new ArrayList<>();
+        for(Unit member : user.party.members){
+            if(member.getAilment()!=null&&member.getAilment().isMental()){
+                afflicted.add(member);
+            }
+        }
+        if(afflicted.size()==0) return null;
+        return afflicted.get(new Random().nextInt(afflicted.size()));
     }
 }

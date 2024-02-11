@@ -1,6 +1,5 @@
 package net.baloby.mcrpg.battle.moves;
 
-import net.baloby.mcrpg.battle.StatMod.Stat;
 import net.baloby.mcrpg.battle.Unit.Unit;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.tools.AnimationSequence;
@@ -9,19 +8,19 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import org.apache.logging.log4j.Level;
 
-public class Attack extends Move {
+public abstract class AttackMove extends Move {
 
     public float dmg;
     public float spd = 100;
     public boolean ranged;
 
-    public Attack(){
-        super(new StringTextComponent("Attack"));
+    public AttackMove(){
+        super(new StringTextComponent("AttackMove"));
         this.dmg = 5;
         this.type = Element.PHYSICAL;
     }
 
-    public Attack(float dmg, Element type, ITextComponent name, ITextComponent desc){
+    public AttackMove(float dmg, Element type, ITextComponent name, ITextComponent desc){
         super(name,desc);
         this.dmg = dmg;
         this.type = type;
@@ -38,6 +37,7 @@ public class Attack extends Move {
 
     public float calculateDmg(Unit user, Unit target){
         float d = dmg;
+        if(target.affinities.get(type).equals(null))return d;
         if (target.affinities.get(type).equals(Affinity.WEAK))d*=1.5;
         else if (target.affinities.get(type).equals(Affinity.STRONG))d*=0.5;
         else if (target.affinities.get(type).equals(Affinity.BLOCK))d=0;

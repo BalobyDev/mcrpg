@@ -1,6 +1,8 @@
 package net.baloby.mcrpg.data.characters;
 
 import net.baloby.mcrpg.battle.Unit.Unit;
+import net.baloby.mcrpg.battle.moves.Affinity;
+import net.baloby.mcrpg.battle.moves.Element;
 import net.baloby.mcrpg.battle.moves.MoveType;
 import net.baloby.mcrpg.client.gui.NpcContainer;
 import net.baloby.mcrpg.client.gui.profile.NpcInventory;
@@ -24,6 +26,7 @@ import java.util.HashMap;
 public class BattleNpc extends Npc implements INamedContainerProvider {
 
     public int LVL = 1, VIGOR = 10, HP, MIND = 10, MP, STR = 10, MAG = 10, DEF = 10, ENDURANCE = 10, EXP = 0;
+    public HashMap<Element,Affinity> affinities = new HashMap<>();
     public HashMap<Integer,MoveType> moveSet = new HashMap<>();
     public INpcData profile;
 
@@ -36,7 +39,7 @@ public class BattleNpc extends Npc implements INamedContainerProvider {
     @Override
     public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity playerEntity) {
 
-        return new NpcContainer(id,playerInventory, new NpcInventory(this));
+        return new NpcContainer(id,playerInventory, new NpcInventory(this,playerEntity));
     }
 
     public enum WeaponType{SWORD, BOW, SPEAR, AXE, GREATSWORD, YOYO}
@@ -137,7 +140,20 @@ public class BattleNpc extends Npc implements INamedContainerProvider {
                 movelist.put(i,Registration.MOVE_REGISTRY.get().getValue(new ResourceLocation(moves.getString(""+i))));
             }
         }
+        this.addAffinities();
         this.moveSet = movelist;
+    }
+
+
+    public void addAffinity(Element element, Affinity affinity){
+        this.affinities.put(element, affinity);
+    }
+
+    private void addAffinities(){
+        for (Element element :Element.values()){
+            affinities.put(element,Affinity.NONE);
+        }
+
     }
 
 

@@ -7,20 +7,20 @@ import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nullable;
 
-public class UniqueFeaturesStorage implements Capability.IStorage<IUniqueFeatures> {
+public class UniqueFeaturesStorage implements Capability.IStorage<IUniqueStructures> {
 
     @Nullable
     @Override
-    public INBT writeNBT(Capability<IUniqueFeatures> capability, IUniqueFeatures instance, Direction side) {
+    public INBT writeNBT(Capability<IUniqueStructures> capability, IUniqueStructures instance, Direction side) {
         CompoundNBT nbt = new CompoundNBT();
-        nbt.put("features",instance.getFeatures());
+        nbt.put("features",instance.getStructures());
         return nbt;
     }
 
     @Override
-    public void readNBT(Capability<IUniqueFeatures> capability, IUniqueFeatures instance, Direction side, INBT nbt) {
+    public void readNBT(Capability<IUniqueStructures> capability, IUniqueStructures instance, Direction side, INBT nbt) {
         if(nbt instanceof CompoundNBT){
-        instance.setFeatures(((CompoundNBT) nbt).getCompound("features"));
+        instance.setStructures(((CompoundNBT) nbt).getCompound("features"));
         }
 
     }

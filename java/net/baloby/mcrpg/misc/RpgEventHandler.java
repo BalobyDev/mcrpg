@@ -3,58 +3,37 @@ package net.baloby.mcrpg.misc;
 import net.baloby.mcrpg.battle.Battle;
 import net.baloby.mcrpg.battle.Unit.UnitType;
 import net.baloby.mcrpg.client.gui.EquipScreen;
-import net.baloby.mcrpg.client.gui.NewMainMenuScreen;
 import net.baloby.mcrpg.client.gui.NewPlayerInventory;
 import net.baloby.mcrpg.client.gui.PronounSelectScreen;
 import net.baloby.mcrpg.data.*;
 import net.baloby.mcrpg.entities.HumanoidEntity;
 import net.baloby.mcrpg.entities.custom.enemies.ICustomBattleEntity;
-import net.baloby.mcrpg.entities.render.NewFPRenderer;
-import net.baloby.mcrpg.entities.render.NewPlayerRenderer;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.setup.ModDimensions;
 
 import net.baloby.mcrpg.world.ArenaChunkGenerator;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.MainMenuScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.ArmorStandRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.Items;
-import net.minecraft.item.MapItem;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.Dimension;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.StructureFeature;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.StructureFeatures;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.*;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.function.Supplier;
 
 @EventBusSubscriber(modid = mcrpg.MODID, bus = Bus.FORGE)
 public class RpgEventHandler {
@@ -77,7 +56,7 @@ public class RpgEventHandler {
             if (player.getLevel().dimension().equals(Dimension.NETHER)) {
                 world = player.getServer().getLevel(ModDimensions.NETHER_ARENA);
             }
-            Battle.init(player, target, world, player.blockPosition());
+            Battle.mobStart(player, target, world, player.blockPosition());
         }
         }
     }
@@ -111,7 +90,7 @@ public class RpgEventHandler {
 
 
             if(!(data.getPronouns().contains("sub"))) {
-                PronounSelectScreen.open(player);
+                PronounSelectScreen.open(player,true);
             }
             if((!Battle.isActive)&&player.getLevel().getChunkSource().generator instanceof ArenaChunkGenerator){
                 if(data.getSendBack().contains("world")&&!data.getSendBack().getString("world").equals("")) {
@@ -169,8 +148,8 @@ public class RpgEventHandler {
                 for(String str : oldPlayerProfile.getPartyMembers().getAllKeys()) {
                     String name = oldPlayerProfile.getPartyMembers().getString(str);
                     CompoundNBT nbt = charProfile.getNbts().getCompound(name);
-                    nbt.put("hp", nbt.get("maxHp"));
-                    nbt.put("mp", nbt.get("maxMp"));
+                    nbt.putInt("hp", nbt.getInt("vigor")*2);
+                    nbt.putInt("mp", nbt.getInt("mind")*2);
                     if(oldPlayerProfile.getPartyMembers().contains(""+i)) {
                         newPlayerProfile.addPartyMember(oldPlayerProfile.getPartyMember(i));
                     }
@@ -198,8 +177,8 @@ public class RpgEventHandler {
                 String name = playerProfile.getPartyMembers().getString(str);
 
                 CompoundNBT nbt = charProfile.getNbts().getCompound(name);
-                nbt.put("hp",nbt.get("maxHp"));
-                nbt.put("mp",nbt.get("maxMp"));
+                nbt.putInt("hp", nbt.getInt("vigor")*2);
+                nbt.putInt("mp", nbt.getInt("mind")*2);
             }
         }
     }

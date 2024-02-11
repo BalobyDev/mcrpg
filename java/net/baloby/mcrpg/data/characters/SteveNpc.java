@@ -1,5 +1,7 @@
 package net.baloby.mcrpg.data.characters;
 
+import net.baloby.mcrpg.battle.moves.Affinity;
+import net.baloby.mcrpg.battle.moves.Element;
 import net.baloby.mcrpg.battle.moves.Moves;
 import net.baloby.mcrpg.data.dialouge.DialogueTree;
 import net.baloby.mcrpg.mcrpg;
@@ -16,6 +18,7 @@ public class SteveNpc extends BattleNpc{
         this.LVL = 5;
         this.hurtSound = ModSounds.OOH.get();
         this.dialogueTree = new DialogueTree(ModSetup.DIALOGUE_MANAGER.getData(new ResourceLocation(mcrpg.MODID,"steve_intro")));
+        this.addAffinity(Element.PSYCHIC, Affinity.STRONG);
         this.ENDURANCE = 12;
         this.weaponType = WeaponType.SWORD;
     }

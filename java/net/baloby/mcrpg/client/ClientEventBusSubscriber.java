@@ -6,23 +6,11 @@ import net.baloby.mcrpg.client.gui.OverlayGui;
 import net.baloby.mcrpg.entities.render.*;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.setup.ModEntities;
-import net.baloby.mcrpg.setup.ModParticles;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.PiglinRenderer;
-import net.minecraft.crash.CrashReport;
-import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.crash.ReportedException;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.RenderHandEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -41,7 +29,9 @@ public class ClientEventBusSubscriber {
     public static void init(final FMLClientSetupEvent event) {
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.CORPSE.get(), CorpseRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CULTIST.get(), (EntityRendererManager manager1) -> new CodRenderer(manager1));
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.CULTIST.get(), CultistRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.WOODLAND_FAIRY.get(), FairyRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.KNIGHT.get(), KnightRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.HUMANOID.get(), manager -> {
             return new HumanoidRenderer(manager, false);

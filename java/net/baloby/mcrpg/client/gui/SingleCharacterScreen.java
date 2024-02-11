@@ -8,6 +8,7 @@ import net.baloby.mcrpg.battle.moves.MoveType;
 import net.baloby.mcrpg.client.gui.profile.NpcProfile;
 import net.baloby.mcrpg.client.gui.profile.PlayerProfile;
 import net.baloby.mcrpg.client.gui.profile.Profile;
+import net.baloby.mcrpg.data.PronounConfig;
 import net.baloby.mcrpg.data.characters.BattleNpc;
 import net.baloby.mcrpg.data.characters.shop.Shop;
 import net.baloby.mcrpg.mcrpg;
@@ -15,6 +16,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -49,16 +51,16 @@ public class SingleCharacterScreen extends Screen {
                 button ->{MoveLearnScreen.open(profile,player);}));
         this.addButton(new Button(relX-60,relY+30,60,20,new StringTextComponent("Upgrade"),
                 button ->{UpgradeScreen.open(profile);}));
-        this.addButton(new Button(relX-60,relY+60,60,20,new StringTextComponent("Equip"),
-                button ->{
-
-            try {
-                player.openMenu(npc);
-            }
-            catch (UnsupportedOperationException exception){};
-
-
-        }));
+        if(npc!=null) {
+            this.addButton(new Button(relX - 60, relY + 60, 60, 20, new StringTextComponent("Equip"),
+                    button -> {player.openMenu(npc);
+                    }));
+        }
+        else {
+            this.addButton(new Button(relX - 60, relY + 60, 60, 20, new StringTextComponent("Edit"),
+                    button -> {PronounSelectScreen.open(player,false);
+                    }));
+        }
         addMoveButtons(relX,relY);
     }
 
@@ -87,11 +89,16 @@ public class SingleCharacterScreen extends Screen {
     public void renderStats(MatrixStack matrixStack, int x, int y){
         int relX = x + 12;
         int relY = y + 70;
-        this.font.draw(matrixStack,"LVL: "+profile.lvl,relX,relY,4210752);
-        this.font.draw(matrixStack,"STR: "+profile.STR,relX,relY+20,4210752);
-        this.font.draw(matrixStack,"MAG: "+ profile.MAG,relX+50,relY+20,4210752);
-        this.font.draw(matrixStack,"DEF: "+ profile.DEF,relX,relY+40,4210752);
-        this.font.draw(matrixStack,"SPD: "+ profile.SPD,relX+50,relY+40,4210752);
+        if(profile instanceof PlayerProfile) {
+            CompoundNBT pronouns = ((PlayerProfile) profile).getPlayerData().getPronouns();
+            this.font.draw(matrixStack, pronouns.getString("sub")+"/"+pronouns.getString("obj"), relX, relY, 4210752);
+        }
+        this.font.draw(matrixStack,"LVL: "+profile.lvl,relX,relY+18,4210752);
+        this.font.draw(matrixStack,"STR: "+profile.STR,relX,relY+36,4210752);
+        this.font.draw(matrixStack,"MAG: "+ profile.MAG,relX+50,relY+36,4210752);
+        this.font.draw(matrixStack,"DEF: "+ profile.DEF,relX,relY+54,4210752);
+        this.font.draw(matrixStack,"SPD: "+ profile.SPD,relX+50,relY+54,4210752);
+        this.font.draw(matrixStack,"LOAD: 00/"+ profile.SPD*2,relX,relY+72,4210752);
 
         }
 

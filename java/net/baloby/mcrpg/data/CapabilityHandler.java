@@ -1,6 +1,6 @@
 package net.baloby.mcrpg.data;
 
-import net.baloby.mcrpg.data.UniqueFeatures.UniqueFeaturesCapabilityProvider;
+import net.baloby.mcrpg.data.UniqueFeatures.UniqueStructuresCapabilityProvider;
 import net.baloby.mcrpg.data.characters.Npc;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.setup.Registration;
@@ -41,7 +41,7 @@ public class CapabilityHandler {
 
 
         event.addCapability(CHAR_PROF, new CharacterCapabilityProvider());
-        event.addCapability(UNIQUE_FEATURES, new UniqueFeaturesCapabilityProvider());
+        event.addCapability(UNIQUE_FEATURES, new UniqueStructuresCapabilityProvider());
 
         Minecraft.getInstance().submitAsync(()->{
             INpcData charProfile = event.getObject().getCapability(CharacterCapabilityProvider.CHAR_CAP).resolve().get();
@@ -55,7 +55,7 @@ public class CapabilityHandler {
         });
         Minecraft.getInstance().submitAsync(()->{
 
-            event.getObject().getCapability(UniqueFeaturesCapabilityProvider.FEATURES_CAP).resolve().get();
+            event.getObject().getCapability(UniqueStructuresCapabilityProvider.STRUCTURES_CAP).resolve().get();
         });
 
         //event.addCapability(CHAR_PROF, new CharacterCapabilityProvider());

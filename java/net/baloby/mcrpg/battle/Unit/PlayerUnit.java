@@ -29,11 +29,11 @@ public class PlayerUnit extends Unit{
         this.playerControl = true;
         Teleport.teleport(player,station.x,102,station.z);
         this.setMoves();
-        MAX_HP = profile.getVigor();
-        float oneUnit = profile.getVigor()/20;
+        MAX_HP = profile.getVigor()*2;
+        float oneUnit = profile.getVigor()/10;
         HP = player.getHealth()*oneUnit;
         MP = profile.getMp();
-        MAX_MP = profile.getMind();
+        MAX_MP = profile.getMind()*2;
         this.BASE_STR = 10;
         this.STR = BASE_STR;
         this.BASE_MAG = 10;

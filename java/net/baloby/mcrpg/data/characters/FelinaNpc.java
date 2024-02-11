@@ -1,5 +1,7 @@
 package net.baloby.mcrpg.data.characters;
 
+import net.baloby.mcrpg.battle.moves.Affinity;
+import net.baloby.mcrpg.battle.moves.Element;
 import net.baloby.mcrpg.battle.moves.Moves;
 import net.baloby.mcrpg.data.characters.shop.*;
 import net.baloby.mcrpg.data.dialouge.*;
@@ -31,6 +33,7 @@ public class FelinaNpc extends BattleNpc implements ShopNpc{
         this.headItem = new ItemStack(ModItems.WITCH_HAT.get());
         this.bounty = 200;
         this.dialogueTree = new DialogueTree(ModSetup.DIALOGUE_MANAGER.getData(new ResourceLocation(mcrpg.MODID,"felina_intro")));
+        this.addAffinity(Element.FIRE, Affinity.STRONG);
 
     }
 
