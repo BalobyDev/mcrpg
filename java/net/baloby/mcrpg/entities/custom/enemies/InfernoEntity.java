@@ -32,7 +32,7 @@ public class InfernoEntity extends MonsterEntity implements ICustomBossEntity{
 
     @Override
     public ServerWorld getArena() {
-        return getServer().getLevel(ModDimensions.NETHER_ARENA);
+        return getServer().getLevel(ModDimensions.NETHER_STAGE);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package net.baloby.mcrpg.entities;
 
-import javafx.scene.chart.Axis;
+//import javafx.scene.chart.Axis;
 import net.baloby.mcrpg.setup.ModEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

@@ -22,13 +22,12 @@ public class ModStructureGeneration {
 
         if(types.contains(BiomeDictionary.Type.FOREST)) {
             structures.add(() -> ModStructures.STEVE_HOUSE.get().configured(IFeatureConfig.NONE));
-
         }
+
         if(types.contains(BiomeDictionary.Type.PLAINS)){
             structures.add(() -> ModStructures.SUNROOT.get().configured(IFeatureConfig.NONE));
-
-
         }
+
         structures.add(() -> ModStructures.MONASTERY.get().configured(IFeatureConfig.NONE));
     }
 }

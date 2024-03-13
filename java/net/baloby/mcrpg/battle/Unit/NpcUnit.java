@@ -17,7 +17,6 @@ public class NpcUnit extends Unit{
 
     public NpcUnit(BattleNpc character){
         this.setParty();
-
         this.character = character;
         this.station = new Vector3d(1.5,1,party instanceof PlayerParty ? 1.5 : 9.5);
         this.playerControl = (party instanceof PlayerParty);
@@ -51,7 +50,8 @@ public class NpcUnit extends Unit{
 
     public MobEntity spawn(BattleNpc character){
         HumanoidEntity entity = (HumanoidEntity) character.spawnLoad(this.arena, new Vector3d(station.x,station.y, station.z));
-        this.addMove(new BasicAttack());
+        if(!playerControl){
+        this.addMove(new BasicAttack());}
         entity.goalSelector.addGoal(0, new IdleGoal());
         int rot = playerControl ? 0: 180;
         entity.setYBodyRot(rot);

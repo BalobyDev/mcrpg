@@ -1,5 +1,5 @@
 {
-  "type": "mcrpg:overworld_arena",
+  "type": "mcrpg:stage",
   "generator": {
     "type": "mcrpg:stage_generator",
     "settings": {

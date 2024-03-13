@@ -1,7 +1,10 @@
 package net.baloby.mcrpg.tools;
 
 import net.baloby.mcrpg.battle.Battle;
+import net.baloby.mcrpg.cutscene.CutsceneServerWorld;
 import net.baloby.mcrpg.mcrpg;
+import net.baloby.mcrpg.world.ModWorldEvents;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.concurrent.TickDelayedTask;
 import net.minecraft.world.IWorld;
@@ -32,6 +35,13 @@ public class Clock {
     @SubscribeEvent
     public static void tickEvent(TickEvent.ServerTickEvent event){
         ticks++;
+        for(ServerPlayerEntity player :ModWorldEvents.getServer().getPlayerList().getPlayers()){
+            ServerWorld world = player.getLevel();
+            if(world.dimension().location().toString().equals("mcrpg:cutscene")){
+                world.tick(()->true);
+            }
+
+        }
         if(!(Battle.isActive))return;
         Battle.getInstance().tick();
         if(waitTime*20 == ticks) {

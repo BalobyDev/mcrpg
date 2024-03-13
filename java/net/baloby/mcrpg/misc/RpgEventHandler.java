@@ -5,13 +5,15 @@ import net.baloby.mcrpg.battle.Unit.UnitType;
 import net.baloby.mcrpg.client.gui.EquipScreen;
 import net.baloby.mcrpg.client.gui.NewPlayerInventory;
 import net.baloby.mcrpg.client.gui.PronounSelectScreen;
+import net.baloby.mcrpg.cutscene.Stage;
 import net.baloby.mcrpg.data.*;
 import net.baloby.mcrpg.entities.HumanoidEntity;
 import net.baloby.mcrpg.entities.custom.enemies.ICustomBattleEntity;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.setup.ModDimensions;
 
-import net.baloby.mcrpg.world.ArenaChunkGenerator;
+import net.baloby.mcrpg.setup.ModSetup;
+import net.baloby.mcrpg.world.StageChunkGenerator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
@@ -21,6 +23,7 @@ import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.Dimension;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -44,20 +47,23 @@ public class RpgEventHandler {
         if(event.getPlayer() instanceof  ServerPlayerEntity){
             ServerPlayerEntity player = (ServerPlayerEntity) event.getPlayer();
         if ((UnitType.unitMap.containsKey(target.getEntity().getType())||target instanceof ICustomBattleEntity||target instanceof EnderDragonPartEntity)  &&
-                !(player.getLevel().getChunkSource().generator instanceof ArenaChunkGenerator)) {
-            ServerWorld world = player.getServer().getLevel(ModDimensions.FORREST_ARENA);
+                !(player.getLevel().getChunkSource().generator instanceof StageChunkGenerator)) {
+            Stage stage = ModSetup.STAGE_MANAGER.getData(new ResourceLocation(mcrpg.MODID, "forrest_arena"));
             Biome biome = player.getLevel().getBiome(player.blockPosition());
+
             if (player.blockPosition().getY() < 50) {
-                world = player.getServer().getLevel(ModDimensions.ARENA);
+                stage = ModSetup.STAGE_MANAGER.getData(new ResourceLocation(mcrpg.MODID,"cave_arena"));
             }
             if(biome.getBiomeCategory().equals(Biome.Category.DESERT)){
-                world = player.getServer().getLevel(ModDimensions.DESERT_ARENA);
+                stage = ModSetup.STAGE_MANAGER.getData(new ResourceLocation(mcrpg.MODID,"desert_arena"));
             }
             if (player.getLevel().dimension().equals(Dimension.NETHER)) {
-                world = player.getServer().getLevel(ModDimensions.NETHER_ARENA);
+                stage = ModSetup.STAGE_MANAGER.getData(new ResourceLocation(mcrpg.MODID,"nether_arena"));
             }
-            Battle.mobStart(player, target, world, player.blockPosition());
-        }
+
+
+            Battle.mobStart(player, target, stage, player.blockPosition());
+            }
         }
     }
 
@@ -66,7 +72,7 @@ public class RpgEventHandler {
         Entity e = event.getEntity();
         World w = event.getWorld();
 
-        if (w.dimension().equals(ModDimensions.ARENA) && e instanceof SlimeEntity) {
+        if (w.dimension().equals(ModDimensions.OVERWORLD_STAGE) && e instanceof SlimeEntity) {
             event.setCanceled(true);
         }
         if(w instanceof ServerWorld && e instanceof ServerPlayerEntity){
@@ -92,7 +98,7 @@ public class RpgEventHandler {
             if(!(data.getPronouns().contains("sub"))) {
                 PronounSelectScreen.open(player,true);
             }
-            if((!Battle.isActive)&&player.getLevel().getChunkSource().generator instanceof ArenaChunkGenerator){
+            if((!Battle.isActive)&&player.getLevel().getChunkSource().generator instanceof StageChunkGenerator){
                 if(data.getSendBack().contains("world")&&!data.getSendBack().getString("world").equals("")) {
                     CompoundNBT nbt = data.getSendBack();
                     for (ServerWorld world : player.getServer().getAllLevels()) {
@@ -157,10 +163,6 @@ public class RpgEventHandler {
                 }
             }
         }
-
-
-
-
     }
 
     @SubscribeEvent

@@ -1,0 +1,11 @@
+{
+  "type": "mcrpg:desert_stage",
+  "generator": {
+    "type": "mcrpg:stage_generator",
+    "settings": {
+      "base": 65,
+      "verticalvariance": 16,
+      "horizontalvariance": 10
+    }
+  }
+}

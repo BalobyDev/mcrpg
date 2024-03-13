@@ -1,64 +1,114 @@
 {
-  "instances": [
+  "stage": "mcrpg:cave_arena",
+  "npcs": [
     {
-      "id": "000",
-      "speaker": "mcrpg:rana",
-      "text": "hey u! blue shirt guy!",
-      "next": "001"
+      "npc":"mcrpg:alex",
+      "x": 0 ,
+      "y": 100,
+      "z": 5,
+      "y_rot": -135
     },
     {
+      "npc": "mcrpg:steve",
+      "x": 5,
+      "y": 100,
+      "z": 0,
+      "y_rot": 45
+    },
+    {
+      "npc":"mcrpg:rana",
+      "x": 5,
+      "y": 100,
+      "z": 5,
+      "y_rot": 135
+    }],
+  "instances": [
+    {
+      "dialogue":{
+        "id": "000",
+        "speaker": "mcrpg:rana",
+        "text": "hey steve!!",
+        "next": "001"
+      }
+    },
+    {
+    "dialogue":{
       "id": "001",
       "speaker": "mcrpg:steve",
       "text": "You talking to me?",
       "next": "002"
+    }
     },
     {
+    "dialogue":{
       "id": "002",
       "speaker": "mcrpg:rana",
-      "text": "yea u! y are u so smiling so much?",
+      "text": "yea! y are u so smiling so much?",
       "next": "003"
+    }
     },
     {
+    "dialogue":{
       "id": "003",
       "speaker": "mcrpg:rana",
       "text": "did u get to eat a yummy cake today? or did u see a cute puppy? if so where is it? i wanna see!",
       "next": "004"
+    }
     },
     {
+    "dialogue":{
       "id": "004",
       "speaker": "mcrpg:alex",
       "text": " *sigh* Rana, what are you talking about? He's not smiling, that's just his beard.",
       "next": "005"
+    }
     },
     {
+    "dialogue":{
       "id": "005",
       "speaker": "mcrpg:rana",
-      "text" : "whaaa? nooo ur lyingg he's just got a big ol' smile :)",
+      "text": "whaaa? nooo ur lyingg he's just got a big ol' smile ^_^",
       "next": "006"
+    }
     },
     {
+    "dialogue":{
       "id": "006",
       "speaker": "mcrpg:alex",
       "text": "Rana, be real... it's a beard, just look at it.",
       "next": "007"
+    }
     },
     {
+    "dialogue":{
       "id": "007",
       "speaker": "mcrpg:rana",
       "text": "smilllllle!!!!!",
       "next": "008"
-
+    }
     },
     {
+    "dialogue":{
       "id": "008",
       "speaker": "mcrpg:alex",
       "text": "It IS a beard... r-right Steve?",
       "next": "009"
+    }
     },
     {
-      "id": "009",
-      "speaker": "mcrpg:steve",
-      "text": "Eh, I'll just leave it up to your imaginations. It's whatever you guys want it to be!"
+      "dialogue":{
+        "id": "009",
+        "speaker": "mcrpg:steve",
+        "text": "Eh, It's whatever you want it to be!",
+        "next": "010"
+      }
+    },
+    {
+    "dialogue":{
+        "id": "010",
+        "speaker": "mcrpg:alex",
+        "text": "WHAT KIND OF AN ANSWER IS THAT?!?!"
+      }
     }
   ]
 }

@@ -28,7 +28,6 @@ public class ModStructures {
                 new StructureSeparationSettings(4,2,1234567890),
                 true);
 
-
         setupMapSpacingAndLand(SUNROOT.get(),
                 new StructureSeparationSettings(6,3,1234567890),
                 true);

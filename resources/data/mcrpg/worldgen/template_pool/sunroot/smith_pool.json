@@ -1,0 +1,29 @@
+{
+  "name": "mcrpg:sunroot/smith_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "mcrpg:smith",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "npcs": [
+          {
+            "npc": "mcrpg:alex",
+            "x": 11.5,
+            "y": 1,
+            "z": 8.5
+          },
+          {
+            "npc": "mcrpg:gunter",
+            "x": 9.5,
+            "y": 1,
+            "z": 8.5
+          }
+        ],
+        "element_type": "minecraft:rpg_pool_element"
+      }
+    }
+  ]
+}

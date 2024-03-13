@@ -11,11 +11,11 @@ import net.baloby.mcrpg.network.RpgNetwork;
 import net.baloby.mcrpg.setup.ModContainers;
 import net.baloby.mcrpg.setup.ModEntities;
 import net.baloby.mcrpg.world.ArenaBiomeProvider;
-import net.baloby.mcrpg.world.ArenaChunkGenerator;
+import net.baloby.mcrpg.world.StageChunkGenerator;
 import net.baloby.mcrpg.world.structures.ConfigStructures;
 import net.baloby.mcrpg.world.structures.ModStructures;
 import net.baloby.mcrpg.setup.Registration;
-import net.baloby.mcrpg.world.structures.NpcJigsawPiece;
+import net.baloby.mcrpg.world.structures.RpgJigsawPiece;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.util.ResourceLocation;
@@ -59,12 +59,10 @@ public class mcrpg
             GlobalEntityTypeAttributes.put(ModEntities.VILER_WITCH.get(), ModEntities.setCustomAttributes(3,30).build());
 
 
-            NpcJigsawPiece.NPC_ELEMENT = IJigsawDeserializer.register("npc_pool_element", NpcJigsawPiece.CODEC);
+            RpgJigsawPiece.RPG_ELEMENT = IJigsawDeserializer.register("rpg_pool_element", RpgJigsawPiece.CODEC);
             ModStructures.setupStructures();
-            Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(mcrpg.MODID, "arena_generator"),
-                    ArenaChunkGenerator.CODEC);
-//            Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(mcrpg.MODID,"stage_generator"),
-//                    StageChunkGenerator.CODEC);
+            Registry.register(Registry.CHUNK_GENERATOR, new ResourceLocation(mcrpg.MODID, "stage_generator"),
+                    StageChunkGenerator.CODEC);
             Registry.register(Registry.BIOME_SOURCE, new ResourceLocation(mcrpg.MODID, "biomes"),
                     ArenaBiomeProvider.CODEC);
             ConfigStructures.registerConfiguredStructures();

@@ -12,8 +12,8 @@ public class InfernoUnit extends BossUnit {
         this.XP = 200;
         this.BASE_STR = 50;
         this.STR = BASE_STR;
-        this.addMoveReward(Moves.IGNEON.get());
         this.MAX_HP = 150;
         this.HP = MAX_HP;
+        this.addMoveReward(Moves.IGNEON.get());
     }
 }

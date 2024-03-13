@@ -43,12 +43,9 @@ public abstract class LocationStructure extends UniqueStructure {
         return (structureIn, chunkX, chunkZ, boundingBox, reference, seed) -> new Start((LocationStructure) structureIn, chunkX, chunkZ, boundingBox, reference, seed);
     }
 
-
-
     public static class Start extends UniqueStructure.Start{
         public Start(LocationStructure structureIn, int chunkX, int chunkZ, MutableBoundingBox boundingBox, int reference, long seed) {
             super(structureIn, chunkX, chunkZ, boundingBox, reference, seed);
-
         }
     }
 }

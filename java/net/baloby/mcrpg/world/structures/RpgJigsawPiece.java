@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.baloby.mcrpg.data.UniqueFeatures.IUniqueStructures;
 import net.baloby.mcrpg.data.UniqueFeatures.UniqueStructuresCapabilityProvider;
 import net.baloby.mcrpg.data.characters.Npc;
-import net.baloby.mcrpg.data.characters.NpcType;
 import net.baloby.mcrpg.setup.Registration;
 import net.baloby.mcrpg.world.ModWorldEvents;
 import net.minecraft.util.ResourceLocation;
@@ -30,16 +29,16 @@ import java.util.List;
 import java.util.Random;
 import java.util.function.Supplier;
 
-public class NpcJigsawPiece extends SingleJigsawPiece {
+public class RpgJigsawPiece extends SingleJigsawPiece {
 
-    public static final Codec<NpcJigsawPiece> CODEC = RecordCodecBuilder.create((p_236817_0_) -> {
+    public static final Codec<RpgJigsawPiece> CODEC = RecordCodecBuilder.create((p_236817_0_) -> {
         return p_236817_0_.group(NpcOffset.CODEC.listOf().fieldOf("npcs").forGetter((p_236819_0_)->{
             return p_236819_0_.npcs;
-        }), templateCodec(), processorsCodec(), projectionCodec()).apply(p_236817_0_, NpcJigsawPiece::new);
+        }), templateCodec(), processorsCodec(), projectionCodec()).apply(p_236817_0_, RpgJigsawPiece::new);
     });
     private final List<NpcOffset> npcs;
 
-    protected NpcJigsawPiece(List<NpcOffset> npc, Either<ResourceLocation, Template> template, Supplier<StructureProcessorList> processorList, JigsawPattern.PlacementBehaviour p_i51398_1_) {
+    protected RpgJigsawPiece(List<NpcOffset> npc, Either<ResourceLocation, Template> template, Supplier<StructureProcessorList> processorList, JigsawPattern.PlacementBehaviour p_i51398_1_) {
         super(template,processorList,p_i51398_1_);
         this.npcs = npc;
     }
@@ -69,11 +68,11 @@ public class NpcJigsawPiece extends SingleJigsawPiece {
 
     }
 
-    public static IJigsawDeserializer<NpcJigsawPiece> NPC_ELEMENT;
+    public static IJigsawDeserializer<RpgJigsawPiece> RPG_ELEMENT;
 
     @Override
     public IJigsawDeserializer<?> getType() {
-        return NPC_ELEMENT;
+        return RPG_ELEMENT;
     }
 
 }

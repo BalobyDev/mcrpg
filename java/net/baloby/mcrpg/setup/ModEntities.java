@@ -74,8 +74,8 @@ public class ModEntities {
             .sized(0.6f,1.8f)
             .build("viler_witch"));
 
-    public static final RegistryObject<EntityType<FairyEntity>> WOODLAND_FAIRY = Registration.ENTITY_TYPES.register("woodland_fairy", ()-> EntityType.Builder.of
-            (FairyEntity::new, EntityClassification.MISC)
+    public static final RegistryObject<EntityType<PixieEntity>> WOODLAND_FAIRY = Registration.ENTITY_TYPES.register("woodland_fairy", ()-> EntityType.Builder.of
+            (PixieEntity::new, EntityClassification.MISC)
             .sized(0.6f,1.8f)
             .build("woodland_fairy"));
 

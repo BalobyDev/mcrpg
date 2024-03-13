@@ -29,7 +29,6 @@ import java.util.Set;
 
 public class StructureGen {
 
-    //what if i made it jigsaw but override the method
     public static void placeManually(BlockPos pos, World world, ResourceLocation name, Rotation rotation){
         world.getServer().submitAsync(()->{ServerWorld serverWorld = (ServerWorld) world;
             TemplateManager manager = serverWorld.getStructureManager();

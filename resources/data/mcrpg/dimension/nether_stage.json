@@ -1,0 +1,12 @@
+{
+  "type": "mcrpg:nether_stage",
+  "generator": {
+    "type": "mcrpg:stage_generator",
+    "settings": {
+      "base": 65,
+      "verticalvariance": 16,
+      "horizontalvariance": 10,
+      "biome": "mcrpg:nether_biome"
+    }
+  }
+}

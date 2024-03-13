@@ -22,7 +22,7 @@
             "z": 10
           }
         ],
-        "element_type": "minecraft:npc_pool_element"
+        "element_type": "minecraft:rpg_pool_element"
       }
     }
   ]

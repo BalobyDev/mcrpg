@@ -8,6 +8,8 @@ import net.baloby.mcrpg.battle.moves.MoveType;
 import net.baloby.mcrpg.client.gui.BattleGui;
 import net.baloby.mcrpg.client.gui.OverlayGui;
 import net.baloby.mcrpg.client.gui.WinScreen;
+import net.baloby.mcrpg.cutscene.Stage;
+import net.baloby.mcrpg.cutscene.StageManager;
 import net.baloby.mcrpg.data.INpcData;
 import net.baloby.mcrpg.data.PlayerCapabilityProvider;
 import net.baloby.mcrpg.data.characters.BattleNpc;
@@ -15,9 +17,11 @@ import net.baloby.mcrpg.entities.custom.enemies.ICustomBossEntity;
 import net.baloby.mcrpg.mcrpg;
 import net.baloby.mcrpg.network.PacketBattle;
 import net.baloby.mcrpg.network.RpgNetwork;
+import net.baloby.mcrpg.setup.ModSetup;
 import net.baloby.mcrpg.tools.AnimationSequence;
 import net.baloby.mcrpg.tools.Clock;
 import net.baloby.mcrpg.tools.Teleport;
+import net.baloby.mcrpg.world.StructureGen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.*;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
@@ -28,7 +32,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import org.apache.logging.log4j.Level;
@@ -65,6 +73,7 @@ public class Battle {
     public int xp;
     public AnimationSequence sequence;
     protected Theme theme;
+    protected Stage stage;
 
     public void conclude(){
         if(arena.tickingEntities) return;
@@ -95,8 +104,6 @@ public class Battle {
         conclude();
     }
 
-
-
     private static void finalize(ServerPlayerEntity player, ServerWorld returnWorld,BlockPos pos,Battle battle){
         ServerWorld world = player.getLevel();
         battle.returnWorld = returnWorld;
@@ -107,11 +114,14 @@ public class Battle {
         player.getCapability(PlayerCapabilityProvider.CHAR_CAP).resolve().get().setSendBack(nbt);
     }
 
-    public static void mobStart(ServerPlayerEntity player, Entity target, ServerWorld world, BlockPos pos) {
+    public static void mobStart(ServerPlayerEntity player, Entity target, Stage stage,  BlockPos pos) {
         ServerWorld returnWorld = player.getLevel();
+
+        ServerWorld world = stage.getLevel(player.server);
         Teleport.teleport(player,world,new BlockPos(1.5,1.0,1.5));
         player.teleportTo(-0.5,102,1.5);
-        Battle battle = new Battle(world, (MobEntity) target,player);
+
+        Battle battle = new Battle(world, (MobEntity) target,player, stage);
 
         if(target instanceof ICustomBossEntity ){
             battle = new BossBattle(world,target,player);
@@ -125,11 +135,11 @@ public class Battle {
 
     }
 
-    public static void npcStart(ServerPlayerEntity player, BattleNpc npc, ServerWorld world, BlockPos pos){
+    public static void npcStart(ServerPlayerEntity player, BattleNpc npc, Stage stage, BlockPos pos){
         ServerWorld returnWorld = player.getLevel();
-        Teleport.teleport(player,world,new BlockPos(1.5,1.0,1.5));
+        Teleport.teleport(player,stage.getLevel(player.server),new BlockPos(1.5,1.0,1.5));
         player.teleportTo(-0.5,102,1.5);
-        Battle battle = new Battle(world, player, npc);
+        Battle battle = new Battle(stage, player, npc);
 
         finalize(player,returnWorld,pos,battle);
     }
@@ -137,10 +147,13 @@ public class Battle {
     public Battle(){
 
     }
-    public Battle(ServerWorld arena, MobEntity entity, ServerPlayerEntity sp){
+
+    public Battle(ServerWorld arena, MobEntity entity, ServerPlayerEntity sp, Stage stage){
         this.sp = sp;
         instance = this;
-        this.arena = arena;
+        this.stage = stage;
+        this.arena = stage.getLevel(sp.getServer());
+        this.placeStage();
         this.clock = new Clock();
         this.playerParty = new PlayerParty(this,sp);
         playerParty.addPlayer(sp);
@@ -173,10 +186,11 @@ public class Battle {
     }
 
 
-    public Battle(ServerWorld arena,  ServerPlayerEntity sp,BattleNpc npc){
+    public Battle(Stage stage, ServerPlayerEntity sp,BattleNpc npc){
         this.sp = sp;
         instance = this;
-        this.arena = arena;
+        this.stage = stage;
+        this.arena = stage.getLevel(sp.server);
         this.clock = new Clock();
         this.playerParty = new PlayerParty(this,sp);
         playerParty.addPlayer(sp);
@@ -207,7 +221,6 @@ public class Battle {
             for(ItemStack item: unit.items){
                 addItem(item.getItem(),item.getCount());
             }
-
         }
     }
 
@@ -224,6 +237,15 @@ public class Battle {
         }
         else {nextTurn();}
         if (unit.playerControl&&camera!=null) camera.setBehind();
+    }
+
+    public void placeStage(){
+        this.arena.noSave = true;
+        int x = -9 + (stage.getX_offset().isPresent() ? stage.getX_offset().get() : 0);
+        int y = 100 + (stage.getY_offset().isPresent() ? stage.getY_offset().get() : 0);
+        int z = -6 + (stage.getZ_offset().isPresent() ? stage.getZ_offset().get() : 0);
+        StructureGen.placeManually(new BlockPos(x,y,z), arena,stage.getPiece(), Rotation.NONE);
+
     }
 
     public void nextTurn(){
@@ -279,6 +301,10 @@ public class Battle {
             Minecraft.getInstance().getSoundManager().play(theme);
         });
     }
+
+    public Stage getStage() {
+        return stage;
+    }
     public static Battle getInstance(){return instance;}
 
     public void tick(){
@@ -288,5 +314,3 @@ public class Battle {
         ticks++;
     }
 }
-
-

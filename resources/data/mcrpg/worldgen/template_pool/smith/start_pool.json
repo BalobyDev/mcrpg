@@ -8,7 +8,21 @@
         "location": "mcrpg:smith",
         "processors": "minecraft:empty",
         "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
+        "npcs": [
+          {
+            "npc": "mcrpg:alex",
+            "x": 10,
+            "y": 1,
+            "z": 10
+          },
+          {
+            "npc": "mcrpg:gunter",
+            "x": 10,
+            "y": 12,
+            "z": 10
+          }
+        ],
+        "element_type": "minecraft:rpg_pool_element"
       }
     }
   ]
